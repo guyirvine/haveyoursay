@@ -32,6 +32,8 @@ app.show_view = function (hash) {
 };
 
 app.apponready = function () {
+    app.load_board();
+
     window.onhashchange = function () {
         app.show_view(window.location.hash);
     };
@@ -40,8 +42,12 @@ app.apponready = function () {
         window.location.hash = 'board';
         return;
     }
+
+    $('.searchcriteria').keyup(function (e) {
+        app.search();
+    });
+
     app.board_view();
-    app.show_board();
     app.show_view(window.location.hash);
 };
 
@@ -182,7 +188,7 @@ app.new_card = function () {
     });
     card.find('.action a.update').on('click', function () {
         var new_id, _c;
-        new_id = 'card-' + 100;
+        new_id = 'card-' + app.generate_uuid();
         _c = $('.templates .boardcard').clone();
         _c.attr('id', new_id);
         _c.addClass(color);
@@ -224,7 +230,8 @@ app.board_view = function () {
     console.log('board_view');
 };
 
-app.show_board = function () {
+app.load_board = function () {
+    console.log('app.load_board.1 ');
     var _card;
 
     app.board = $('.templates .board').clone();
@@ -308,6 +315,23 @@ app.search_view = function () {
     popup.removeClass('hide');
     app.search();
 };
+
+/* jshint ignore:start */
+app.generate_uuid = function () {
+    var d, uuid;
+
+    d = new Date().getTime();
+    if (window.performance && typeof window.performance.now === "function") {
+        d += performance.now(); //use high-precision timer if available
+    }
+    uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+};
+/* jshint ignore:end */
 
 $(document).keyup(function (e) {
     if (e.keyCode === 27) { // escape key maps to keycode `27`
