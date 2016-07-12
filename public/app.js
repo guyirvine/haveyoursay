@@ -183,7 +183,7 @@ app.new_card = function () {
     card.addClass(color);
     card.addClass('editcard');
     card.find('.action a.cancel').on('click', function () {
-        card.addClass('hide');
+        window.location.hash = 'board';
         return false;
     });
     card.find('.action a.update').on('click', function () {
@@ -202,7 +202,7 @@ app.new_card = function () {
 
         app.position_card_on_board(_c);
 
-        card.addClass('hide');
+        window.location.hash = 'board';
         return false;
     });
 
