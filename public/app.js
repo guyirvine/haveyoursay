@@ -181,16 +181,16 @@ app.new_card = function () {
         return false;
     });
     card.find('.action a.update').on('click', function () {
-
-        var new_id = 'card-' + 100;
-        var _c = $('.templates .boardcard').clone();
+        var new_id, _c;
+        new_id = 'card-' + 100;
+        _c = $('.templates .boardcard').clone();
         _c.attr('id', new_id);
         _c.addClass(color);
         _c.find('.question').text(card.find('.question textarea').val());
         _c.find('.why').text(card.find('.why textarea').val());
         _c.find('.lookingintoit').text(card.find('.lookingintoit textarea').val());
         _c.find('.whatwedid').text(card.find('.whatwedid textarea').val());
-        _c.on('click', function (e) {
+        _c.on('click', function () {
             window.location.hash = new_id;
         });
 
@@ -221,7 +221,8 @@ app.position_card_on_board = function (card) {
 };
 
 app.board_view = function () {
-}
+    console.log('board_view');
+};
 
 app.show_board = function () {
     var _card;
@@ -242,7 +243,7 @@ app.show_board = function () {
                                         el.whatwedid.toUpperCase()
                                         );
 
-        card.on('click', function (e) {
+        card.on('click', function () {
             window.location.hash = 'card-' + el.id;
         });
 
@@ -256,9 +257,9 @@ app.show_board = function () {
 app.matchs = function (el, criteria) {
     console.log('app.matchs.1.1. ', el, $(el).find('.searchlookup').val(), criteria);
     console.log(criteria);
-    if ( $(el).find('.searchlookup').text().indexOf(criteria) > -1 ) {
-      return true;
-    };
+    if ($(el).find('.searchlookup').text().indexOf(criteria) > -1) {
+        return true;
+    }
 
     return false;
 };
@@ -285,8 +286,8 @@ app.search = function () {
         if (app.matchs(el, criteria)) {
             var li = _li.clone();
             li.find('a')
-              .text($(el).find('.question').text())
-              .attr('href', '#' + el.id);
+                .text($(el).find('.question').text())
+                .attr('href', '#' + el.id);
             ul.append(li);
         }
     });
@@ -294,7 +295,7 @@ app.search = function () {
     app.search_running = false;
     if (app.search_pending === true) {
         app.search();
-    };
+    }
 
     popup = $('.popup');
     popup.empty();
@@ -302,10 +303,10 @@ app.search = function () {
 };
 
 app.search_view = function () {
-  console.log('app.search_view.1');
-  var popup = $('.popup');
-  popup.removeClass('hide');
-  app.search();
+    console.log('app.search_view.1');
+    var popup = $('.popup');
+    popup.removeClass('hide');
+    app.search();
 };
 
 $(document).keyup(function (e) {
