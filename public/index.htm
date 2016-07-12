@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Have Your Say</title>
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.min.css">
+    <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js'></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+
+    <script src='/vendor.js'></script>
+    <script src='/app.js'></script>
+    <style type="text/css" media="all">
+      body { margin-top: 30px; }
+      .templates { display: none; }
+      .hide { display: none; }
+
+      .card .action a {
+        background-color: #CCC;
+        color: black;
+      }
+
+      textarea {
+        margin-bottom: 0;
+      }
+
+      .card {
+        width: 500px;
+        left: -250px;
+        border: 1px solid #CCC;
+        box-shadow: 3px 2px 5px #888888;
+        position: relative;
+        background-color: white;
+      }
+
+      .card .section {
+        margin: 12px;
+      }
+
+      .card .action {
+        margin-bottom: 0;
+      }
+
+      .card .action a {
+        margin-top: 12px;
+      }
+
+      .card .section label {
+        font-size: 1em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .card .section .input {
+        min-height: 3em;
+      }
+
+      .card .title {
+        margin: 0;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .card .section textarea {
+        width: 100%;
+        min-height: 5em;
+      }
+
+      .card .action {
+        text-align: right;
+        margin: 0;
+        padding-right: 12px;
+      }
+
+      .card .section textarea, .card .action .update, .card .action .cancel {
+        display: none;
+      }
+
+      .boardcard .searchlookup {
+        display: none;
+      }
+
+      .editcard .section textarea, .editcard .action .update, .editcard .action .cancel {
+        display: inline-block;
+      }
+      .editcard .section div.input,
+      .editcard .action .edit,
+      .editcard .action .close  {
+        display: none;
+      }
+
+      .board, .board .row, .board .row .columns {
+        min-height: 500px;
+      }
+      .board .columns {
+        margin-left: 0.3em;
+        margin-right: 0.3em;
+      }
+      .board .columns .title {
+        text-align: center;
+      }
+
+      .board .todo {
+        border-left: 1px solid #CCC;
+      }
+
+      .board .doing {
+        border-left: 1px solid #CCC;
+        border-right: 1px solid #CCC;
+      }
+
+      .board .done {
+        border-right: 1px solid #CCC;
+      }
+
+      .board .columns .boardcard {
+        background-color: white;
+        margin: 0.3em;
+        margin-bottom: 0.7em;
+        border: 1px solid #CCC;
+        box-shadow: 3px 2px 5px #888888;
+        width: 95%;
+        cursor: pointer;
+      }
+      .board .columns .boardcard .section {
+        margin: 0.3em;
+      }
+
+      .board .columns .boardcard .colorbar {
+        height: 3px;
+        width: 100%;
+        background-color: black;
+      }
+
+      .board .columns .boardcard .why,
+      .board .columns .boardcard .lookingintoit,
+      .board .columns .boardcard .whatwedid
+       {
+        display: none;
+       }
+
+      .popup {
+        position: absolute;
+        top: 5%;
+        left: 50%;
+      }
+
+      .searchresult .title {
+        margin: 0;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+        background-color: #56C4E8;
+        color: white;
+      }
+
+      .blue .title,
+      .blue .action a,
+      .blue .action,
+      .board .columns .blue .colorbar
+      {
+        background-color: #56C4E8;
+        color: white;
+      }
+      .blue .section label {
+        color: #56C4E8;
+      }
+
+      .green .title,
+      .green .action a,
+      .green .action,
+      .board .columns .green .colorbar
+       {
+        background-color: #89B18C;
+        color: white;
+      }
+      .green .section label {
+        color: #89B18C;
+      }
+
+      nav input.search {
+        width: 400px;
+      }
+
+      .searchresult {
+        width: 500px;
+        left: -250px;
+        border: 1px solid #CCC;
+        box-shadow: 3px 2px 5px #888888;
+        position: relative;
+        background-color: white;
+      }
+
+      .searchresult ul {
+        margin-left: 1em;
+        margin-top: 0.3em;
+        height: 300px;
+        overflow-y: scroll;
+      }
+
+      .searchresult li {
+        margin-bottom: 1em;
+      }
+
+      .searchresult li {
+        list-style: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <nav class='navbar'>
+        <input type='text' class='searchcriteria' placeholder="type here to search"></input>
+        <a href='#card-new' class='button createcard'>New Card</a>
+      </nav>
+
+      <div class='content'>
+      </div>
+
+      <div class='popup hide'>
+      </div>
+    </div>
+
+    <div class='templates'>
+      <div class='card'>
+        <div class='section title'>Have Your Say</div>
+        <div class='section question'>
+          <label>Your Question</label>
+          <div class='input'></div>
+          <textarea></textarea>
+        </div>
+        <div class='section why'>
+          <label>Why</label>
+          <div class='input'></div>
+          <textarea></textarea>
+        </div>
+        <div class='section lookingintoit'>
+          <label>We're looking into it</label>
+          <div class='input'></div>
+          <textarea></textarea>
+        </div>
+        <div class='section whatwedid'>
+          <label>What we did</label>
+          <div class='input'></div>
+          <textarea></textarea>
+        </div>
+        <div class='section action'>
+          <a href='#board' class='close button'>Close</a>
+          <a href='edit' class='edit button'>Edit</a>
+          <a href='cancel' class='cancel button'>Cancel</a>
+          <a href='update' class='update button'>Update</a>
+        </div>
+      </div>
+
+      <div class='board'>
+        <div class='row'>
+          <div class='todo four columns'>
+            <div class='title'>ToDo</div>
+          </div>
+          <div class='doing four columns'>
+            <div class='title'>Doing</div>
+          </div>
+          <div class='done four columns'>
+            <div class='title'>Done</div>
+          </div>
+        </div>
+      </div>
+
+      <div class='boardcard'>
+        <div class='colorbar'></div>
+        <div class='section question'></div>
+        <div class='section why'></div>
+        <div class='section lookingintoit'></div>
+        <div class='section whatwedid'></div>
+        <div class='searchlookup'></div>
+      </div>
+
+      <div class='searchresult'>
+        <div class='title'>Search Result</div>
+        <ul>
+          <li><a href='card'></a></li>
+        </ul>
+      </div>
+    </div>
+    <script type='text/javascript'>
+
+      $(window).ready(app.apponready);
+      $('.searchcriteria').keyup(function (e) {
+          app.search();
+      });
+
+    </script>
+  </body>
+</html>
