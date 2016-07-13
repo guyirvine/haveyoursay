@@ -23,8 +23,9 @@ app.show_view = function (hash) {
     };
 
     hashParts = hash.split('-');
+    hashParts[1] = hashParts.slice(1).join('-');
     viewFn = routes[hashParts[0]];
-    console.log("viewFn: " + hashParts[0]);
+    console.log("viewFn: ", hashParts[0], hashParts[1]);
     if (viewFn) {
         $('.popup').addClass('hide');
         $('.view-container').empty().append(viewFn(hashParts[1]));
@@ -183,7 +184,7 @@ app.new_card = function () {
     card.addClass(color);
     card.addClass('editcard');
     card.find('.action a.cancel').on('click', function () {
-        window.location.hash = 'board';
+        card.addClass('hide');
         return false;
     });
     card.find('.action a.update').on('click', function () {
@@ -202,7 +203,7 @@ app.new_card = function () {
 
         app.position_card_on_board(_c);
 
-        window.location.hash = 'board';
+        card.addClass('hide');
         return false;
     });
 
@@ -231,7 +232,7 @@ app.board_view = function () {
 };
 
 app.load_board = function () {
-    console.log('app.load_board.1 ');
+    console.log(' ')
     var _card;
 
     app.board = $('.templates .board').clone();
