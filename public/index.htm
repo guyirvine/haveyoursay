@@ -235,13 +235,78 @@
         list-style: none;
       }
 
+/*
+      .navbar ul,
+      .navbar li {
+        margin-bottom: 0;
+      }
+      .navbar li {
+        display: inline-block;
+        vertical-align: middle;
+      };
+      .navbar li .github img {
+        height: 32px;
+        width: 32px;
+      }
+      */
+
+      /* Navbar */
+      .navbar {
+        height: 3em;
+      },
+      .navbar + .docs-section {
+        border-top-width: 0; }
+      .navbar,
+      .navbar-spacer {
+        display: block;
+        width: 100%;
+        background: #fff;
+        z-index: 99;
+        border-bottom: 1px solid #eee; }
+      .navbar-spacer {
+        display: none; }
+      .navbar > .container {
+        width: 100%; }
+      .navbar-list {
+        list-style: none;
+        margin-bottom: 0; }
+      .navbar-item {
+        position: relative;
+        float: left;
+        margin-bottom: 0; }
+      .navbar-link {
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: .2rem;
+        margin-right: 35px;
+        text-decoration: none;
+        line-height: inherit;
+        color: #222; }
+      .navbar-link.active {
+        color: #33C3F0; }
+
+      .navbar-el {
+        margin-right: 35px;
+      }
+
+      .navbar li .github img {
+        height: 32px;
+        width: 32px;
+      }
+
     </style>
   </head>
   <body>
     <div class='container'>
       <nav class='navbar'>
-        <input type='text' class='searchcriteria' placeholder="type here to search"></input>
-        <a href='#card-new' class='button createcard'>New Card</a>
+        <div class='container'>
+          <ul class='navbar-list'>
+            <li class='navbar-item'><a class="navbar-el github" href="https://www.github.com/guyirvine/haveyoursay"><img src='https://github.com/favicon.ico'></a></li>
+            <li class='navbar-item'><input class='navbar-el searchcriteria' type='text' placeholder="type here to search"></input></li>
+            <li class='navbar-item'><a class='navbar-el button createcard' href='#card-new'>New Card</a></li>
+          </ul>
+        </div>
       </nav>
 
       <div class='content'>
