@@ -59,7 +59,8 @@ app.cards = [
         'question': 'First Title',
         'why': 'Why 1',
         'lookingintoit': '',
-        'whatwedid': ''
+        'whatwedid': '',
+        'likes': 1
     },
     {
         'id': 2,
@@ -67,7 +68,8 @@ app.cards = [
         'question': 'Second Title',
         'why': 'Why 2',
         'lookingintoit': 'lookingintoit 2',
-        'whatwedid': ''
+        'whatwedid': '',
+        'likes': 1
     },
     {
         'id': 3,
@@ -75,7 +77,8 @@ app.cards = [
         'question': 'Third Title',
         'why': 'Why 3',
         'lookingintoit': 'lookingintoit 3',
-        'whatwedid': 'whatwedid 3'
+        'whatwedid': 'whatwedid 3',
+        'likes': 0
     },
     {
         'id': 4,
@@ -83,7 +86,8 @@ app.cards = [
         'question': 'Fourth Title',
         'why': 'Why 4',
         'lookingintoit': 'lookingintoit 4',
-        'whatwedid': 'whatwedid 4'
+        'whatwedid': 'whatwedid 4',
+        'likes': 5
     }
 ];
 
@@ -244,6 +248,15 @@ app.load_board = function () {
         card.find('.why').text(el.why);
         card.find('.lookingintoit').text(el.lookingintoit);
         card.find('.whatwedid').text(el.whatwedid);
+        card.find('.like .count').text(el.likes);
+        card.find('.like a').text(app.format_likes_label(el.likes));
+        card.find('.like a').on('click', function(e) {
+          var likes = Number(card.find('.like .count').text());
+          likes += 1;
+          card.find('.like .count').text(likes);
+          card.find('.like a').text(app.format_likes_label(likes));
+          return false;
+        });
         card.find('.searchlookup').text(el.question.toUpperCase() + ' ' +
                                         el.why.toUpperCase() + ' ' +
                                         el.lookingintoit.toUpperCase() + ' ' +
@@ -260,6 +273,16 @@ app.load_board = function () {
     $('.content').empty();
     $('.content').append(app.board);
 };
+
+app.format_likes_label = function (count) {
+  if (count === 0) {
+    return 'like';
+  } else if (count === 1) {
+    return '1 like';
+  }
+
+  return count + ' likes';
+}
 
 app.matchs = function (el, criteria) {
     console.log('app.matchs.1.1. ', el, $(el).find('.searchlookup').val(), criteria);
