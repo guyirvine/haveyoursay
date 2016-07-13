@@ -188,12 +188,19 @@ app.new_card = function () {
         return false;
     });
     card.find('.action a.update').on('click', function () {
-        var new_id, _c;
+        var new_id, _c, question, question_summary;
+        question = card.find('.question textarea').val();
+        if (question.length > 80) {
+            question_summary = question.substring(0,78);
+            question_summary += "&#8230;";
+        }
+
         new_id = 'card-' + app.generate_uuid();
         _c = $('.templates .boardcard').clone();
         _c.attr('id', new_id);
         _c.addClass(color);
         _c.find('.question').text(card.find('.question textarea').val());
+        _c.find('.question_summary').html(question_summary);
         _c.find('.why').text(card.find('.why textarea').val());
         _c.find('.lookingintoit').text(card.find('.lookingintoit textarea').val());
         _c.find('.whatwedid').text(card.find('.whatwedid textarea').val());
@@ -238,9 +245,17 @@ app.load_board = function () {
     app.board = $('.templates .board').clone();
     _card = $('.templates .boardcard');
     _.each(app.cards, function (el) {
+        var card, question_summary;
+
         var card = _card.clone();
+        var question_summary = el.question;
+        if (el.question.length > 80) {
+            question_summary = el.question.substring(0,78);
+            question_summary += "&#8230;";
+        }
         card.attr('id', 'card-' + el.id);
         card.addClass(el.color);
+        card.find('.question_summary').text(question_summary);
         card.find('.question').text(el.question);
         card.find('.why').text(el.why);
         card.find('.lookingintoit').text(el.lookingintoit);
