@@ -52,32 +52,6 @@ app.apponready = function () {
     app.show_view(window.location.hash);
 };
 
-app.display_card = function () {
-    var card = $('.templates .card').clone();
-    card.find('.action a.edit').on('click', function () {
-        card.find('.question textarea').val(card.find('.question .input').text());
-        card.find('.why textarea').val(card.find('.why .input').text());
-        card.find('.lookingintoit textarea').val(card.find('.lookingintoit .input').text());
-        card.find('.whatwedid textarea').val(card.find('.whatwedid .input').text());
-
-        card.addClass('editcard');
-        return false;
-    });
-    card.find('.action a.cancel').on('click', function () {
-        card.removeClass('editcard');
-        return false;
-    });
-    card.find('.action a.update').on('click', function () {
-        card.find('.question .input').text(card.find('.question textarea').val());
-        card.find('.why .input').text(card.find('.why textarea').val());
-        card.find('.lookingintoit .input').text(card.find('.lookingintoit textarea').val());
-        card.find('.whatwedid .input').text(card.find('.whatwedid textarea').val());
-        card.removeClass('editcard');
-        return false;
-    });
-    $('.content').append(card);
-};
-
 app.cards = [
     {
         'id': 1,
@@ -150,12 +124,14 @@ app.card_view = function (id) {
         return false;
     });
     card.find('.action a.update').on('click', function () {
-        card.find('.question .input').text(card.find('.question textarea').val());
-        card.find('.why .input').text(card.find('.why textarea').val());
-        card.find('.lookingintoit .input').text(card.find('.lookingintoit textarea').val());
-        card.find('.whatwedid .input').text(card.find('.whatwedid textarea').val());
-
+        var question, question_summary;
+        question = card.find('.question textarea').val();
+        if (question.length > 80) {
+            question_summary = question.substring(0,78);
+            question_summary += "&#8230;";
+        }
         _c.find('.question').text(card.find('.question textarea').val());
+        _c.find('.question_summary').html(question_summary);
         _c.find('.why').text(card.find('.why textarea').val());
         _c.find('.lookingintoit').text(card.find('.lookingintoit textarea').val());
         _c.find('.whatwedid').text(card.find('.whatwedid textarea').val());
@@ -210,7 +186,7 @@ app.new_card = function () {
 
         app.position_card_on_board(_c);
 
-        card.addClass('hide');
+        window.location.hash = 'board';
         return false;
     });
 
