@@ -182,7 +182,7 @@ app.new_card = function () {
 
     color = 'blue';
     card.addClass(color);
-    card.addClass('editcard');
+    card.addClass('newcard');
     card.find('.action a.cancel').on('click', function () {
         card.addClass('hide');
         return false;
