@@ -274,7 +274,6 @@ app.matchs = function (el, criteria) {
 app.search = function () {
     var criteria, searchresult, popup, ul, _li;
     window.location.hash = 'search';
-    console.log('app.search.1');
 
     if (app.search_running === true) {
         app.search_pending = true;
@@ -285,6 +284,11 @@ app.search = function () {
     app.search_pending = false;
 
     criteria = $('.searchcriteria').val().toUpperCase();
+    if (criteria.trim().length === 0) {
+        window.location.hash = 'board';
+        app.search_running = false;
+        return;
+    }
     searchresult = $('.templates .searchresult').clone();
     ul = searchresult.find('ul');
     _li = ul.find('li').remove();
