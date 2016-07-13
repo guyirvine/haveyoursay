@@ -126,6 +126,11 @@ app.card_view = function (id) {
     card.find('.action a.update').on('click', function () {
         var question, question_summary;
         question = card.find('.question textarea').val();
+        if (question.trim().length ===0) {
+            return false;
+        }
+
+        question_summary = question;
         if (question.length > 80) {
             question_summary = question.substring(0,78);
             question_summary += "&#8230;";
@@ -166,6 +171,9 @@ app.new_card = function () {
     card.find('.action a.update').on('click', function () {
         var new_id, _c, question, question_summary;
         question = card.find('.question textarea').val();
+        if (question.trim().length ===0) {
+            return false;
+        }
         if (question.length > 80) {
             question_summary = question.substring(0,78);
             question_summary += "&#8230;";
