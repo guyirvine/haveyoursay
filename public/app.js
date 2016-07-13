@@ -226,6 +226,8 @@ app.board_view = function () {
     console.log('board_view');
 };
 
+app.likes = {};
+
 app.load_board = function () {
     console.log(' ')
     var _card;
@@ -252,7 +254,13 @@ app.load_board = function () {
         card.find('.like a').text(app.format_likes_label(el.likes));
         card.find('.like a').on('click', function(e) {
           var likes = Number(card.find('.like .count').text());
-          likes += 1;
+          if (app.likes['card-'+el.id] === undefined) {
+            likes += 1;
+            app.likes['card-'+el.id] = 1;
+          } else {
+            likes -= 1;
+            delete app.likes['card-'+el.id];
+          }
           card.find('.like .count').text(likes);
           card.find('.like a').text(app.format_likes_label(likes));
           return false;
