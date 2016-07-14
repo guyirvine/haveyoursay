@@ -170,18 +170,28 @@
         display: none;
        }
 
-       .board .columns .boardcard .like .count {
+       .board .columns .boardcard .status .count {
          display: none;
        }
 
-       .board .columns .boardcard .like a img {
+       .board .columns .boardcard .status a img {
          height: 18px;
          width: 18px;
        }
 
+       .board .columns .boardcard .status {
+         font-size: smaller;
+         margin-top: 12px;
+       }
 
-       .board .columns .boardcard .like .label {
+       .board .columns .boardcard .status a {
+         font-weight: bold;
+         text-decoration: none;
+       }
+
+       .board .columns .boardcard .status .label {
          float: right;
+         color: #AAA;
        }
 
       .popup {
@@ -385,7 +395,7 @@
         <div class='section why'></div>
         <div class='section lookingintoit'></div>
         <div class='section whatwedid'></div>
-        <div class='section like'>
+        <div class='section status'>
             <div class='count'></div>
             <a href='like'>
               <img src="images/thumbs_up.png"></img>

@@ -8,6 +8,64 @@
 
 var app = {};
 
+app.cards = [
+    {
+        'id': 1,
+        'color': 'blue',
+        'question': 'First Title',
+        'why': 'Why 1',
+        'lookingintoit': '',
+        'whatwedid': '',
+        'likes': 1,
+        'comments': [
+            {
+                'text': 'First Comment',
+                'createdon': '14 Jul 2016'
+            },
+            {
+                'text': 'First Comment',
+                'createdon': '14 Jul 2016'
+            }
+        ]
+    },
+    {
+        'id': 2,
+        'color': 'blue',
+        'question': 'Second Title',
+        'why': 'Why 2',
+        'lookingintoit': 'lookingintoit 2',
+        'whatwedid': '',
+        'likes': 1,
+        'comments': [
+        ]
+    },
+    {
+        'id': 3,
+        'color': 'green',
+        'question': 'Third Title',
+        'why': 'Why 3',
+        'lookingintoit': 'lookingintoit 3',
+        'whatwedid': 'whatwedid 3',
+        'likes': 0,
+        'comments': [
+        ]
+    },
+    {
+        'id': 4,
+        'color': 'blue',
+        'question': 'Fourth Title',
+        'why': 'Why 4',
+        'lookingintoit': 'lookingintoit 4',
+        'whatwedid': 'whatwedid 4',
+        'likes': 5,
+        'comments': [
+        ]
+    }
+];
+
+
+
+
 app.show_view = function (hash) {
     var routes, hashParts, viewFn;
 
@@ -44,52 +102,13 @@ app.apponready = function () {
         return;
     }
 
-    $('.searchcriteria').keyup(function (e) {
+    $('.searchcriteria').keyup(function () {
         app.search();
     });
 
     app.board_view();
     app.show_view(window.location.hash);
 };
-
-app.cards = [
-    {
-        'id': 1,
-        'color': 'blue',
-        'question': 'First Title',
-        'why': 'Why 1',
-        'lookingintoit': '',
-        'whatwedid': '',
-        'likes': 1
-    },
-    {
-        'id': 2,
-        'color': 'blue',
-        'question': 'Second Title',
-        'why': 'Why 2',
-        'lookingintoit': 'lookingintoit 2',
-        'whatwedid': '',
-        'likes': 1
-    },
-    {
-        'id': 3,
-        'color': 'green',
-        'question': 'Third Title',
-        'why': 'Why 3',
-        'lookingintoit': 'lookingintoit 3',
-        'whatwedid': 'whatwedid 3',
-        'likes': 0
-    },
-    {
-        'id': 4,
-        'color': 'blue',
-        'question': 'Fourth Title',
-        'why': 'Why 4',
-        'lookingintoit': 'lookingintoit 4',
-        'whatwedid': 'whatwedid 4',
-        'likes': 5
-    }
-];
 
 app.card_view = function (id) {
     if (id === 'new') {
@@ -130,13 +149,13 @@ app.card_view = function (id) {
     card.find('.action a.update').on('click', function () {
         var question, question_summary;
         question = card.find('.question textarea').val();
-        if (question.trim().length ===0) {
+        if (question.trim().length === 0) {
             return false;
         }
 
         question_summary = question;
         if (question.length > 80) {
-            question_summary = question.substring(0,78);
+            question_summary = question.substring(0, 78);
             question_summary += "&#8230;";
         }
         _c.find('.question').text(card.find('.question textarea').val());
@@ -175,11 +194,11 @@ app.new_card = function () {
     card.find('.action a.update').on('click', function () {
         var new_id, _c, question, question_summary;
         question = card.find('.question textarea').val();
-        if (question.trim().length ===0) {
+        if (question.trim().length === 0) {
             return false;
         }
         if (question.length > 80) {
-            question_summary = question.substring(0,78);
+            question_summary = question.substring(0, 78);
             question_summary += "&#8230;";
         }
 
@@ -229,7 +248,6 @@ app.board_view = function () {
 app.likes = {};
 
 app.load_board = function () {
-    console.log(' ')
     var _card;
 
     app.board = $('.templates .board').clone();
@@ -237,10 +255,10 @@ app.load_board = function () {
     _.each(app.cards, function (el) {
         var card, question_summary;
 
-        var card = _card.clone();
-        var question_summary = el.question;
+        card = _card.clone();
+        question_summary = el.question;
         if (el.question.length > 80) {
-            question_summary = el.question.substring(0,78);
+            question_summary = el.question.substring(0, 78);
             question_summary += "&#8230;";
         }
         card.attr('id', 'card-' + el.id);
@@ -250,23 +268,23 @@ app.load_board = function () {
         card.find('.why').text(el.why);
         card.find('.lookingintoit').text(el.lookingintoit);
         card.find('.whatwedid').text(el.whatwedid);
-        card.find('.like .count').text(el.likes);
-        card.find('.like a span').text('like');
-        card.find('.like .label').text(app.format_likes_label(el.likes));
-        card.find('.like a').on('click', function(e) {
-          var likes = Number(card.find('.like .count').text());
-          if (app.likes['card-'+el.id] === undefined) {
-            likes += 1;
-            app.likes['card-'+el.id] = 1;
-            card.find('.like a span').text('unlike');
-          } else {
-            likes -= 1;
-            delete app.likes['card-'+el.id];
-            card.find('.like a span').text('like');
-          }
-          card.find('.like .count').text(likes);
-          card.find('.like .label').text(app.format_likes_label(likes));
-          return false;
+        card.find('.status .count').text(el.likes);
+        card.find('.status a span').text('like');
+        card.find('.status .label').text(app.format_status_label(el.likes, el.comments.length));
+        card.find('.status a').on('click', function () {
+            var likes = Number(card.find('.status .count').text());
+            if (app.likes['card-' + el.id] === undefined) {
+                likes += 1;
+                app.likes['card-' + el.id] = 1;
+                card.find('.status a span').text('unlike');
+            } else {
+                likes -= 1;
+                delete app.likes['card-' + el.id];
+                card.find('.status a span').text('like');
+            }
+            card.find('.status .count').text(likes);
+            card.find('.status .label').text(app.format_status_label(likes, el.comments.length));
+            return false;
         });
         card.find('.searchlookup').text(el.question.toUpperCase() + ' ' +
                                         el.why.toUpperCase() + ' ' +
@@ -285,25 +303,32 @@ app.load_board = function () {
     $('.content').append(app.board);
 };
 
-app.format_likes_link = function (count) {
-  if (count === 0) {
-    return 'like';
-  } else if (count === 1) {
-    return '1 like';
-  }
+app.format_status_label = function (like_count, comment_count) {
+    var status = "";
+    if (like_count === 0) {
+        status += '';
+    } else if (like_count === 1) {
+        status += '1 like';
+    } else {
+        status += like_count + ' likes';
+    }
 
-  return count + ' likes';
-}
+    if (comment_count === 0) {
+        status += '';
+    } else if (comment_count === 1) {
+        if (status !== '') {
+            status += ', ';
+        }
+        status += '1 comment';
+    } else {
+        if (status !== '') {
+            status += ', ';
+        }
+        status += comment_count + ' comments';
+    }
 
-app.format_likes_label = function (count) {
-  if (count === 0) {
-    return 'like';
-  } else if (count === 1) {
-    return '1 like';
-  }
-
-  return count + ' likes';
-}
+    return status;
+};
 
 app.matchs = function (el, criteria) {
     console.log('app.matchs.1.1. ', el, $(el).find('.searchlookup').val(), criteria);
