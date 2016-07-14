@@ -128,17 +128,23 @@ app.card_view = function (id) {
     });
 
     card.find('.question .input').text(_c.find('.question').text());
+    card.find('.question textarea').text(_c.find('.question').text());
     card.find('.why .input').text(_c.find('.why').text());
+    card.find('.why textarea').text(_c.find('.why').text());
     card.find('.lookingintoit .input').text(_c.find('.lookingintoit').text());
     card.find('.whatwedid .input').text(_c.find('.whatwedid').text());
 
     comments = card.find('.comments');
     comment = comments.find('.comment').remove();
-    _.each(_c.find('.comments .comment'), function(c) {
+    _.each(_c.find('.comments .comment'), function (c) {
         var _comment = comment.clone();
         _comment.find('.input').text($(c).text());
         comments.append(_comment);
     });
+
+    if (app.new_cards['card-' + id] === 1) {
+        card.addClass('newcard');
+    }
 
     card.find('.action a.edit').on('click', function () {
         card.find('.question textarea').val(card.find('.question .input').text());
@@ -146,7 +152,7 @@ app.card_view = function (id) {
         card.find('.lookingintoit textarea').val(card.find('.lookingintoit .input').text());
         card.find('.whatwedid textarea').val(card.find('.whatwedid .input').text());
 
-        _.each(card.find('.comments .comment'), function(_c) {
+        _.each(card.find('.comments .comment'), function (_c) {
             var c = $(_c);
             c.find('textarea').val(c.find('.input').text());
         });
@@ -157,7 +163,7 @@ app.card_view = function (id) {
         return false;
     });
     card.find('.action a.cancel').on('click', function () {
-        card.removeClass('editcard');
+        window.location.hash = 'board';
         return false;
     });
     card.find('.action a.update').on('click', function () {
@@ -191,6 +197,7 @@ app.card_view = function (id) {
     popup.append(card);
 };
 
+app.new_cards = {};
 app.new_card = function () {
     var card, popup, color;
 
@@ -200,34 +207,27 @@ app.new_card = function () {
     card.addClass(color);
     card.addClass('newcard');
     card.find('.action a.cancel').on('click', function () {
-        card.addClass('hide');
+        window.location.hash = 'board';
         return false;
     });
     card.find('.action a.update').on('click', function () {
-        var new_id, _c, question, question_summary;
-        question = card.find('.question textarea').val();
-        if (question.trim().length === 0) {
+        if (card.find('.question textarea').val().trim().length === 0) {
             return false;
         }
-        if (question.length > 80) {
-            question_summary = question.substring(0, 78);
-            question_summary += "&#8230;";
-        }
 
-        new_id = 'card-' + app.generate_uuid();
-        _c = $('.templates .boardcard').clone();
-        _c.attr('id', new_id);
-        _c.addClass(color);
-        _c.find('.question').text(card.find('.question textarea').val());
-        _c.find('.question_summary').html(question_summary);
-        _c.find('.why').text(card.find('.why textarea').val());
-        _c.find('.lookingintoit').text(card.find('.lookingintoit textarea').val());
-        _c.find('.whatwedid').text(card.find('.whatwedid textarea').val());
-        _c.on('click', function () {
-            window.location.hash = new_id;
-        });
+        var new_id = app.generate_uuid();
+        app.new_cards['card-' + new_id] = 1;
 
-        app.position_card_on_board(_c);
+        app.add_card_to_board($('.templates .boardcard'),
+                              new_id,
+                              card.find('.question textarea').val(),
+                              color,
+                              card.find('.why textarea').val(),
+                              '', // lookingintoit
+                              '', // What we did
+                              [], //comments
+                              0 //likes
+                              );
 
         window.location.hash = 'board';
         return false;
@@ -259,67 +259,77 @@ app.board_view = function () {
 
 app.likes = {};
 
+
+app.add_card_to_board = function (_card,
+                                  id, question, color,
+                                  why, lookingintoit, whatwedid,
+                                  comments, likes) {
+    var card, question_summary, comments_obj, _comment;
+
+    card = _card.clone();
+    card.attr('id', 'card-' + id);
+    question_summary = question;
+    if (question.length > 80) {
+        question_summary = question.substring(0, 78);
+        question_summary += "&#8230;";
+    }
+    card.addClass(color);
+    card.find('.question_summary').text(question_summary);
+    card.find('.question').text(question);
+    card.find('.why').text(why);
+    card.find('.lookingintoit').text(lookingintoit);
+    card.find('.whatwedid').text(whatwedid);
+
+    comments_obj = card.find('.comments');
+    _comment = comments_obj.find('.comment').remove();
+    _.each(comments, function (c) {
+        var comment = _comment.clone();
+        comment.text(c.text);
+        comments_obj.append(comment);
+    });
+
+    card.find('.status .count').text(likes);
+    card.find('.status a span').text('like');
+    card.find('.status .label').text(app.format_status_label(likes, comments.length));
+    card.find('.status a').on('click', function () {
+        var likes_count = Number(card.find('.status .count').text());
+        if (app.likes['card-' + id] === undefined) {
+            likes_count += 1;
+            app.likes['card-' + id] = 1;
+            card.find('.status a span').text('unlike');
+        } else {
+            likes_count -= 1;
+            delete app.likes['card-' + id];
+            card.find('.status a span').text('like');
+        }
+        card.find('.status .count').text(likes_count);
+        card.find('.status .label').text(app.format_status_label(likes_count, comments.length));
+        return false;
+    });
+    card.find('.searchlookup').text(question.toUpperCase() + ' ' +
+                                    why.toUpperCase() + ' ' +
+                                    lookingintoit.toUpperCase() + ' ' +
+                                    whatwedid.toUpperCase()
+                                  );
+
+    card.on('click', function () {
+        window.location.hash = 'card-' + id;
+    });
+
+    app.position_card_on_board(card);
+};
+
+
 app.load_board = function () {
     var _card;
 
     app.board = $('.templates .board').clone();
     _card = $('.templates .boardcard');
     _.each(app.cards, function (el) {
-        var card, question_summary, comments, comment;
-
-        card = _card.clone();
-        question_summary = el.question;
-        if (el.question.length > 80) {
-            question_summary = el.question.substring(0, 78);
-            question_summary += "&#8230;";
-        }
-        card.attr('id', 'card-' + el.id);
-        card.addClass(el.color);
-        card.find('.question_summary').text(question_summary);
-        card.find('.question').text(el.question);
-        card.find('.why').text(el.why);
-        card.find('.lookingintoit').text(el.lookingintoit);
-        card.find('.whatwedid').text(el.whatwedid);
-
-        comments = card.find('.comments');
-        comment = comments.find('.comment').remove();
-        console.log('app.load_board.1 ', comments, comment);
-        _.each(el.comments, function(c) {
-            console.log('app.load_board.1.1 ', c);
-            var _comment = comment.clone();
-            _comment.text(c.text);
-            comments.append(_comment);
-        });
-
-        card.find('.status .count').text(el.likes);
-        card.find('.status a span').text('like');
-        card.find('.status .label').text(app.format_status_label(el.likes, el.comments.length));
-        card.find('.status a').on('click', function () {
-            var likes = Number(card.find('.status .count').text());
-            if (app.likes['card-' + el.id] === undefined) {
-                likes += 1;
-                app.likes['card-' + el.id] = 1;
-                card.find('.status a span').text('unlike');
-            } else {
-                likes -= 1;
-                delete app.likes['card-' + el.id];
-                card.find('.status a span').text('like');
-            }
-            card.find('.status .count').text(likes);
-            card.find('.status .label').text(app.format_status_label(likes, el.comments.length));
-            return false;
-        });
-        card.find('.searchlookup').text(el.question.toUpperCase() + ' ' +
-                                        el.why.toUpperCase() + ' ' +
-                                        el.lookingintoit.toUpperCase() + ' ' +
-                                        el.whatwedid.toUpperCase()
-                                        );
-
-        card.on('click', function () {
-            window.location.hash = 'card-' + el.id;
-        });
-
-        app.position_card_on_board(card);
+        app.add_card_to_board(_card,
+                              el.id, el.question, el.color,
+                              el.why, el.lookingintoit, el.whatwedid,
+                              el.comments, el.likes);
     });
 
     $('.content').empty();

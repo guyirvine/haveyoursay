@@ -91,7 +91,6 @@
       .card .lookingintoit label,
       .card .whatwedid label
       {
-        text-align: right;
       }
 
       .card .section textarea, .card .action .update, .card .action .cancel {
@@ -104,17 +103,23 @@
         display: none;
       }
 
-      .editcard .section textarea, .editcard .action .update, .editcard .action .cancel {
+      .editcard .lookingintoit textarea,
+      .editcard .whatwedid textarea,
+      .editcard .action .update,
+      .editcard .action .cancel {
         display: inline-block;
       }
-      .editcard .section div.input,
+      .editcard .lookingintoit div.input,
+      .editcard .whatwedid div.input,
       .editcard .action .edit,
       .editcard .action .close  {
         display: none;
       }
 
-      .newcard .question textarea, .newcard .why textarea,
-      .newcard .action .update, .newcard .action .cancel {
+      .newcard .question textarea,
+      .newcard .why textarea,
+      .newcard .action .update,
+      .newcard .action .cancel {
         display: inline-block;
       }
       .newcard .question div.input,
