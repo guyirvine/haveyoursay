@@ -23,7 +23,7 @@ app.cards = [
                 'createdon': '14 Jul 2016'
             },
             {
-                'text': 'First Comment',
+                'text': 'Second Comment',
                 'createdon': '14 Jul 2016'
             }
         ]
@@ -116,7 +116,7 @@ app.card_view = function (id) {
         return;
     }
 
-    var card, popup, _c;
+    var card, popup, _c, comments, comment;
 
     _c = $('#card-' + id);
     card = $('.templates .card').clone();
@@ -132,11 +132,25 @@ app.card_view = function (id) {
     card.find('.lookingintoit .input').text(_c.find('.lookingintoit').text());
     card.find('.whatwedid .input').text(_c.find('.whatwedid').text());
 
+    comments = card.find('.comments');
+    comment = comments.find('.comment').remove();
+    _.each(_c.find('.comments .comment'), function(c) {
+        var _comment = comment.clone();
+        _comment.find('.input').text($(c).text());
+        comments.append(_comment);
+    });
+
     card.find('.action a.edit').on('click', function () {
         card.find('.question textarea').val(card.find('.question .input').text());
         card.find('.why textarea').val(card.find('.why .input').text());
         card.find('.lookingintoit textarea').val(card.find('.lookingintoit .input').text());
         card.find('.whatwedid textarea').val(card.find('.whatwedid .input').text());
+
+        _.each(card.find('.comments .comment'), function(_c) {
+            var c = $(_c);
+            c.find('textarea').val(c.find('.input').text());
+        });
+
 
         card.addClass('editcard');
         card.find('.question textarea').focus();
@@ -167,8 +181,6 @@ app.card_view = function (id) {
         app.position_card_on_board(_c);
 
         window.location.hash = 'board';
-//        card.removeClass('editcard');
-//        card.addClass('hide');
         return false;
     });
 
@@ -253,7 +265,7 @@ app.load_board = function () {
     app.board = $('.templates .board').clone();
     _card = $('.templates .boardcard');
     _.each(app.cards, function (el) {
-        var card, question_summary;
+        var card, question_summary, comments, comment;
 
         card = _card.clone();
         question_summary = el.question;
@@ -268,6 +280,17 @@ app.load_board = function () {
         card.find('.why').text(el.why);
         card.find('.lookingintoit').text(el.lookingintoit);
         card.find('.whatwedid').text(el.whatwedid);
+
+        comments = card.find('.comments');
+        comment = comments.find('.comment').remove();
+        console.log('app.load_board.1 ', comments, comment);
+        _.each(el.comments, function(c) {
+            console.log('app.load_board.1.1 ', c);
+            var _comment = comment.clone();
+            _comment.text(c.text);
+            comments.append(_comment);
+        });
+
         card.find('.status .count').text(el.likes);
         card.find('.status a span').text('like');
         card.find('.status .label').text(app.format_status_label(el.likes, el.comments.length));

@@ -84,6 +84,10 @@
         padding-right: 12px;
       }
 
+      .card .comments .comment {
+        border-top: 1px solid #EEE;
+      }
+
       .card .lookingintoit label,
       .card .whatwedid label
       {
@@ -95,6 +99,7 @@
       }
 
       .boardcard .searchlookup,
+      .boardcard .comments,
       .boardcard .question {
         display: none;
       }
@@ -366,6 +371,13 @@
           <div class='input'></div>
           <textarea></textarea>
         </div>
+        <div class='section comments'>
+          <label>Comments</label>
+          <div class='comment'>
+            <div class='input'></div>
+            <textarea></textarea>
+          </div>
+        </div>
         <div class='section action'>
           <a href='#board' class='close button'>Close</a>
           <a href='edit' class='edit button'>Edit</a>
@@ -404,6 +416,9 @@
             <div class='label'></div>
         </div>
         <div class='searchlookup'></div>
+        <div class='section comments'>
+          <div class='comment'></div>
+        </div>
       </div>
 
       <div class='searchresult'>
