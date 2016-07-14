@@ -251,18 +251,21 @@ app.load_board = function () {
         card.find('.lookingintoit').text(el.lookingintoit);
         card.find('.whatwedid').text(el.whatwedid);
         card.find('.like .count').text(el.likes);
-        card.find('.like a').text(app.format_likes_label(el.likes));
+        card.find('.like a span').text('like');
+        card.find('.like .label').text(app.format_likes_label(el.likes));
         card.find('.like a').on('click', function(e) {
           var likes = Number(card.find('.like .count').text());
           if (app.likes['card-'+el.id] === undefined) {
             likes += 1;
             app.likes['card-'+el.id] = 1;
+            card.find('.like a span').text('unlike');
           } else {
             likes -= 1;
             delete app.likes['card-'+el.id];
+            card.find('.like a span').text('like');
           }
           card.find('.like .count').text(likes);
-          card.find('.like a').text(app.format_likes_label(likes));
+          card.find('.like .label').text(app.format_likes_label(likes));
           return false;
         });
         card.find('.searchlookup').text(el.question.toUpperCase() + ' ' +
@@ -281,6 +284,16 @@ app.load_board = function () {
     $('.content').empty();
     $('.content').append(app.board);
 };
+
+app.format_likes_link = function (count) {
+  if (count === 0) {
+    return 'like';
+  } else if (count === 1) {
+    return '1 like';
+  }
+
+  return count + ' likes';
+}
 
 app.format_likes_label = function (count) {
   if (count === 0) {
