@@ -127,6 +127,7 @@ app.card_view = function (id) {
         }
     });
 
+    //----------------------------------
     card.find('.question .input').text(_c.find('.question').text());
     card.find('.question textarea').text(_c.find('.question').text());
     card.find('.why .input').text(_c.find('.why').text());
@@ -134,6 +135,7 @@ app.card_view = function (id) {
     card.find('.lookingintoit .input').text(_c.find('.lookingintoit').text());
     card.find('.whatwedid .input').text(_c.find('.whatwedid').text());
 
+    //----------------------------------
     comments = card.find('.comments');
     comment = comments.find('.comment').remove();
     _.each(_c.find('.comments .comment'), function (c) {
@@ -143,10 +145,12 @@ app.card_view = function (id) {
         comments.append(_comment);
     });
 
+    //----------------------------------
     if (app.new_cards['card-' + id] === 1) {
         card.addClass('newcard');
     }
 
+    //----------------------------------
     card.find('.comments a.new').on('click', function () {
         card.find('.comments textarea').val('');
         card.find('.comments').addClass('newcomment');
@@ -154,6 +158,7 @@ app.card_view = function (id) {
         return false;
     });
 
+    //----------------------------------
     card.find('.comments a.add').on('click', function () {
         if (card.find('.comments textarea').val().trim() === '') {
             card.find('.comments').removeClass('newcomment');
