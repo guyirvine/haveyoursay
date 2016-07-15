@@ -84,8 +84,20 @@
         padding-right: 12px;
       }
 
-      .card .comments .comment {
+      .card .comments {
+        max-height: 200px;
+        overflow-y: scroll;
+      }
+
+      .card .comments .comment .createdon {
+        text-align: right;
+        color: #AAA;
+        font-size: smaller;
+      }
+      .card .comments .comment .input {
         border-top: 1px solid #EEE;
+        font-size: smaller;
+        color: #AAA;
       }
 
       .card .lookingintoit label,
@@ -272,20 +284,6 @@
         list-style: none;
       }
 
-/*
-      .navbar ul,
-      .navbar li {
-        margin-bottom: 0;
-      }
-      .navbar li {
-        display: inline-block;
-        vertical-align: middle;
-      };
-      .navbar li .github img {
-        height: 32px;
-        width: 32px;
-      }
-      */
 
       /* Navbar */
       .navbar {
@@ -332,6 +330,44 @@
         width: 32px;
       }
 
+      .card .comments {
+        position: relative;
+      }
+      .newcard .comments a {
+        display: none;
+      }
+
+      .card .comments .addcomment {
+        display: none;
+        margin-bottom: 1em;
+      }
+
+      .card .newcomment .addcomment,
+      .card .newcomment textarea {
+        display: inherit;
+      }
+
+      .card .newcomment a.new {
+        display: none;
+      }
+
+      .card .comments a {
+        font-size: smaller;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .card .comments a.new {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .card .comments a.add {
+        position: absolute;
+        right: 0;
+      }
+
     </style>
   </head>
   <body>
@@ -359,10 +395,10 @@
         <div class='section question'>
           <label>Your Question</label>
           <div class='input'></div>
-          <textarea></textarea>
+          <textarea placeholder="Please enter your title and press enter before entering your question"></textarea>
         </div>
         <div class='section why'>
-          <label>Why</label>
+          <label>Why?</label>
           <div class='input'></div>
           <textarea></textarea>
         </div>
@@ -378,9 +414,14 @@
         </div>
         <div class='section comments'>
           <label>Comments</label>
-          <div class='comment'>
-            <div class='input'></div>
+          <a href='new comment' class='new'>New Comment</a>
+          <div class='addcomment'>
             <textarea></textarea>
+            <a href='add' class='add'>Add Comment</a>
+          </div>
+          <div class='comment'>
+            <div class='createdon'></div>
+            <div class='input'></div>
           </div>
         </div>
         <div class='section action'>
@@ -422,7 +463,10 @@
         </div>
         <div class='searchlookup'></div>
         <div class='section comments'>
-          <div class='comment'></div>
+          <div class='comment'>
+            <div class='createdon'></div>
+            <div class='input'></div>
+          </div>
         </div>
       </div>
 

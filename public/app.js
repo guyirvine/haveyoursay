@@ -19,12 +19,12 @@ app.cards = [
         'likes': 1,
         'comments': [
             {
-                'text': 'First Comment',
-                'createdon': '14 Jul 2016'
+                'text': 'Second Comment sdjhasdfs fsd fgsdf gsf hsf hg rsts ethftx hdz gsf hdr tdz hcf hdzr gsfth sdg dxr gfzdf gdzf gd ',
+                'createdon': '14 Jul 2016 10:35am'
             },
             {
-                'text': 'Second Comment',
-                'createdon': '14 Jul 2016'
+                'text': 'First Comment',
+                'createdon': '14 Jul 2016 10:30am'
             }
         ]
     },
@@ -138,13 +138,58 @@ app.card_view = function (id) {
     comment = comments.find('.comment').remove();
     _.each(_c.find('.comments .comment'), function (c) {
         var _comment = comment.clone();
-        _comment.find('.input').text($(c).text());
+        _comment.find('.createdon').text($(c).find('.createdon').text());
+        _comment.find('.input').text($(c).find('.input').text());
         comments.append(_comment);
     });
 
     if (app.new_cards['card-' + id] === 1) {
         card.addClass('newcard');
     }
+
+    card.find('.comments a.new').on('click', function () {
+        card.find('.comments textarea').val('');
+        card.find('.comments').addClass('newcomment');
+        card.find('.comments textarea').focus();
+        return false;
+    });
+
+    card.find('.comments a.add').on('click', function () {
+        if (card.find('.comments textarea').val().trim() === '') {
+            card.find('.comments').removeClass('newcomment');
+            return false;
+        }
+
+        var _comment, list, new_com;
+
+        _comment = comment.clone();
+        _comment.find('.createdon').text(moment().format("D MMM YYYY h:mma"));
+        _comment.find('.input').text(card.find('.comments textarea').val());
+
+        list = comments.find('.comment');
+        if (list.length === 0) {
+            comments.find('.comments').append(_comment);
+        } else {
+            comments.find('.comment').first().before(_comment);
+        }
+
+        new_com = $('.templates .boardcard .comment').clone();
+        new_com.find('.createdon').text(moment().format("D MMM YYYY h:mma"));
+        new_com.find('.input').text(card.find('.comments textarea').val());
+        list = _c.find('.comments .comment');
+        if (list.length === 0) {
+            _c.find('.comments').append(new_com);
+        } else {
+            _c.find('.comments .comment').first().before(new_com);
+        }
+
+        var status = app.format_status_label(Number(_c.find('.status .count').text()), _c.find('.comments .comment').length);
+        _c.find('.status .label').text(status);
+
+        card.find('.comments').removeClass('newcomment');
+
+        return false;
+    });
 
     card.find('.action a.edit').on('click', function () {
         card.find('.question textarea').val(card.find('.question .input').text());
@@ -157,24 +202,30 @@ app.card_view = function (id) {
             c.find('textarea').val(c.find('.input').text());
         });
 
-
         card.addClass('editcard');
         card.find('.question textarea').focus();
         return false;
     });
+
     card.find('.action a.cancel').on('click', function () {
         window.location.hash = 'board';
         return false;
     });
+
     card.find('.action a.update').on('click', function () {
-        var question, question_summary;
+        var question, question_summary, idx;
+
         question = card.find('.question textarea').val();
         if (question.trim().length === 0) {
             return false;
         }
 
         question_summary = question;
-        if (question.length > 80) {
+        idx = question_summary.indexOf("\n");
+        if (idx > -1 && idx < 80) {
+            question_summary = question_summary.substring(0, idx);
+        }
+        if (question_summary > 80) {
             question_summary = question.substring(0, 78);
             question_summary += "&#8230;";
         }
@@ -264,15 +315,20 @@ app.add_card_to_board = function (_card,
                                   id, question, color,
                                   why, lookingintoit, whatwedid,
                                   comments, likes) {
-    var card, question_summary, comments_obj, _comment;
+    var card, question_summary, comments_obj, _comment, idx;
 
     card = _card.clone();
     card.attr('id', 'card-' + id);
     question_summary = question;
-    if (question.length > 80) {
+    idx = question_summary.indexOf("\n");
+    if (idx > -1 && idx < 80) {
+        question_summary = question_summary.substring(0, idx);
+    }
+    if (question_summary > 80) {
         question_summary = question.substring(0, 78);
         question_summary += "&#8230;";
     }
+
     card.addClass(color);
     card.find('.question_summary').text(question_summary);
     card.find('.question').text(question);
@@ -284,7 +340,8 @@ app.add_card_to_board = function (_card,
     _comment = comments_obj.find('.comment').remove();
     _.each(comments, function (c) {
         var comment = _comment.clone();
-        comment.text(c.text);
+        comment.find('.createdon').text(c.createdon);
+        comment.find('.input').text(c.text);
         comments_obj.append(comment);
     });
 
