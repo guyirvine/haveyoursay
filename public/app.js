@@ -77,7 +77,8 @@ app.show_view = function (hash) {
     routes = {
         '#search': app.search_view,
         '#card': app.card_view,
-        '#board': app.board_view
+        '#board': app.board_view,
+        '#schedule': app.schedule_view
     };
 
     hashParts = hash.split('-');
@@ -484,6 +485,55 @@ app.search_view = function () {
     app.search();
 };
 
+app.schedule_view = function () {
+  var schedule, _li, list, ul;
+
+  schedule = $('.templates .schedule').clone();
+  _li = schedule.find('li').remove();
+
+  list = [
+    {
+      'src': 'images/smiley_1.png',
+      'start': '1 Jun 2016',
+      'end': '14 Jun 2016'
+    },
+    {
+      'src': 'images/smiley_2.png',
+      'start': '15 Jun 2016',
+      'end': '29 Jun 2016'
+    },
+    {
+      'src': 'images/smiley_3.png',
+      'start': '30 Jun 2016',
+      'end': '12 Jul 2016'
+    },
+    {
+      'src': 'images/smiley_4.png',
+      'start': '12 Jul 2016',
+      'end': '26 Jul 2016'
+    }
+  ];
+
+  ul = schedule.find('ul');
+  _.each(list, function(el) {
+    var li, start, end, date_range;
+
+    start = moment(el.start);
+    end = moment(el.end);
+
+    li = _li.clone();
+    li.find('img')[0].src = el.src;
+    date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
+    li.find('.date-range').text(date_range);
+
+    ul.append(li);
+  });
+
+  $('.popup').empty();
+  $('.popup').append(schedule);
+  $('.popup').removeClass('hide');
+};
+
 /* jshint ignore:start */
 app.generate_uuid = function () {
     var d, uuid;
@@ -499,6 +549,7 @@ app.generate_uuid = function () {
     });
     return uuid;
 };
+
 /* jshint ignore:end */
 
 $(document).keyup(function (e) {
