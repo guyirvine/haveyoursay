@@ -153,7 +153,7 @@
         text-transform: capitalize;
       }
 
-      .board .todo {
+      .board{
         border-left: 1px solid #CCC;
       }
 
@@ -162,7 +162,7 @@
         border-right: 1px solid #CCC;
       }
 
-      .board .done {
+      .board {
         border-right: 1px solid #CCC;
       }
 
@@ -444,6 +444,11 @@
         color: #AAA;
       }
 
+      .row .columns {
+        width: 33.3%;
+        margin-left: 0;
+        margin-right: 0;
+      }
 
     </style>
   </head>
@@ -531,13 +536,13 @@
 
       <div class='board'>
         <div class='row'>
-          <div class='todo four columns'>
+          <div class='todo columns'>
             <div class='title'>Your Question</div>
           </div>
-          <div class='doing four columns'>
+          <div class='doing columns'>
             <div class='title'>We're looking into it</div>
           </div>
-          <div class='done four columns'>
+          <div class='done columns'>
             <div class='title'>What we did</div>
           </div>
         </div>
