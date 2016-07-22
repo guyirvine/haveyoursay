@@ -152,15 +152,16 @@ app.card_view = function (id) {
     }
 
     //----------------------------------
-    card.find('.comments a.new').on('click', function () {
+    card.find('.newcomment').on('click', function () {
         card.find('.comments textarea').val('');
-        card.find('.comments').addClass('newcomment');
+        card.removeClass('displaycard');
+        card.addClass('newcomment');
         card.find('.comments textarea').focus();
         return false;
     });
 
     //----------------------------------
-    card.find('.comments a.add').on('click', function () {
+    card.find('.updatecomment').on('click', function () {
         if (card.find('.comments textarea').val().trim() === '') {
             card.find('.comments').removeClass('newcomment');
             return false;
@@ -192,7 +193,8 @@ app.card_view = function (id) {
         var status = app.format_status_label(Number(_c.find('.status .count').text()), _c.find('.comments .comment').length);
         _c.find('.status .label').text(status);
 
-        card.find('.comments').removeClass('newcomment');
+        card.removeClass('newcomment');
+        card.addClass('displaycard');
 
         return false;
     });
@@ -208,12 +210,18 @@ app.card_view = function (id) {
             c.find('textarea').val(c.find('.input').text());
         });
 
+        card.removeClass('displaycard');
         card.addClass('editcard');
         card.find('.question textarea').focus();
         return false;
     });
 
     card.find('.action a.cancel').on('click', function () {
+        window.location.hash = 'board';
+        return false;
+    });
+
+    card.find('.action a.cancelcomment').on('click', function () {
         window.location.hash = 'board';
         return false;
     });
@@ -379,6 +387,7 @@ app.add_card_to_board = function (_card,
         window.location.hash = 'card-' + id;
     });
 
+    card.addClass('displaycard');
     app.position_card_on_board(card);
 };
 

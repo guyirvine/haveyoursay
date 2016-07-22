@@ -32,6 +32,17 @@
         margin-bottom: 0;
       }
 
+      /* Generic Popup */
+      .action {
+        margin-bottom: 0;
+      }
+
+      .action a {
+        margin-top: 12px;
+      }
+
+
+      /* Generic Card */
       .card {
         width: 500px;
         left: -250px;
@@ -43,14 +54,6 @@
 
       .card .section {
         margin: 12px;
-      }
-
-      .action {
-        margin-bottom: 0;
-      }
-
-      .action a {
-        margin-top: 12px;
       }
 
       .card .section label {
@@ -74,6 +77,7 @@
       }
 
       .card .section textarea {
+        display: none;
         width: 100%;
         min-height: 5em;
       }
@@ -85,6 +89,12 @@
         padding-right: 12px;
       }
 
+      .card .action a {
+        display: none;
+      }
+
+
+      /* Card Comments */
       .card .comments {
         max-height: 200px;
         overflow-y: scroll;
@@ -101,20 +111,60 @@
         color: #AAA;
       }
 
-      .card .lookingintoit label,
-      .card .whatwedid label
-      {
+      .card .comments {
+        position: relative;
       }
-
-      .card .section textarea, .card .action .update, .card .action .cancel {
+      .newcard .comments a {
         display: none;
       }
 
-      .boardcard .searchlookup,
-      .boardcard .comments,
-      .boardcard .question {
+      .card .comments .addcomment {
+        display: none;
+        margin-bottom: 1em;
+      }
+
+      .newcomment .comments .addcomment,
+      .newcomment .comments textarea {
+        display: inherit;
+      }
+
+      .newcomment .action .updatecomment,
+      .newcomment .action .cancelcomment {
+        display: inline-block;
+      }
+
+      .newcomment .action .edit {
         display: none;
       }
+
+      .newcomment a.new,
+      .newcomment .action a.close {
+        display: none;
+      }
+
+      .displaycard .action .edit,
+      .displaycard .action .close,
+      .displaycard .action .newcomment {
+        display: inline-block;
+      }
+
+      .card .comments a {
+        font-size: smaller;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .card .comments a.new {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .card .comments a.add {
+        position: absolute;
+        right: 0;
+      }
+
 
       .editcard .lookingintoit textarea,
       .editcard .whatwedid textarea,
@@ -122,10 +172,9 @@
       .editcard .action .cancel {
         display: inline-block;
       }
+
       .editcard .lookingintoit div.input,
-      .editcard .whatwedid div.input,
-      .editcard .action .edit,
-      .editcard .action .close  {
+      .editcard .whatwedid div.input {
         display: none;
       }
 
@@ -135,10 +184,9 @@
       .newcard .action .cancel {
         display: inline-block;
       }
+
       .newcard .question div.input,
-      .newcard .why div.input,
-      .newcard .action .edit,
-      .newcard .action .close  {
+      .newcard .why div.input  {
         display: none;
       }
 
@@ -150,6 +198,12 @@
       .board .title {
         text-align: center;
         text-transform: capitalize;
+      }
+
+      .boardcard .searchlookup,
+      .boardcard .comments,
+      .boardcard .question {
+        display: none;
       }
 
       .board .boardcard {
@@ -320,44 +374,6 @@
         width: 32px;
       }
 
-      .card .comments {
-        position: relative;
-      }
-      .newcard .comments a {
-        display: none;
-      }
-
-      .card .comments .addcomment {
-        display: none;
-        margin-bottom: 1em;
-      }
-
-      .card .newcomment .addcomment,
-      .card .newcomment textarea {
-        display: inherit;
-      }
-
-      .card .newcomment a.new {
-        display: none;
-      }
-
-      .card .comments a {
-        font-size: smaller;
-        font-weight: bold;
-        text-decoration: none;
-      }
-
-      .card .comments a.new {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-
-      .card .comments a.add {
-        position: absolute;
-        right: 0;
-      }
-
       .navbar .container {
         position: relative;
       }
@@ -480,7 +496,7 @@
         </div>
       </div>
 
-      <div class='card'>
+      <div class='card displaycard'>
         <div class='section title'>Have Your Say</div>
         <div class='section question'>
           <label>Your Question</label>
@@ -504,10 +520,8 @@
         </div>
         <div class='section comments'>
           <label>Comments</label>
-          <a href='new comment' class='new'>New Comment</a>
           <div class='addcomment'>
             <textarea></textarea>
-            <a href='add' class='add'>Add Comment</a>
           </div>
           <div class='comment'>
             <div class='createdon'></div>
@@ -515,10 +529,13 @@
           </div>
         </div>
         <div class='section action'>
+          <a href='newcomment' class='newcomment button'>New Comment</a>
           <a href='#board' class='close button'>Close</a>
           <a href='edit' class='edit button'>Edit</a>
           <a href='cancel' class='cancel button'>Cancel</a>
           <a href='update' class='update button'>Update</a>
+          <a href='cancelcomment' class='cancelcomment button'>Cancel</a>
+          <a href='updatecomment' class='updatecomment button'>Update</a>
         </div>
       </div>
 
