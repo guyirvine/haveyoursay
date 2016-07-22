@@ -78,7 +78,8 @@
         min-height: 5em;
       }
 
-      .action {
+      .card .action,
+      .schedule .action {
         text-align: right;
         margin: 0;
         padding-right: 12px;
@@ -141,32 +142,17 @@
         display: none;
       }
 
-      .board, .board .row, .board .row .columns {
-        min-height: 500px;
+      .board {
+        border-left: 1px solid #CCC;
+        border-right: 1px solid #CCC;
       }
-      .board .columns {
-        margin-left: 0.3em;
-        margin-right: 0.3em;
-      }
-      .board .columns .title {
+
+      .board .title {
         text-align: center;
         text-transform: capitalize;
       }
 
-      .board{
-        border-left: 1px solid #CCC;
-      }
-
-      .board .doing {
-        border-left: 1px solid #CCC;
-        border-right: 1px solid #CCC;
-      }
-
-      .board {
-        border-right: 1px solid #CCC;
-      }
-
-      .board .columns .boardcard {
+      .board .boardcard {
         background-color: white;
         margin: 0.3em;
         margin-bottom: 0.7em;
@@ -175,43 +161,43 @@
         width: 95%;
         cursor: pointer;
       }
-      .board .columns .boardcard .section {
+      .board .boardcard .section {
         margin: 0.3em;
       }
 
-      .board .columns .boardcard .colorbar {
+      .board .boardcard .colorbar {
         height: 3px;
         width: 100%;
         background-color: black;
       }
 
-      .board .columns .boardcard .why,
-      .board .columns .boardcard .lookingintoit,
-      .board .columns .boardcard .whatwedid
+      .board .boardcard .why,
+      .board .boardcard .lookingintoit,
+      .board .boardcard .whatwedid
        {
         display: none;
        }
 
-       .board .columns .boardcard .status .count {
+       .board .boardcard .status .count {
          display: none;
        }
 
-       .board .columns .boardcard .status a img {
+       .board .boardcard .status a img {
          height: 18px;
          width: 18px;
        }
 
-       .board .columns .boardcard .status {
+       .board .boardcard .status {
          font-size: smaller;
          margin-top: 12px;
        }
 
-       .board .columns .boardcard .status a {
+       .board .boardcard .status a {
          font-weight: bold;
          text-decoration: none;
        }
 
-       .board .columns .boardcard .status .label {
+       .board .boardcard .status .label {
          float: right;
          color: #AAA;
        }
@@ -236,7 +222,7 @@
 
       .blue .title,
       .blue .action,
-      .board .columns .blue .colorbar
+      .board .blue .colorbar
       {
         background-color: #56C4E8;
         color: white;
@@ -247,7 +233,7 @@
 
       .green .title,
       .green .action,
-      .board .columns .green .colorbar
+      .board .green .colorbar
        {
         background-color: #89B18C;
         color: white;
@@ -287,7 +273,6 @@
 
       /* Navbar */
       .navbar {
-        height: 3em;
       },
       .navbar + .docs-section {
         border-top-width: 0; }
@@ -322,6 +307,11 @@
         color: #33C3F0; }
 
       .navbar-el {
+        vertical-align:middle;
+        margin-top: 0;
+      }
+
+      .navbar input {
         margin-right: 35px;
       }
 
@@ -444,30 +434,28 @@
         color: #AAA;
       }
 
-      .row .columns {
-        width: 33.3%;
-        margin-left: 0;
-        margin-right: 0;
+      .board .todo,
+      .board .doing,
+      .board .done {
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0;
       }
-
     </style>
   </head>
   <body>
     <div class='container'>
       <nav class='navbar'>
-        <div class='container'>
-          <ul class='navbar-list'>
-            <li class='navbar-item'><a class="navbar-el github" href="https://www.github.com/guyirvine/haveyoursay"><img src='https://github.com/favicon.ico'></a></li>
-            <li class='navbar-item'><input class='navbar-el searchcriteria' type='text' placeholder="type here to search"></input></li>
-            <li class='navbar-item'><a class='navbar-el button createcard' href='#card-new'>New Card</a></li>
-          </ul>
-          <div class='current-person'>
-            <a href='#schedule'>
-              <img src='images\smiley.png'></img>
-              <div class='date-range start-date'>Mon, 1st</div>
-              <div class='date-range end-date'>Wed, 21st</div>
-            </a>
-          </div>
+        <a class="navbar-el github" href="https://www.github.com/guyirvine/haveyoursay"><img src='https://github.com/favicon.ico' style='width: 32px;height: 32px;'></a></li>
+        <input class='navbar-el searchcriteria' type='text' placeholder="type here to search"></input></li>
+        <a class='navbar-el button createcard' href='#card-new'>New Card</a></li>
+        <div class='current-person'>
+          <a href='#schedule'>
+            <img src='images\smiley.png'></img>
+            <div class='date-range start-date'>Mon, 1st</div>
+            <div class='date-range end-date'>Wed, 21st</div>
+          </a>
         </div>
       </nav>
 
@@ -535,17 +523,28 @@
       </div>
 
       <div class='board'>
-        <div class='row'>
-          <div class='todo columns'>
+        <div>
+          <div class='todo'>
             <div class='title'>Your Question</div>
           </div>
-          <div class='doing columns'>
+          <div class='doing'>
             <div class='title'>We're looking into it</div>
           </div>
-          <div class='done columns'>
+          <div class='done'>
             <div class='title'>What we did</div>
           </div>
         </div>
+      </div>
+
+      <div class='board2'>
+        <table>
+            <thead>
+              <th>Your Question</th>
+              <th>We're looking into it</div>
+              <th>What we did</div>
+            </thead>
+
+        </table>
       </div>
 
       <div class='boardcard'>
