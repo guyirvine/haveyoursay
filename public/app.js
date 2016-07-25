@@ -270,7 +270,9 @@ app.new_card = function () {
 
     color = 'blue';
     card.addClass(color);
+    card.removeClass('displaycard');
     card.addClass('newcard');
+
     card.find('.action a.cancel').on('click', function () {
         window.location.hash = 'board';
         return false;
