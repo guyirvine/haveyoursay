@@ -175,7 +175,7 @@ app.card_view = function (id) {
 
         list = comments.find('.comment');
         if (list.length === 0) {
-            comments.find('.comments').append(_comment);
+            comments.append(_comment);
         } else {
             comments.find('.comment').first().before(_comment);
         }
