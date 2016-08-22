@@ -405,6 +405,9 @@ app.load_board = function () {
                               el.why, el.lookingintoit, el.whatwedid,
                               el.comments, el.likes);
     });
+    app.board.find('.createcard').on('click', function(e) {
+        window.location.hash = 'card-new';
+    });
 
     $('.content').empty();
     $('.content').append(app.board);

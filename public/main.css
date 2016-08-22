@@ -1,0 +1,329 @@
+.templates { display: none; }
+.hide { display: none; }
+
+/*****************************************************************************/
+/** navbar **/
+
+nav.navbar {
+  background-color: rgb(52, 151, 214);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: right;
+  line-height: 2em;
+}
+
+nav.navbar a {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  font-size: 0.7em;
+  margin-right: 2em;
+  padding-bottom: 10px;
+}
+
+nav.navbar a.selected {
+  line-height: 2em;
+  border-bottom: 5px solid #CCC;
+}
+
+/*****************************************************************************/
+/** header **/
+header {
+  margin-top: 2.2em;
+  margin-bottom: 3em;
+}
+
+header img {
+  height: 100px;
+}
+
+header input.search {
+  font-size: 0.8em;
+  height: 2em;
+  background-color: rgb(237,244,247);
+  float: right;
+  width: 400px;
+}
+
+header .profile {
+  font-size: 0.8em;
+  margin-top: 1em;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+header .profile td {
+  padding: 0;
+  border: none;
+  text-align: right;
+  font-size: 0.8em;
+}
+
+header .profile .image {
+  width: 1px;
+}
+
+header .profile img {
+  height: 2em;
+  margin-left: 0.5em;
+}
+
+header div {
+  text-transform: uppercase;
+}
+header .title {
+  color: grey;
+}
+
+header .name {
+  color: rgb(162,205,232);
+}
+
+header div.thisweek {
+  float: right;
+}
+
+/*****************************************************************************/
+/** popup **/
+.popup {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+}
+
+.popup .action {
+  margin-bottom: 0;
+}
+
+.popup .action a {
+  margin-top: 12px;
+}
+
+.popup .action a {
+  background-color: #CCC;
+  color: black;
+}
+
+
+/*****************************************************************************/
+/** popup card **/
+.card {
+  width: 500px;
+  left: -250px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.card .section {
+  margin: 12px;
+}
+
+.card .section label {
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.card .section .input {
+  min-height: 3em;
+}
+
+.card .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card .section textarea {
+  display: none;
+  width: 100%;
+  min-height: 5em;
+}
+
+.card .action,
+.schedule .action {
+  text-align: right;
+  margin: 0;
+  padding-right: 12px;
+}
+
+.card .action a {
+  display: none;
+}
+
+
+/* Card Comments */
+.card .comments {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.card .comments .comment .createdon {
+  text-align: right;
+  color: #AAA;
+  font-size: smaller;
+}
+.card .comments .comment .input {
+  border-top: 1px solid #EEE;
+  font-size: smaller;
+  color: #AAA;
+}
+
+.card .comments {
+  position: relative;
+}
+.newcard .comments a {
+  display: none;
+}
+
+.card .comments .addcomment {
+  display: none;
+  margin-bottom: 1em;
+}
+
+.newcomment .comments .addcomment,
+.newcomment .comments textarea {
+  display: inherit;
+}
+
+.newcomment .action .updatecomment,
+.newcomment .action .cancelcomment {
+  display: inline-block;
+}
+
+.newcomment .action .edit {
+  display: none;
+}
+
+.newcomment a.new,
+.newcomment .action a.close {
+  display: none;
+}
+
+.displaycard .action .edit,
+.displaycard .action .close,
+.displaycard .action .newcomment {
+  display: inline-block;
+}
+
+.card .comments a {
+  font-size: smaller;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card .comments a.new {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card .comments a.add {
+  position: absolute;
+  right: 0;
+}
+
+
+.editcard .lookingintoit textarea,
+.editcard .whatwedid textarea,
+.editcard .action .update,
+.editcard .action .cancel {
+  display: inline-block;
+}
+
+.editcard .lookingintoit div.input,
+.editcard .whatwedid div.input {
+  display: none;
+}
+
+.newcard .question textarea,
+.newcard .why textarea,
+.newcard .action .update,
+.newcard .action .cancel {
+  display: inline-block;
+}
+
+.newcard .question div.input,
+.newcard .why div.input  {
+  display: none;
+}
+
+/*****************************************************************************/
+/** popup colors **/
+
+.blue .title,
+.blue .action,
+.board .blue .colorbar
+{
+  background-color: #56C4E8;
+  color: white;
+}
+.blue .section label {
+  color: #56C4E8;
+}
+
+.green .title,
+.green .action,
+.board .green .colorbar
+ {
+  background-color: #89B18C;
+  color: white;
+}
+.green .section label {
+  color: #89B18C;
+}
+
+/*****************************************************************************/
+/** popup schedule **/
+
+.schedule {
+  width: 600px;
+  left: -300px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.schedule .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  background-color: #56C4E8;
+  color: white;
+}
+
+.schedule .action {
+  background-color: #56C4E8;
+}
+
+.schedule ul {
+  margin: 1em;
+}
+
+.schedule ul li {
+  display: inline-block;
+  margin: 1em;
+  text-align:center;
+}
+
+.schedule ul li img {
+  height: 64px;
+  width: 64px;
+}
+
+.schedule ul li .date-range {
+  font-size: smaller;
+  color: #AAA;
+}
