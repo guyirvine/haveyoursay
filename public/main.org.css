@@ -1,0 +1,439 @@
+body { margin-top: 30px; }
+.templates { display: none; }
+.hide { display: none; }
+
+.action a {
+  background-color: #CCC;
+  color: black;
+}
+
+textarea {
+  margin-bottom: 0;
+}
+
+/* Generic Popup */
+.action {
+  margin-bottom: 0;
+}
+
+.action a {
+  margin-top: 12px;
+}
+
+
+/* Generic Card */
+.card {
+  width: 500px;
+  left: -250px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.card .section {
+  margin: 12px;
+}
+
+.card .section label {
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.card .section .input {
+  min-height: 3em;
+}
+
+.card .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card .section textarea {
+  display: none;
+  width: 100%;
+  min-height: 5em;
+}
+
+.card .action,
+.schedule .action {
+  text-align: right;
+  margin: 0;
+  padding-right: 12px;
+}
+
+.card .action a {
+  display: none;
+}
+
+
+/* Card Comments */
+.card .comments {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.card .comments .comment .createdon {
+  text-align: right;
+  color: #AAA;
+  font-size: smaller;
+}
+.card .comments .comment .input {
+  border-top: 1px solid #EEE;
+  font-size: smaller;
+  color: #AAA;
+}
+
+.card .comments {
+  position: relative;
+}
+.newcard .comments a {
+  display: none;
+}
+
+.card .comments .addcomment {
+  display: none;
+  margin-bottom: 1em;
+}
+
+.newcomment .comments .addcomment,
+.newcomment .comments textarea {
+  display: inherit;
+}
+
+.newcomment .action .updatecomment,
+.newcomment .action .cancelcomment {
+  display: inline-block;
+}
+
+.newcomment .action .edit {
+  display: none;
+}
+
+.newcomment a.new,
+.newcomment .action a.close {
+  display: none;
+}
+
+.displaycard .action .edit,
+.displaycard .action .close,
+.displaycard .action .newcomment {
+  display: inline-block;
+}
+
+.card .comments a {
+  font-size: smaller;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card .comments a.new {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card .comments a.add {
+  position: absolute;
+  right: 0;
+}
+
+
+.editcard .lookingintoit textarea,
+.editcard .whatwedid textarea,
+.editcard .action .update,
+.editcard .action .cancel {
+  display: inline-block;
+}
+
+.editcard .lookingintoit div.input,
+.editcard .whatwedid div.input {
+  display: none;
+}
+
+.newcard .question textarea,
+.newcard .why textarea,
+.newcard .action .update,
+.newcard .action .cancel {
+  display: inline-block;
+}
+
+.newcard .question div.input,
+.newcard .why div.input  {
+  display: none;
+}
+
+.board {
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+}
+
+.board .title {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.boardcard .searchlookup,
+.boardcard .comments,
+.boardcard .question {
+  display: none;
+}
+
+.board .boardcard {
+  background-color: white;
+  margin: 0.3em;
+  margin-bottom: 0.7em;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  width: 95%;
+  cursor: pointer;
+}
+.board .boardcard .section {
+  margin: 0.3em;
+}
+
+.board .boardcard .colorbar {
+  height: 3px;
+  width: 100%;
+  background-color: black;
+}
+
+.board .boardcard .why,
+.board .boardcard .lookingintoit,
+.board .boardcard .whatwedid
+ {
+  display: none;
+ }
+
+ .board .boardcard .status .count {
+   display: none;
+ }
+
+ .board .boardcard .status a img {
+   height: 18px;
+   width: 18px;
+ }
+
+ .board .boardcard .status {
+   font-size: smaller;
+   margin-top: 12px;
+ }
+
+ .board .boardcard .status a {
+   font-weight: bold;
+   text-decoration: none;
+ }
+
+ .board .boardcard .status .label {
+   float: right;
+   color: #AAA;
+ }
+
+.popup {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+}
+
+.searchresult .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  background-color: #56C4E8;
+  color: white;
+}
+
+.blue .title,
+.blue .action,
+.board .blue .colorbar
+{
+  background-color: #56C4E8;
+  color: white;
+}
+.blue .section label {
+  color: #56C4E8;
+}
+
+.green .title,
+.green .action,
+.board .green .colorbar
+ {
+  background-color: #89B18C;
+  color: white;
+}
+.green .section label {
+  color: #89B18C;
+}
+
+nav input.search {
+  width: 400px;
+}
+
+.searchresult {
+  width: 500px;
+  left: -250px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.searchresult ul {
+  margin-left: 1em;
+  margin-top: 0.3em;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.searchresult li {
+  margin-bottom: 1em;
+}
+
+.searchresult li {
+  list-style: none;
+}
+
+
+/* Navbar */
+.navbar {
+},
+.navbar + .docs-section {
+  border-top-width: 0; }
+.navbar,
+.navbar-spacer {
+  display: block;
+  width: 100%;
+  background: #fff;
+  z-index: 99;
+  border-bottom: 1px solid #eee; }
+.navbar-spacer {
+  display: none; }
+.navbar > .container {
+  width: 100%; }
+.navbar-list {
+  list-style: none;
+  margin-bottom: 0; }
+.navbar-item {
+  position: relative;
+  float: left;
+  margin-bottom: 0; }
+.navbar-link {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2rem;
+  margin-right: 35px;
+  text-decoration: none;
+  line-height: inherit;
+  color: #222; }
+.navbar-link.active {
+  color: #33C3F0; }
+
+.navbar-el {
+  vertical-align:middle;
+  margin-top: 0;
+}
+
+.navbar input {
+  margin-right: 35px;
+}
+
+.navbar li .github img {
+  height: 32px;
+  width: 32px;
+}
+
+.navbar .container {
+  position: relative;
+}
+.current-person {
+  right: 0px;
+  text-align: left;
+  border: 1px solid #AAA;
+  display: inline-block;
+  min-width: 130px;
+  position: absolute;
+  right: 0px;
+}
+
+.current-person a {
+  text-decoration: none;
+}
+
+.current-person img {
+  height: 48px;
+  width: 48px;
+  float: right;
+  margin-left: 6px;
+}
+
+.current-person .date-range {
+  margin-left: 3px;
+  font-size: smaller;
+  color: #AAA;
+}
+
+
+.schedule {
+  width: 600px;
+  left: -300px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.schedule .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  background-color: #56C4E8;
+  color: white;
+}
+
+.schedule .action {
+  background-color: #56C4E8;
+}
+
+.schedule ul {
+  margin: 1em;
+}
+
+.schedule ul li {
+  display: inline-block;
+  margin: 1em;
+  text-align:center;
+}
+
+.schedule ul li img {
+  height: 64px;
+  width: 64px;
+}
+
+.schedule ul li .date-range {
+  font-size: smaller;
+  color: #AAA;
+}
+
+.board .todo,
+.board .doing,
+.board .done {
+  width: 33%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+}

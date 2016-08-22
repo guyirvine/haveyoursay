@@ -103,6 +103,7 @@ app.card_view = function (id) {
 
     //----------------------------------
     if (app.new_cards['card-' + id] === 1) {
+        card.removeClass('displaycard');
         card.addClass('newcard');
     }
 
@@ -167,7 +168,7 @@ app.card_view = function (id) {
 
         card.removeClass('displaycard');
         card.addClass('editcard');
-        card.find('.question textarea').focus();
+        card.find('.lookingintoit textarea').focus();
         return false;
     });
 
@@ -215,6 +216,7 @@ app.card_view = function (id) {
     popup.removeClass('hide');
     popup.empty();
     popup.append(card);
+    popup.find('.question textarea').focus();
 };
 
 app.new_cards = {};
