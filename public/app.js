@@ -66,51 +66,6 @@ app.cards = [
 
 
 
-app.show_view = function (hash) {
-    var routes, hashParts, viewFn;
-
-    if (hash === "") {
-        window.location.hash = "#board";
-        return;
-    }
-
-    routes = {
-        '#search': app.search_view,
-        '#card': app.card_view,
-        '#board': app.board_view,
-        '#schedule': app.schedule_view
-    };
-
-    hashParts = hash.split('-');
-    hashParts[1] = hashParts.slice(1).join('-');
-    viewFn = routes[hashParts[0]];
-    console.log("viewFn: ", hashParts[0], hashParts[1]);
-    if (viewFn) {
-        $('.popup').addClass('hide');
-        $('.view-container').empty().append(viewFn(hashParts[1]));
-    }
-};
-
-app.apponready = function () {
-    app.load_board();
-
-    window.onhashchange = function () {
-        app.show_view(window.location.hash);
-    };
-
-    if (window.location.hash === "") {
-        window.location.hash = 'board';
-        return;
-    }
-
-    $('.searchcriteria').keyup(function () {
-        app.search();
-    });
-
-    app.board_view();
-    app.show_view(window.location.hash);
-};
-
 app.card_view = function (id) {
     if (id === 'new') {
         app.new_card();
@@ -441,8 +396,8 @@ app.format_status_label = function (like_count, comment_count) {
 };
 
 app.matchs = function (el, criteria) {
-    console.log('app.matchs.1.1. ', el, $(el).find('.searchlookup').val(), criteria);
-    console.log(criteria);
+//    console.log('app.matchs.1.1. ', el, $(el).find('.searchlookup').val(), criteria);
+//    console.log(criteria);
     if ($(el).find('.searchlookup').text().indexOf(criteria) > -1) {
         return true;
     }
@@ -452,6 +407,7 @@ app.matchs = function (el, criteria) {
 
 app.search = function () {
     var criteria, searchresult, popup, ul, _li;
+    console.log('app.search.1 ');
     window.location.hash = 'search';
 
     if (app.search_running === true) {
@@ -481,6 +437,13 @@ app.search = function () {
             ul.append(li);
         }
     });
+
+    if (ul.find('li').length === 0) {
+      var li = _li.clone();
+      li.find('a').remove();
+      li.text("Couldn't find any matching cards.");
+      ul.append(li);
+    };
 
     app.search_running = false;
     if (app.search_pending === true) {
@@ -547,6 +510,52 @@ app.schedule_view = function () {
   $('.popup').append(schedule);
   $('.popup').removeClass('hide');
 };
+
+app.show_view = function (hash) {
+    var routes, hashParts, viewFn;
+
+    if (hash === "") {
+        window.location.hash = "#board";
+        return;
+    }
+
+    routes = {
+        '#search': app.search_view,
+        '#card': app.card_view,
+        '#board': app.board_view,
+        '#schedule': app.schedule_view
+    };
+
+    hashParts = hash.split('-');
+    hashParts[1] = hashParts.slice(1).join('-');
+    viewFn = routes[hashParts[0]];
+    console.log("viewFn: ", hashParts[0], hashParts[1]);
+    if (viewFn) {
+        $('.popup').addClass('hide');
+        $('.view-container').empty().append(viewFn(hashParts[1]));
+    }
+};
+
+app.apponready = function () {
+    app.load_board();
+
+    window.onhashchange = function () {
+        app.show_view(window.location.hash);
+    };
+
+    if (window.location.hash === "") {
+        window.location.hash = 'board';
+        return;
+    }
+
+    $('.searchcriteria').keyup(function () {
+        app.search();
+    });
+
+    app.board_view();
+    app.show_view(window.location.hash);
+};
+
 
 /* jshint ignore:start */
 app.generate_uuid = function () {

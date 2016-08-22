@@ -105,6 +105,44 @@ header div.thisweek {
   color: black;
 }
 
+/*****************************************************************************/
+/** searchresult **/
+
+.searchresult .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgb(52, 151, 214);
+  color: white;
+}
+
+.searchresult {
+  width: 500px;
+  left: -250px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.searchresult ul {
+  margin-left: 1em;
+  margin-top: 0.3em;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.searchresult li {
+  margin-bottom: 1em;
+}
+
+.searchresult li {
+  list-style: none;
+}
 
 /*****************************************************************************/
 /** popup card **/
@@ -262,11 +300,11 @@ header div.thisweek {
 .blue .action,
 .board .blue .colorbar
 {
-  background-color: #56C4E8;
+  background-color: rgb(52, 151, 214);
   color: white;
 }
 .blue .section label {
-  color: #56C4E8;
+  color: rgb(52, 151, 214);
 }
 
 .green .title,
@@ -300,12 +338,12 @@ header div.thisweek {
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
-  background-color: #56C4E8;
+  background-color: rgb(52, 151, 214);
   color: white;
 }
 
 .schedule .action {
-  background-color: #56C4E8;
+  background-color: rgb(52, 151, 214);
 }
 
 .schedule ul {
