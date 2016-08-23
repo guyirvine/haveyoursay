@@ -205,6 +205,12 @@ app.card_view = function (id) {
         _c.find('.lookingintoit').text(card.find('.lookingintoit textarea').val());
         _c.find('.whatwedid').text(card.find('.whatwedid textarea').val());
 
+        ds.update_card_details(id,
+                                card.find('.question textarea').val(),
+                                card.find('.why textarea').val(),
+                                card.find('.lookingintoit textarea').val(),
+                                card.find('.whatwedid textarea').val())
+
         app.position_card_on_board(_c);
 
         window.location.hash = 'board';
@@ -539,7 +545,12 @@ app.show_view = function (hash) {
 };
 
 app.apponready = function () {
-    app.load_board();
+    ds.get_cards(function(list) {
+        app.cards = list;
+        app.load_board();
+    });
+
+
 
     window.onhashchange = function () {
         app.show_view(window.location.hash);
@@ -576,7 +587,6 @@ app.generate_uuid = function () {
 };
 
 /* jshint ignore:end */
-
 $(document).keyup(function (e) {
     if (e.keyCode === 27) { // escape key maps to keycode `27`
         window.location.hash = 'board';
