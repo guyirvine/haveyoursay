@@ -83,6 +83,20 @@ ds.get_cards = function (callback) {
         });
 };
 
+ds.create_card = function (question, why, callback) {
+    var payload = {
+            'question': question,
+            'why': why
+        };
+    $.post('/card', JSON.stringify(payload), function (id) {
+        console.log('ds.update_card_details.1 ', payload, id);
+        callback(id);
+    })
+        .error(function (err) {
+            console.log('ds.update_card_details.2 ', payload, err);
+        });
+};
+
 ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) {
     var payload = {
             'question': question,

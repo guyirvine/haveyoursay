@@ -2,7 +2,7 @@
 /*jslint nomen: true */
 /*jslint node: true */
 
-/*global $, _, jQuery, alert, console, moment, UUIDjs, c3, d3 */
+/*global $, _, jQuery, alert, console, moment, UUIDjs, c3, d3, ds */
 
 "use strict";
 
@@ -104,7 +104,7 @@ app.card_view = function (id) {
     //----------------------------------
     if (app.new_cards['card-' + id] === 1) {
         card.removeClass('displaycard');
-        card.addClass('newcard');
+        card.addClass('editnewcard');
     }
 
     //----------------------------------
@@ -241,26 +241,29 @@ app.new_card = function () {
         window.location.hash = 'board';
         return false;
     });
-    card.find('.action a.update').on('click', function () {
+    card.find('.action a.create').on('click', function () {
         if (card.find('.question textarea').val().trim().length === 0) {
             return false;
         }
 
-        var new_id = app.generate_uuid();
-        app.new_cards['card-' + new_id] = 1;
+        ds.create_card(card.find('.question textarea').val(),
+                       card.find('.why textarea').val(),
+                       function(new_id) {
+                         app.new_cards['card-' + new_id] = 1;
 
-        app.add_card_to_board($('.templates .boardcard'),
-                              new_id,
-                              card.find('.question textarea').val(),
-                              color,
-                              card.find('.why textarea').val(),
-                              '', // lookingintoit
-                              '', // What we did
-                              [], //comments
-                              0 //likes
-                              );
+                         app.add_card_to_board($('.templates .boardcard'),
+                                               new_id,
+                                               card.find('.question textarea').val(),
+                                               color,
+                                               card.find('.why textarea').val(),
+                                               '', // lookingintoit
+                                               '', // What we did
+                                               [], //comments
+                                               0 //likes
+                                               );
 
-        window.location.hash = 'board';
+                         window.location.hash = 'board';
+                       });
         return false;
     });
 

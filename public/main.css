@@ -217,6 +217,7 @@ header div.thisweek {
 .card .comments {
   position: relative;
 }
+.editnewcard .comments a,
 .newcard .comments a {
   display: none;
 }
@@ -283,13 +284,25 @@ header div.thisweek {
 
 .newcard .question textarea,
 .newcard .why textarea,
-.newcard .action .update,
+.newcard .action .create,
 .newcard .action .cancel {
   display: inline-block;
 }
 
 .newcard .question div.input,
 .newcard .why div.input  {
+  display: none;
+}
+
+.editnewcard .question textarea,
+.editnewcard .why textarea,
+.editnewcard .action .update,
+.editnewcard .action .cancel {
+  display: inline-block;
+}
+
+.editnewcard .question div.input,
+.editnewcard .why div.input  {
   display: none;
 }
 

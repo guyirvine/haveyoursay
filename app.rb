@@ -14,7 +14,7 @@ get '/card' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid,
                 ca.createdon
           FROM haveyoursay.card_vw ca
-          ORDER BY ca.createdon DESC'
+          ORDER BY ca.createdon'
   @db.query_for_resultset(sql).to_json
 end
 
@@ -48,4 +48,16 @@ post '/card/:id' do
              data['whatwedid'],
              params[:id]]
   @db.execute(sql, payload)
+end
+
+post '/card' do
+  sql = 'INSERT INTO haveyoursay.card_tbl(question, why)
+         VALUES (?,?)'
+
+  data = JSON.parse request.body.read
+  payload = [data['question'],
+             data['why']]
+  @db.execute(sql, payload)
+
+  @db.query_for_value("SELECT CURRVAL('haveyoursay.card_seq')")
 end
