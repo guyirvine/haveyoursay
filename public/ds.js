@@ -97,6 +97,23 @@ ds.create_card = function (question, why, callback) {
         });
 };
 
+ds.update_card_likes = function (id, likes) {
+    var payload = {
+            'likes': likes
+        };
+    $.ajax({
+        url: '/card/' + id + '/likes',
+        type: 'PUT',
+        data: JSON.stringify(payload),
+        success: function(data) {
+            console.log('ds.update_card_likes.1 ', payload, data);
+        },
+        error: function(err) {
+          console.log('ds.update_card_likes.2 ', payload, err);
+        }
+    });
+};
+
 ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) {
     var payload = {
             'question': question,
@@ -104,12 +121,17 @@ ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) 
             'lookingintoit': lookingintoit,
             'whatwedid': whatwedid
         };
-    $.post('/card/' + id, JSON.stringify(payload), function (data) {
-        console.log('ds.update_card_details.1 ', payload, data);
-    })
-        .error(function (err) {
-            console.log('ds.update_card_details.2 ', payload, err);
-        });
+    $.ajax({
+        url: '/card/' + id,
+        type: 'PUT',
+        data: JSON.stringify(payload),
+        success: function(data) {
+            console.log('ds.update_card_details.1 ', payload, data);
+        },
+        error: function(err) {
+          console.log('ds.update_card_details.2 ', payload, err);
+        }
+    });
 };
 
 ds.add_comment = function (id, description) {

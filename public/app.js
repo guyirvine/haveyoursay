@@ -293,7 +293,7 @@ app.board_view = function () {
 
 app.likes = {};
 
-
+var guy_card;
 app.add_card_to_board = function (_card,
                                   id, question, color,
                                   why, lookingintoit, whatwedid,
@@ -329,22 +329,20 @@ app.add_card_to_board = function (_card,
         comments_obj.append(comment);
     });
 
-    card.find('.status .count').text(likes);
-    card.find('.status a span').text('like');
-    card.find('.status .label').text(app.format_status_label(likes, comments.length));
-    card.find('.status a').on('click', function () {
-        var likes_count = Number(card.find('.status .count').text());
+    console.log('app.add_card_to_board.1.1 ', likes);
+    guy_card = card;
+    card.find('.like .count').text(likes);
+    card.find('.like img.thumbs-up').on('click', function () {
+        var likes_count = Number(card.find('.like .count').text());
         if (app.likes['card-' + id] === undefined) {
             likes_count += 1;
             app.likes['card-' + id] = 1;
-            card.find('.status a span').text('unlike');
         } else {
             likes_count -= 1;
             delete app.likes['card-' + id];
-            card.find('.status a span').text('like');
         }
-        card.find('.status .count').text(likes_count);
-        card.find('.status .label').text(app.format_status_label(likes_count, comments.length));
+        card.find('.like .count').text(likes_count);
+        ds.update_card_likes(id, likes_count);
         return false;
     });
     card.find('.searchlookup').text(question.toUpperCase() + ' ' +

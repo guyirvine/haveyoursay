@@ -11,8 +11,8 @@ after do
 end
 
 get '/card' do
-  sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid,
-                ca.createdon
+  sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
+                ca.whatwedid, ca.likes, ca.createdon
           FROM haveyoursay.card_vw ca
           ORDER BY ca.createdon'
   @db.query_for_resultset(sql).to_json
@@ -33,7 +33,7 @@ post '/card/:id/comment' do
   @db.execute(sql, payload)
 end
 
-post '/card/:id' do
+put '/card/:id' do
   sql = 'UPDATE haveyoursay.card_tbl
          SET question = ?,
              why = ?,
@@ -46,6 +46,17 @@ post '/card/:id' do
              data['why'],
              data['lookingintoit'],
              data['whatwedid'],
+             params[:id]]
+  @db.execute(sql, payload)
+end
+
+put '/card/:id/likes' do
+  sql = 'UPDATE haveyoursay.card_tbl
+         SET likes = ?
+         WHERE id = ?'
+
+  data = JSON.parse request.body.read
+  payload = [data['likes'].to_i,
              params[:id]]
   @db.execute(sql, payload)
 end

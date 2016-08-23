@@ -23,7 +23,7 @@ CREATE TABLE haveyoursay.comment_tbl (
 );
 
 CREATE VIEW haveyoursay.card_vw AS
-  SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid, ca.createdon
+  SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid, ca.likes, ca.createdon
   FROM haveyoursay.card_tbl ca;
 
 CREATE VIEW haveyoursay.comment_vw AS
