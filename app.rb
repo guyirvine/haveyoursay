@@ -25,6 +25,14 @@ get '/comment' do
   @db.query_for_resultset(sql).to_json
 end
 
+post '/card/:id/comment' do
+  sql = 'INSERT INTO haveyoursay.comment_tbl(card_id, description )
+           VALUES (?, ?)'
+  data = JSON.parse request.body.read
+  payload = [params[:id], data['description']]
+  @db.execute(sql, payload)
+end
+
 post '/card/:id' do
   sql = 'UPDATE haveyoursay.card_tbl
          SET question = ?,

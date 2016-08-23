@@ -5,8 +5,8 @@ Rake::TestTask.new do |t|
 end
 
 task :db do
-  `dropdb haveyoursay`
-  `createdb haveyoursay`
+  # dropdb haveyoursay`
+  # createdb haveyoursay`
   `psql -f sql/create_tables.sql haveyoursay`
   `psql -f sql/seed.sql haveyoursay`
 end

@@ -135,6 +135,7 @@ app.card_view = function (id) {
         } else {
             comments.find('.comment').first().before(_comment);
         }
+        ds.add_comment(id, card.find('.comments textarea').val());
 
         new_com = $('.templates .boardcard .comment').clone();
         new_com.find('.createdon').text(moment().format("D MMM YYYY h:mma"));
@@ -315,12 +316,13 @@ app.add_card_to_board = function (_card,
     card.find('.lookingintoit').text(lookingintoit);
     card.find('.whatwedid').text(whatwedid);
 
+    console.log('app.add_card_to_board.1 ', comments);
     comments_obj = card.find('.comments');
     _comment = comments_obj.find('.comment').remove();
     _.each(comments, function (c) {
         var comment = _comment.clone();
-        comment.find('.createdon').text(c.createdon);
-        comment.find('.input').text(c.text);
+        comment.find('.createdon').text(moment(c.createdon).format("DD MMM YYYY h:mm a"));
+        comment.find('.input').text(c.description);
         comments_obj.append(comment);
     });
 
