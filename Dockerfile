@@ -1,0 +1,47 @@
+FROM ubuntu:14.04
+
+MAINTAINER Guy Irvine <guy@guyirvine.com>
+
+RUN echo "Install packages" \
+  && export DEBIAN_FRONTEND=noninteractive \
+  && apt-get -y update \
+  && apt-get install -y \
+      ruby \
+      ruby-dev \
+      git-core \
+      build-essential \
+      libpq-dev
+
+RUN echo "Setup locales" \
+  && localedef -c -i en_NZ -f UTF-8 en_NZ.UTF-8 \
+  && update-locale LANG=en_NZ.UTF-8
+
+#RUN echo "Create user" \
+#  && mkdir -p /opt/haveyoursay/ \
+#  && groupadd --gid 1000 puser \
+#  && useradd -m --home /home/puser --uid 1000 --gid puser --shell /bin/sh puser
+
+RUN echo "Install required" \
+  && gem install bundler pg fluiddb2 sinatra
+
+RUN echo "Cleaning up" \
+  && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY . /opt/haveyoursay/
+
+#USER fpuser
+
+WORKDIR /opt/haveyoursay/
+
+# Leaving in the node / bower commands as they will no doubt prove useful ...
+
+RUN bundle install --without test development
+
+ENV DB='pgsql://vagrant:password@localhost/haveyoursay'
+
+EXPOSE 4569
+
+# ENTRYPOINT ["bundle", "exec", "ruby", "app.rb", "-o", "0.0.0.0", "-p", "5000"]
+ENTRYPOINT ["ruby", "app.rb", "-o", "0.0.0.0", "-p", "4569"]
