@@ -12,7 +12,7 @@ end
 
 get '/card' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
-                ca.whatwedid, ca.likes, ca.createdon
+                ca.whatwedid, ca.likes, ca.createdon, ca.slt_name
           FROM haveyoursay.card_vw ca
           ORDER BY ca.createdon'
   @db.query_for_resultset(sql).to_json
