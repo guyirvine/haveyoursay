@@ -480,29 +480,6 @@ app.schedule_view = function () {
     schedule = $('.templates .schedule').clone();
     _li = schedule.find('li').remove();
 
-    list = [
-        {
-            'src': 'images/smiley_1.png',
-            'start': '1 Jun 2016',
-            'end': '14 Jun 2016'
-        },
-        {
-            'src': 'images/smiley_2.png',
-            'start': '15 Jun 2016',
-            'end': '29 Jun 2016'
-        },
-        {
-            'src': 'images/smiley_3.png',
-            'start': '30 Jun 2016',
-            'end': '12 Jul 2016'
-        },
-        {
-            'src': 'images/smiley_4.png',
-            'start': '12 Jul 2016',
-            'end': '26 Jul 2016'
-        }
-    ];
-
     ul = schedule.find('ul');
     _.each(app.slt, function (el) {
         var li, start, end, date_range;
@@ -591,7 +568,6 @@ app.set_current_slt = function () {
     if (app.slt_member === undefined) {
         app.slt_member = app.slt[0];
     }
-    app.slt_member = app.slt[1];
 
     $('.profile').addClass(app.slt_member.color);
     $('.profile').addClass(app.slt_member.color);
