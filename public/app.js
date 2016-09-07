@@ -522,6 +522,38 @@ app.schedule_view = function () {
   $('.popup').removeClass('hide');
 };
 
+app.check_password = function(username, password, callback) {
+    if (username === 'admin' && password === 'p') {
+        callback(true);
+    } else {
+        callback(false);
+    }
+};
+
+app.login_view = function () {
+    var login;
+
+    login = $('.templates .login').clone();
+
+    login.find('.loginbutton').on('click', function() {
+        app.check_password(login.find('.username').val(), login.find('.password').val(), function(successful) {
+            console.log('app.login_view.1 ', successful);
+            if (successful === true) {
+                $('body').addClass('admin');
+                window.location.hash = 'board';
+            } else {
+                login.find('.note').text('Username / Password combination not recognised');
+            };
+        });
+        return false;
+    });
+
+    $('.popup').empty();
+    $('.popup').append(login);
+    $('.popup').removeClass('hide');
+    login.find('.password').focus();
+};
+
 app.show_view = function (hash) {
     var routes, hashParts, viewFn;
 
@@ -534,7 +566,8 @@ app.show_view = function (hash) {
         '#search': app.search_view,
         '#card': app.card_view,
         '#board': app.board_view,
-        '#schedule': app.schedule_view
+        '#schedule': app.schedule_view,
+        '#login': app.login_view
     };
 
     hashParts = hash.split('-');
@@ -553,19 +586,18 @@ app.apponready = function () {
         app.load_board();
     });
 
-
-
     window.onhashchange = function () {
         app.show_view(window.location.hash);
     };
 
-    if (window.location.hash === "") {
-        window.location.hash = 'board';
-        return;
-    }
+    window.location.hash = 'board';
 
     $('.searchcriteria').keyup(function () {
         app.search();
+    });
+
+    $('.logout').on('click', function() {
+      $('body').removeClass('admin');
     });
 
     app.board_view();

@@ -76,28 +76,30 @@
   </head>
   <body>
     <nav class='navbar'>
+      <a href='#login' class='login'>Login</a>
+      <a href='#logout' class='logout'>Logout</a>
       <a href='#board' class='board selected'>Have Your Say Board</a>
       <a href='#schedule' class='profiles'>SLT Profiles</a>
       <a href='mailto:girvine@lic.co.nz' class='contact'>Contact Have Your Say Team</a>
     </nav>
     <div class='container'>
-    <header>
-      <img src='images/have-your-say-small.png'></img>
-      <div class='thisweek'>
-        <table class='profile'>
-          <tr>
-            <td class='title'>This weeks have your say monitor</td>
-            <td rowspan='2' class='image'>
-              <img src='images/smiley_4.png'></img>
-            </td>
-          </tr>
-          <tr>
-            <td class='name'>Richard Spelman</td>
-          </tr>
-        </table>
-        <input type='text' class='search searchcriteria' placeholder='SEARCH CARDS'></input>
-      </div>
-    </header>
+      <header>
+        <img src='images/have-your-say-small.png'></img>
+        <div class='thisweek'>
+          <table class='profile'>
+            <tr>
+              <td class='title'>This weeks have your say monitor</td>
+              <td rowspan='2' class='image'>
+                <img src='images/smiley_4.png'></img>
+              </td>
+            </tr>
+            <tr>
+              <td class='name'>Richard Spelman</td>
+            </tr>
+          </table>
+          <input type='text' class='search searchcriteria' placeholder='SEARCH CARDS'></input>
+        </div>
+      </header>
 
       <div class='content'>
       </div>
@@ -107,6 +109,21 @@
     </div>
 
     <div class='templates'>
+      <div class='login'>
+        <div class='title'>Admin Login</div>
+        <div class='details'>
+          <label>Username</label>
+          <input type='text' value='admin' class='username'></input>
+          <label>Password</label>
+          <input type='password' value='' class='password'></input>
+        </div>
+        <div class='note'>&nbsp;</div>
+        <div class='action'>
+          <a href='#board' class='close button'>Close</a>
+          <a href='#board' class='loginbutton button'>Login</a>
+        </div>
+      </div>
+
       <div class='schedule'>
         <div class='title'>Schedule</div>
         <ul>
