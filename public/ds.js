@@ -63,6 +63,15 @@ ds.cards = [
     }
 ];
 
+ds.get_slt = function (callback) {
+    $.getJSON('slt', function (list) {
+        if (callback === undefined) {
+            console.log('db.get_slt.1 ', list);
+        } else {
+            callback(list);
+        }
+    });
+};
 
 ds.get_cards = function (callback) {
     $.getJSON('card', function (cards) {
@@ -83,10 +92,11 @@ ds.get_cards = function (callback) {
         });
 };
 
-ds.create_card = function (question, why, callback) {
+ds.create_card = function (question, why, slt_id, callback) {
     var payload = {
             'question': question,
-            'why': why
+            'why': why,
+            'slt_id': slt_id
         };
     $.post('/card', JSON.stringify(payload), function (id) {
         console.log('ds.update_card_details.1 ', payload, id);
@@ -105,11 +115,11 @@ ds.update_card_likes = function (id, likes) {
         url: '/card/' + id + '/likes',
         type: 'PUT',
         data: JSON.stringify(payload),
-        success: function(data) {
+        success: function (data) {
             console.log('ds.update_card_likes.1 ', payload, data);
         },
-        error: function(err) {
-          console.log('ds.update_card_likes.2 ', payload, err);
+        error: function (err) {
+            console.log('ds.update_card_likes.2 ', payload, err);
         }
     });
 };
@@ -125,23 +135,23 @@ ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) 
         url: '/card/' + id,
         type: 'PUT',
         data: JSON.stringify(payload),
-        success: function(data) {
+        success: function (data) {
             console.log('ds.update_card_details.1 ', payload, data);
         },
-        error: function(err) {
-          console.log('ds.update_card_details.2 ', payload, err);
+        error: function (err) {
+            console.log('ds.update_card_details.2 ', payload, err);
         }
     });
 };
 
 ds.add_comment = function (id, description) {
-  var payload = {
-          'description': description,
-      };
-  $.post('/card/' + id + '/comment', JSON.stringify(payload), function (data) {
-      console.log('ds.add_comment.1 ', payload, data);
-  })
-      .error(function (err) {
-          console.log('ds.add_comment.2 ', payload, err);
-      });
+    var payload = {
+            'description': description,
+        };
+    $.post('/card/' + id + '/comment', JSON.stringify(payload), function (data) {
+        console.log('ds.add_comment.1 ', payload, data);
+    })
+        .error(function (err) {
+            console.log('ds.add_comment.2 ', payload, err);
+        });
 };

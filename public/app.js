@@ -64,8 +64,6 @@ app.cards = [
 ];
 
 
-
-
 app.card_view = function (id) {
     if (id === 'new') {
         app.new_card();
@@ -123,7 +121,7 @@ app.card_view = function (id) {
             return false;
         }
 
-        var _comment, list, new_com;
+        var _comment, list, new_com, status;
 
         _comment = comment.clone();
         _comment.find('.createdon').text(moment().format("D MMM YYYY h:mma"));
@@ -147,7 +145,7 @@ app.card_view = function (id) {
             _c.find('.comments .comment').first().before(new_com);
         }
 
-        var status = app.format_status_label(Number(_c.find('.status .count').text()), _c.find('.comments .comment').length);
+        status = app.format_status_label(Number(_c.find('.status .count').text()), _c.find('.comments .comment').length);
         _c.find('.status .label').text(status);
 
         card.removeClass('newcomment');
@@ -210,7 +208,7 @@ app.card_view = function (id) {
                                 card.find('.question textarea').val(),
                                 card.find('.why textarea').val(),
                                 card.find('.lookingintoit textarea').val(),
-                                card.find('.whatwedid textarea').val())
+                                card.find('.whatwedid textarea').val());
 
         app.position_card_on_board(_c);
 
@@ -248,22 +246,23 @@ app.new_card = function () {
 
         ds.create_card(card.find('.question textarea').val(),
                        card.find('.why textarea').val(),
-                       function(new_id) {
-                         app.new_cards['card-' + new_id] = 1;
+                       app.slt_member.id,
+                       function (new_id) {
+                app.new_cards['card-' + new_id] = 1;
 
-                         app.add_card_to_board($('.templates .boardcard'),
-                                               new_id,
-                                               card.find('.question textarea').val(),
-                                               color,
-                                               card.find('.why textarea').val(),
-                                               '', // lookingintoit
-                                               '', // What we did
-                                               [], //comments
-                                               0 //likes
-                                               );
+                app.add_card_to_board($('.templates .boardcard'),
+                                       new_id,
+                                       card.find('.question textarea').val(),
+                                       color,
+                                       card.find('.why textarea').val(),
+                                       '', // lookingintoit
+                                       '', // What we did
+                                       [], //comments
+                                       0 //likes
+                                       );
 
-                         window.location.hash = 'board';
-                       });
+                window.location.hash = 'board';
+            });
         return false;
     });
 
@@ -373,7 +372,7 @@ app.load_board = function () {
                               el.why, el.lookingintoit, el.whatwedid,
                               el.comments, el.likes, el.slt_name);
     });
-    app.board.find('.createcard').on('click', function(e) {
+    app.board.find('.createcard').on('click', function () {
         window.location.hash = 'card-new';
     });
 
@@ -419,7 +418,7 @@ app.matchs = function (el, criteria) {
 };
 
 app.search = function () {
-    var criteria, searchresult, popup, ul, _li;
+    var criteria, searchresult, popup, ul, _li, li;
     console.log('app.search.1 ');
     window.location.hash = 'search';
 
@@ -443,7 +442,7 @@ app.search = function () {
 
     _.each($('.board .boardcard'), function (el) {
         if (app.matchs(el, criteria)) {
-            var li = _li.clone();
+            li = _li.clone();
             li.find('a')
                 .text($(el).find('.question').text())
                 .attr('href', '#' + el.id);
@@ -452,11 +451,11 @@ app.search = function () {
     });
 
     if (ul.find('li').length === 0) {
-      var li = _li.clone();
-      li.find('a').remove();
-      li.text("Couldn't find any matching cards.");
-      ul.append(li);
-    };
+        li = _li.clone();
+        li.find('a').remove();
+        li.text("Couldn't find any matching cards.");
+        ul.append(li);
+    }
 
     app.search_running = false;
     if (app.search_pending === true) {
@@ -476,55 +475,57 @@ app.search_view = function () {
 };
 
 app.schedule_view = function () {
-  var schedule, _li, list, ul;
+    var schedule, _li, list, ul;
 
-  schedule = $('.templates .schedule').clone();
-  _li = schedule.find('li').remove();
+    schedule = $('.templates .schedule').clone();
+    _li = schedule.find('li').remove();
 
-  list = [
-    {
-      'src': 'images/smiley_1.png',
-      'start': '1 Jun 2016',
-      'end': '14 Jun 2016'
-    },
-    {
-      'src': 'images/smiley_2.png',
-      'start': '15 Jun 2016',
-      'end': '29 Jun 2016'
-    },
-    {
-      'src': 'images/smiley_3.png',
-      'start': '30 Jun 2016',
-      'end': '12 Jul 2016'
-    },
-    {
-      'src': 'images/smiley_4.png',
-      'start': '12 Jul 2016',
-      'end': '26 Jul 2016'
-    }
-  ];
+    list = [
+        {
+            'src': 'images/smiley_1.png',
+            'start': '1 Jun 2016',
+            'end': '14 Jun 2016'
+        },
+        {
+            'src': 'images/smiley_2.png',
+            'start': '15 Jun 2016',
+            'end': '29 Jun 2016'
+        },
+        {
+            'src': 'images/smiley_3.png',
+            'start': '30 Jun 2016',
+            'end': '12 Jul 2016'
+        },
+        {
+            'src': 'images/smiley_4.png',
+            'start': '12 Jul 2016',
+            'end': '26 Jul 2016'
+        }
+    ];
 
-  ul = schedule.find('ul');
-  _.each(list, function(el) {
-    var li, start, end, date_range;
+    ul = schedule.find('ul');
+    _.each(app.slt, function (el) {
+        var li, start, end, date_range;
 
-    start = moment(el.start);
-    end = moment(el.end);
+        start = moment(el.startdate);
+        end = moment(el.enddate);
 
-    li = _li.clone();
-    li.find('img')[0].src = el.src;
-    date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
-    li.find('.date-range').text(date_range);
+        li = _li.clone();
+        li.addClass(el.color);
+        li.find('.name').text(el.name);
+        li.find('img')[0].src = el.img_src;
+        date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
+        li.find('.date-range').text(date_range);
 
-    ul.append(li);
-  });
+        ul.append(li);
+    });
 
-  $('.popup').empty();
-  $('.popup').append(schedule);
-  $('.popup').removeClass('hide');
+    $('.popup').empty();
+    $('.popup').append(schedule);
+    $('.popup').removeClass('hide');
 };
 
-app.check_password = function(username, password, callback) {
+app.check_password = function (username, password, callback) {
     if (username === 'admin' && password === 'p') {
         callback(true);
     } else {
@@ -537,15 +538,15 @@ app.login_view = function () {
 
     login = $('.templates .login').clone();
 
-    login.find('.loginbutton').on('click', function() {
-        app.check_password(login.find('.username').val(), login.find('.password').val(), function(successful) {
+    login.find('.loginbutton').on('click', function () {
+        app.check_password(login.find('.username').val(), login.find('.password').val(), function (successful) {
             console.log('app.login_view.1 ', successful);
             if (successful === true) {
                 $('body').addClass('admin');
                 window.location.hash = 'board';
             } else {
                 login.find('.note').text('Username / Password combination not recognised');
-            };
+            }
         });
         return false;
     });
@@ -582,10 +583,32 @@ app.show_view = function (hash) {
     }
 };
 
+app.set_current_slt = function () {
+    app.slt_member = _.find(app.slt, function (el) {
+        return moment().isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
+    });
+
+    if (app.slt_member === undefined) {
+        app.slt_member = app.slt[0];
+    }
+    app.slt_member = app.slt[1];
+
+    $('.profile').addClass(app.slt_member.color);
+    $('.profile').addClass(app.slt_member.color);
+    $('.profile .name').text(app.slt_member.name);
+    $('.profile img')[0].src = app.slt_member.img_src;
+};
+
 app.apponready = function () {
-    ds.get_cards(function(list) {
-        app.cards = list;
-        app.load_board();
+
+    ds.get_slt(function (list) {
+        app.slt = list;
+        app.set_current_slt();
+
+        ds.get_cards(function (list) {
+            app.cards = list;
+            app.load_board();
+        });
     });
 
     window.onhashchange = function () {
@@ -598,29 +621,12 @@ app.apponready = function () {
         app.search();
     });
 
-    $('.logout').on('click', function() {
-      $('body').removeClass('admin');
+    $('.logout').on('click', function () {
+        $('body').removeClass('admin');
     });
 
     app.board_view();
     app.show_view(window.location.hash);
-};
-
-
-/* jshint ignore:start */
-app.generate_uuid = function () {
-    var d, uuid;
-
-    d = new Date().getTime();
-    if (window.performance && typeof window.performance.now === "function") {
-        d += performance.now(); //use high-precision timer if available
-    }
-    uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
 };
 
 /* jshint ignore:end */

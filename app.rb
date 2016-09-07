@@ -25,6 +25,14 @@ get '/comment' do
   @db.query_for_resultset(sql).to_json
 end
 
+get '/slt' do
+  sql = 'SELECT s.id, s.name, s.color, s.img_src, s.blurb,
+                s.startdate, s.enddate
+          FROM haveyoursay.slt_vw s
+          ORDER BY s.startdate'
+  @db.query_for_resultset(sql).to_json
+end
+
 post '/card/:id/comment' do
   sql = 'INSERT INTO haveyoursay.comment_tbl(card_id, description )
            VALUES (?, ?)'
@@ -62,12 +70,13 @@ put '/card/:id/likes' do
 end
 
 post '/card' do
-  sql = 'INSERT INTO haveyoursay.card_tbl(question, why)
-         VALUES (?,?)'
+  sql = 'INSERT INTO haveyoursay.card_tbl(question, why, slt_id)
+         VALUES (?,?,?)'
 
   data = JSON.parse request.body.read
   payload = [data['question'],
-             data['why']]
+             data['why'],
+             data['slt_id']]
   @db.execute(sql, payload)
 
   @db.query_for_value("SELECT CURRVAL('haveyoursay.card_seq')")

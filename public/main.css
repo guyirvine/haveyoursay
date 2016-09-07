@@ -81,7 +81,7 @@ header .profile img {
 header div {
   text-transform: uppercase;
 }
-header .title {
+header .note {
   color: grey;
 }
 
@@ -329,6 +329,10 @@ header div.thisweek {
   background-color: rgb(52, 151, 214);
   color: white;
 }
+.thisweek .blue .name,
+.schedule ul .blue .name {
+  color: rgb(52, 151, 214);
+}
 .blue .section label {
   color: rgb(52, 151, 214);
 }
@@ -340,6 +344,11 @@ header div.thisweek {
   background-color: #89B18C;
   color: white;
 }
+.thisweek .green .name,
+.schedule ul .green .name {
+  color: #89B18C;
+}
+
 .green .section label {
   color: #89B18C;
 }

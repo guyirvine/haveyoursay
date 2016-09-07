@@ -1,5 +1,5 @@
-INSERT INTO haveyoursay.slt_tbl(name, color) VALUES ('Richard Spelman', 'blue');
-INSERT INTO haveyoursay.slt_tbl(name, color) VALUES ('Simon O''Conner', 'green');
+INSERT INTO haveyoursay.slt_tbl(name, color, startdate, enddate) VALUES ('Richard Spelman', 'blue', '5 Sep 2016', '13 Sep 2016');
+INSERT INTO haveyoursay.slt_tbl(name, color, startdate, enddate) VALUES ('Simon O''Conner', 'green', '19 Sep 2016', '2 Oct 2016');
 
 
 INSERT INTO haveyoursay.card_tbl(slt_id, question, why, lookingintoit, whatwedid, likes)

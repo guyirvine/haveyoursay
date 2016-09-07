@@ -9,8 +9,10 @@ CREATE TABLE haveyoursay.slt_tbl (
   id BIGINT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('haveyoursay.slt_seq'),
   name VARCHAR NOT NULL,
   color VARCHAR NOT NULL,
-  img_src VARCHAR NOT NULL DEFAULT 'public/images/smiley.png',
+  img_src VARCHAR NOT NULL DEFAULT 'images/smiley.png',
   blurb VARCHAR NOT NULL DEFAULT '',
+  startdate TIMESTAMP NOT NULL,
+  enddate TIMESTAMP NOT NULL,
   createdon TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
@@ -31,6 +33,10 @@ CREATE TABLE haveyoursay.comment_tbl (
   description VARCHAR NOT NULL,
   createdon TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE VIEW haveyoursay.slt_vw AS
+  SELECT s.id, s.name, s.color, s.img_src, s.blurb, s.startdate, s.enddate
+  FROM haveyoursay.slt_tbl s;
 
 CREATE VIEW haveyoursay.card_vw AS
   SELECT ca.id, s.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid, ca.likes, ca.createdon, s.name AS slt_name
