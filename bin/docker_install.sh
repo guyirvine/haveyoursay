@@ -6,4 +6,5 @@ apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual docke
 usermod -aG docker vagrant
 
 # docker build -t haveyoursay .
-# source ~/.env && docker run -t -e "DB=$HAVEYOURSAY_DB" --net=host haveyoursay
+# docker stop $(docker ps -q --filter ancestor=haveyoursay)
+# source ~/.env && docker run -d -e "DB=$HAVEYOURSAY_DB" --net=host haveyoursay
