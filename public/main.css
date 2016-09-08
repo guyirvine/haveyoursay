@@ -1,6 +1,17 @@
 .templates { display: none; }
 .hide { display: none; }
 
+@keyframes highlight {
+  40% {
+     box-shadow: 0 0 25px rgba(81, 203, 238, 1);
+  }
+}
+
+.highlight {
+  animation: highlight 1.5s;
+}
+
+
 /*****************************************************************************/
 /** navbar **/
 

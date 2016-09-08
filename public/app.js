@@ -241,6 +241,8 @@ app.new_card = function () {
     });
     card.find('.action a.create').on('click', function () {
         if (card.find('.question textarea').val().trim().length === 0) {
+            card.find('.question textarea').removeClass('highlight');
+            card.find('.question textarea').addClass('highlight');
             return false;
         }
 
@@ -475,7 +477,7 @@ app.search_view = function () {
 };
 
 app.schedule_view = function () {
-    var schedule, _li, list, ul;
+    var schedule, _li, ul;
 
     schedule = $('.templates .schedule').clone();
     _li = schedule.find('li').remove();
