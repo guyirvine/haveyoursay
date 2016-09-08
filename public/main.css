@@ -256,9 +256,7 @@ header div.thisweek {
   display: none;
 }
 
-.login .cross,
-.schedule .cross,
-.card .cross {
+.popup .cross {
   position: absolute;
   right: 0.7em;
   top: 1em;
