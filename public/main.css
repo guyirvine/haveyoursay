@@ -256,6 +256,16 @@ header div.thisweek {
   display: none;
 }
 
+.card .cross {
+  position: absolute;
+  right: 0.7em;
+  top: 1em;
+  font-size: 1em;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .displaycard .action .close,
 .displaycard .action .newcomment {
   display: inline-block;
