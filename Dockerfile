@@ -41,7 +41,6 @@ RUN bundle install --without test development
 
 ENV DB='pgsql://vagrant:password@localhost/haveyoursay'
 
-EXPOSE 4569
+EXPOSE 4568
 
-# ENTRYPOINT ["bundle", "exec", "ruby", "app.rb", "-o", "0.0.0.0", "-p", "5000"]
-ENTRYPOINT ["ruby", "app.rb", "-o", "0.0.0.0", "-p", "4569"]
+ENTRYPOINT ["ruby", "app.rb", "-o", "0.0.0.0", "-p", "4568"]
