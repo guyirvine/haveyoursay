@@ -333,7 +333,7 @@ app.add_card_to_board = function (_card,
     console.log('app.add_card_to_board.1.1 ', likes);
     guy_card = card;
     card.find('.like .count').text(likes);
-    card.find('.like img.thumbs-up').on('click', function () {
+    card.find('.like').on('click', function () {
         var likes_count = Number(card.find('.like .count').text());
         if (app.likes['card-' + id] === undefined) {
             likes_count += 1;
