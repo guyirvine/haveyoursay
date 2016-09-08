@@ -260,7 +260,8 @@ app.new_card = function () {
                                        '', // lookingintoit
                                        '', // What we did
                                        [], //comments
-                                       0 //likes
+                                       0, //likes
+                                       app.slt_member.name
                                        );
 
                 window.location.hash = 'board';
