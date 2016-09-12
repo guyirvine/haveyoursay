@@ -291,6 +291,7 @@ app.position_card_on_board = function (card) {
 
 app.board_view = function () {
     console.log('board_view');
+    $('body').addClass('showboard');
 };
 
 app.likes = {};
@@ -480,6 +481,8 @@ app.search_view = function () {
 app.schedule_view = function () {
     var schedule, _li, ul;
 
+    $('body').addClass('showschedule');
+
     schedule = $('.templates .schedule').clone();
     _li = schedule.find('li').remove();
 
@@ -516,6 +519,8 @@ app.check_password = function (username, password, callback) {
 app.login_view = function () {
     var login;
 
+    $('body').addClass('showlogin');
+
     login = $('.templates .login').clone();
 
     login.find('.loginbutton').on('click', function () {
@@ -539,6 +544,10 @@ app.login_view = function () {
 
 app.show_view = function (hash) {
     var routes, hashParts, viewFn;
+
+    $('body').removeClass('showboard');
+    $('body').removeClass('showschedule');
+    $('body').removeClass('showlogin');
 
     if (hash === "") {
         window.location.hash = "#board";
@@ -601,6 +610,7 @@ app.apponready = function () {
     });
 
     $('.logout').on('click', function () {
+        console.log('logout.1');
         $('body').removeClass('admin');
     });
 

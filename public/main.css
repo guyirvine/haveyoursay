@@ -34,7 +34,15 @@ nav.navbar a {
   padding-bottom: 10px;
 }
 
-nav.navbar a.selected {
+.showlogin nav.navbar a.login {
+  line-height: 2em;
+  border-bottom: 5px solid #CCC;
+}
+.showschedule nav.navbar a.profiles {
+  line-height: 2em;
+  border-bottom: 5px solid #CCC;
+}
+.showboard nav.navbar a.board {
   line-height: 2em;
   border-bottom: 5px solid #CCC;
 }
