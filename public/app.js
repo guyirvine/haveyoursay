@@ -213,6 +213,10 @@ app.card_view = function (id) {
         app.position_card_on_board(_c);
 
         window.location.hash = 'board';
+
+        _c.removeClass('highlight');
+        _c.addClass('highlight');
+
         return false;
     });
 
@@ -252,7 +256,7 @@ app.new_card = function () {
                        function (new_id) {
                 app.new_cards['card-' + new_id] = 1;
 
-                app.add_card_to_board($('.templates .boardcard'),
+                var boardcard = app.add_card_to_board($('.templates .boardcard'),
                                        new_id,
                                        card.find('.question textarea').val(),
                                        color,
@@ -264,6 +268,8 @@ app.new_card = function () {
                                        app.slt_member.name,
                                        moment()
                                        );
+                boardcard.removeClass('highlight');
+                boardcard.addClass('highlight');
 
                 window.location.hash = 'board';
             });
@@ -364,6 +370,8 @@ app.add_card_to_board = function (_card,
 
     card.addClass('displaycard');
     app.position_card_on_board(card);
+
+    return card;
 };
 
 
