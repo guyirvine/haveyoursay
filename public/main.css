@@ -22,6 +22,7 @@ nav.navbar {
   width: 100%;
   text-align: right;
   line-height: 2em;
+  z-index: 1;
 }
 
 nav.navbar a {
@@ -85,7 +86,7 @@ header .profile .image {
 }
 
 header .profile img {
-  height: 2em;
+  height: 64px;
   margin-left: 0.5em;
 }
 
