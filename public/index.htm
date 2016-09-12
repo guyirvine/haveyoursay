@@ -73,11 +73,20 @@
       color: #CCC;
     }
 
-    .boardcard .sltname {
+    .boardcard .bottom-ribbon {
       position: absolute;
       left: 12px;
       bottom: 5px;
       font-size: 0.7em;
+    }
+
+    .boardcard .bottom-ribbon .sltname,
+    .boardcard .bottom-ribbon .datecreated {
+      display: inline-block;
+    }
+
+    .boardcard .bottom-ribbon .datecreated {
+      margin-left: 1em;
     }
 
     .boardcard .question_summary {
@@ -246,7 +255,10 @@
           <div class='note'>like</div>
           <div class='count'>10</div>
         </div>
-        <div class='sltname'></div>
+        <div class='bottom-ribbon'>
+          <div class='sltname'></div>
+          <div class='datecreated'>1 Jun 2016</div>
+        </div>
         <div class='hide section question'></div>
         <div class='hide section why'></div>
         <div class='hide section lookingintoit'></div>

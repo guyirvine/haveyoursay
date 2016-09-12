@@ -261,7 +261,8 @@ app.new_card = function () {
                                        '', // What we did
                                        [], //comments
                                        0, //likes
-                                       app.slt_member.name
+                                       app.slt_member.name,
+                                       moment()
                                        );
 
                 window.location.hash = 'board';
@@ -300,7 +301,7 @@ var guy_card;
 app.add_card_to_board = function (_card,
                                   id, question, color,
                                   why, lookingintoit, whatwedid,
-                                  comments, likes, slt_name) {
+                                  comments, likes, slt_name, datecreated) {
     var card, question_summary, comments_obj, _comment, idx;
 
     card = _card.clone();
@@ -322,6 +323,7 @@ app.add_card_to_board = function (_card,
     card.find('.lookingintoit').text(lookingintoit);
     card.find('.whatwedid').text(whatwedid);
     card.find('.sltname').text(slt_name);
+    card.find('.datecreated').text(moment(datecreated).format('D MMM YYYY'));
     console.log('app.add_card_to_board.1 ', slt_name, card.find('.sltname').text(slt_name));
 
     console.log('app.add_card_to_board.2 ', comments);
@@ -374,7 +376,7 @@ app.load_board = function () {
         app.add_card_to_board(_card,
                               el.id, el.question, el.color,
                               el.why, el.lookingintoit, el.whatwedid,
-                              el.comments, el.likes, el.slt_name);
+                              el.comments, el.likes, el.slt_name, el.createdon);
     });
     app.board.find('.createcard').on('click', function () {
         window.location.hash = 'card-new';
