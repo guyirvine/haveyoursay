@@ -453,6 +453,10 @@ header div.thisweek {
   display: inline-block;
 }
 
+.admin .displaycard .action .newcomment {
+  display: none;
+}
+
 .card2 .comments a {
   font-size: smaller;
   font-weight: bold;
