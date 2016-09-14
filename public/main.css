@@ -588,8 +588,7 @@ header div.thisweek {
 }
 
 .schedule ul li img {
-  height: 64px;
-  width: 64px;
+  height: 128px;
 }
 
 .schedule ul li .date-range {
