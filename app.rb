@@ -18,11 +18,27 @@ get '/card' do
   @db.query_for_resultset(sql).to_json
 end
 
+get '/card/:id' do
+  sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
+                ca.whatwedid, ca.likes, ca.createdon, ca.slt_name
+          FROM haveyoursay.card_vw ca
+          WHERE ca.id = ?'
+  @db.query_for_array(sql, [params[:id]]).to_json
+end
+
 get '/comment' do
   sql = 'SELECT co.id, co.card_id, co.description, co.createdon
           FROM haveyoursay.comment_vw co
           ORDER BY co.createdon DESC'
   @db.query_for_resultset(sql).to_json
+end
+
+get '/card/:id/comments' do
+  sql = 'SELECT co.id, co.card_id, co.description, co.createdon
+          FROM haveyoursay.comment_vw co
+          WHERE co.card_id = ?
+          ORDER BY co.createdon DESC'
+  @db.query_for_resultset(sql, [params[:id]]).to_json
 end
 
 get '/slt' do

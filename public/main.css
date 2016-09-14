@@ -137,6 +137,22 @@ header div.thisweek {
 /*****************************************************************************/
 /** searchresult **/
 
+.searchresult {
+  width: 400px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: absolute;
+  background-color: white;
+  top: 6.5em;
+  z-index: 1;
+  display: none;
+}
+
+.showsearch .searchresult {
+  display: block;
+}
+
+
 .searchresult .title {
   margin: 0;
   padding-top: 9px;
@@ -149,14 +165,16 @@ header div.thisweek {
   color: white;
 }
 
-.searchresult {
-  width: 500px;
-  left: -250px;
-  border: 1px solid #CCC;
-  box-shadow: 3px 2px 5px #888888;
-  position: relative;
-  background-color: white;
+.searchresult .cross {
+  position: absolute;
+  right: 0.7em;
+  top: 1em;
+  font-size: 1em;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
 }
+
 
 .searchresult ul {
   margin-left: 1em;
@@ -313,6 +331,146 @@ header div.thisweek {
 }
 
 
+
+/** popup card **/
+.card2 {
+  width: 500px;
+  left: -250px;
+  border: 1px solid #CCC;
+  box-shadow: 3px 2px 5px #888888;
+  position: relative;
+  background-color: white;
+}
+
+.card2 .section {
+  margin: 12px;
+}
+
+.card2 .section label {
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.card2 .section .input {
+  min-height: 3em;
+}
+
+.card2 .title {
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card2 .section textarea {
+  display: none;
+  width: 100%;
+  min-height: 5em;
+}
+
+.card2 .action,
+.schedule .action,
+.login .action {
+  text-align: right;
+  margin: 0;
+  padding-right: 12px;
+}
+
+.card2 .action a {
+  display: none;
+}
+
+
+/* Card Comments */
+.card2 .comments {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.card2 .comments .comment .createdon {
+  text-align: right;
+  color: #AAA;
+  font-size: smaller;
+}
+.card2 .comments .comment .input {
+  border-top: 1px solid #EEE;
+  font-size: smaller;
+  color: #AAA;
+}
+
+.card2 .comments {
+  position: relative;
+}
+.editnewcard .comments a,
+.newcard .comments a {
+  display: none;
+}
+
+.card2 .comments .addcomment {
+  display: none;
+  margin-bottom: 1em;
+}
+
+.newcomment .comments .addcomment,
+.newcomment .comments textarea {
+  display: inherit;
+}
+
+.newcomment .action .updatecomment,
+.newcomment .action .cancelcomment {
+  display: inline-block;
+}
+
+.newcomment .action .edit {
+  display: none;
+}
+
+.newcomment a.new,
+.newcomment .action a.close {
+  display: none;
+}
+
+.popup .cross {
+  position: absolute;
+  right: 0.7em;
+  top: 1em;
+  font-size: 1em;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.displaycard .action .close,
+.displaycard .action .newcomment {
+  display: inline-block;
+}
+
+.admin .displaycard .action .edit {
+  display: inline-block;
+}
+
+.card2 .comments a {
+  font-size: smaller;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card2 .comments a.new {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card2 .comments a.add {
+  position: absolute;
+  right: 0;
+}
+
+
 .editcard .lookingintoit textarea,
 .editcard .whatwedid textarea,
 .editcard .action .update,
@@ -348,6 +506,9 @@ header div.thisweek {
 .editnewcard .why div.input  {
   display: none;
 }
+
+
+
 
 /*****************************************************************************/
 /** popup colors **/

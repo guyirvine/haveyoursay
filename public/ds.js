@@ -73,6 +73,18 @@ ds.get_slt = function (callback) {
     });
 };
 
+ds.get_card = function (id, callback) {
+    $.getJSON('card/' + id, function (card) {
+        $.getJSON('card/' + id + '/comments', function (comments) {
+            card.comments = comments;
+            callback(card);
+        });
+    })
+        .error(function () {
+            callback(ds.cards);
+        });
+};
+
 ds.get_cards = function (callback) {
     $.getJSON('card', function (cards) {
         $.getJSON('comment', function (_comments) {
