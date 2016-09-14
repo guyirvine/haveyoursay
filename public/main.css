@@ -96,6 +96,7 @@ header .profile .image {
 header .profile img {
   height: 64px;
   margin-left: 0.5em;
+  border-radius: 25px;
 }
 
 header div {
