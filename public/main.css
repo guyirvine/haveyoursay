@@ -1,3 +1,7 @@
+body {
+  font-family: 'Source Sans Pro';
+}
+
 .templates { display: none; }
 .hide { display: none; }
 
@@ -11,82 +15,101 @@
   animation: highlight 1.5s;
 }
 
+svg,
+img.svg {
+  width: 1.563em;
+  vertical-align: middle;
+  margin-right: 0.3em;
+}
+
 
 /*****************************************************************************/
 /** navbar **/
 
-nav.navbar {
+.navbar {
   background-color: rgb(52, 151, 214);
   position: fixed;
   top: 0;
   width: 100%;
   text-align: right;
-  line-height: 2em;
+  line-height: 2.5em;
   z-index: 1;
 }
 
-nav.navbar a {
+.navbar nav {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.navbar a {
   text-transform: uppercase;
   text-decoration: none;
   color: white;
-  font-size: 0.7em;
-  margin-right: 2em;
-  padding-bottom: 10px;
+  margin-left: 2.5em;
+  margin-right: 0;
+  padding-bottom: 12px;
 }
 
-.showlogin nav.navbar a.login {
-  line-height: 2em;
-  border-bottom: 5px solid #CCC;
-}
-.showschedule nav.navbar a.profiles {
-  line-height: 2em;
-  border-bottom: 5px solid #CCC;
-}
-.showboard nav.navbar a.board {
+.showlogin .navbar a.login {
   line-height: 2em;
   border-bottom: 5px solid #CCC;
 }
 
-nav.navbar a.login,
-.admin nav.navbar a.logout {
+.showschedule .navbar a.profiles {
+  line-height: 2em;
+  border-bottom: 5px solid #CCC;
+}
+
+.showboard .navbar a.board {
+  line-height: 2em;
+  border-bottom: 5px solid #CCC;
+}
+
+.navbar a.login,
+.admin .navbar a.logout {
   display: inline;
 }
 
-.admin nav.navbar a.login,
-nav.navbar a.logout {
+.admin .navbar a.login,
+.navbar a.logout {
   display: none;
 }
+
 /*****************************************************************************/
 /** header **/
 header {
-  margin-top: 2.2em;
+  margin-top: 2.5em;
   margin-bottom: 3em;
 }
 
 header img {
-  height: 100px;
+  width: 100px;
+}
+
+header img.logo {
+  width: 8em;
+  color: #0397D6;
 }
 
 header input.search {
-  font-size: 0.8em;
   height: 2em;
-  background-color: rgb(237,244,247);
   float: right;
   width: 400px;
 }
 
 header .profile {
-  font-size: 0.8em;
   margin-top: 1em;
   margin-bottom: 0;
   width: 100%;
+  font-size: 1em;
 }
 
 header .profile td {
   padding: 0;
   border: none;
   text-align: right;
-  font-size: 0.8em;
 }
 
 header .profile .image {
@@ -94,7 +117,8 @@ header .profile .image {
 }
 
 header .profile img {
-  height: 64px;
+  height: 4em;
+  width: 4em;
   margin-left: 0.5em;
   border-radius: 50%;
 }
@@ -122,18 +146,140 @@ header div.thisweek {
   left: 50%;
 }
 
+.popup .cross {
+  position: absolute;
+  right: 0.7em;
+  top: 0.7em;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  vertical-align: middle;
+  width: 1.25em;
+}
+
 .popup .action {
-  margin-bottom: 0;
+  text-align: center;
+  margin-bottom: 1em;
 }
 
-.popup .action a {
-  margin-top: 12px;
+.popup .action .button {
+  width: 15.909em;
+  box-sizing: initial;
+  background-color: rgb(52, 151, 214);
+  color: white;
+  font-size: 1em;
+  height: 2em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
 }
 
-.popup .action a {
-  background-color: #CCC;
-  color: black;
+.popup .button svg,
+.popup .button .svg {
+  vertical-align: middle;
 }
+
+.popup .button svg path {
+  fill: white;
+}
+
+.popup .section {
+  padding-left: 3.125em;
+  padding-right: 3.125em;
+  margin-top: 1em;
+  width: 23em;
+}
+
+.schedule .action,
+.login .action {
+  margin: 0;
+  padding-right: 12px;
+}
+/*
+.card .action a {
+  display: none;
+}
+*/
+
+/*****************************************************************************/
+/** commentcard **/
+.newcard .question textarea,
+.newcard .why textarea {
+  width: 100%;
+}
+
+
+/*****************************************************************************/
+/** commentcard **/
+.popup .commentcard {
+  color: #999;
+  min-height: 30em;
+}
+
+.popup .commentcard .title {
+  position: relative;
+}
+
+.popup .commentcard .datecreated,
+.popup .commentcard .datecreated label,
+.popup .commentcard .datecreated span {
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.popup .commentcard .datecreated {
+  position: absolute;
+  right: 1em;
+  font-size: 0.9em;
+}
+
+.popup .commentcard .titlebar {
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
+
+.popup .commentcard .titlebar div {
+  margin-left: 3.125em;
+}
+
+.popup .commentcard textarea {
+  width: 100%;
+}
+
+.popup .commentcard .comments {
+  position: absolute;
+  right: 0em;
+  top: 2.6em;
+  bottom: 0;
+  width: 14em;
+  background-color: rgb(237,244,247);
+  max-height: none;
+}
+
+.popup .commentcard .comments .section {
+  padding-left: 1.875em;
+  padding-right: 1.875em;
+  width: 10em;
+}
+
+.popup .commentcard .comments .section button {
+  width: 100%;
+}
+
+.popup .commentcard .comments .section textarea {
+  font-size: 0.9em;
+}
+
+.popup .commentcard .button {
+  background-color: #0397D6;
+  color: white;
+}
+
+.popup .commentcard .section .previouscomment {
+  border-top: 1px solid #AAA;
+  font-size: 0.9em;
+}
+
 
 /*****************************************************************************/
 /** searchresult **/
@@ -158,7 +304,6 @@ header div.thisweek {
   margin: 0;
   padding-top: 9px;
   padding-bottom: 9px;
-  font-size: 1.5em;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -170,7 +315,6 @@ header div.thisweek {
   position: absolute;
   right: 0.7em;
   top: 1em;
-  font-size: 1em;
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -195,56 +339,31 @@ header div.thisweek {
 /*****************************************************************************/
 /** popup card **/
 .card {
-  width: 500px;
-  left: -250px;
+  width: 800px;
+  left: -400px;
   border: 1px solid #CCC;
   box-shadow: 3px 2px 5px #888888;
   position: relative;
   background-color: white;
 }
 
-.card .section {
-  margin: 12px;
-}
-
 .card .section label {
   font-size: 1em;
-  text-transform: uppercase;
-  font-weight: bold;
+  color: #999;
 }
 
 .card .section .input {
   min-height: 3em;
 }
 
-.card .title {
-  margin: 0;
+.card .titlebar {
   padding-top: 9px;
   padding-bottom: 9px;
-  font-size: 1.5em;
   text-transform: uppercase;
-  font-weight: bold;
-  text-align: center;
+  background-color: rgb(52, 151, 214);
+  color: white;
+  margin-top: 0;
 }
-
-.card .section textarea {
-  display: none;
-  width: 100%;
-  min-height: 5em;
-}
-
-.card .action,
-.schedule .action,
-.login .action {
-  text-align: right;
-  margin: 0;
-  padding-right: 12px;
-}
-
-.card .action a {
-  display: none;
-}
-
 
 /* Card Comments */
 .card .comments {
@@ -255,11 +374,9 @@ header div.thisweek {
 .card .comments .comment .createdon {
   text-align: right;
   color: #AAA;
-  font-size: smaller;
 }
 .card .comments .comment .input {
   border-top: 1px solid #EEE;
-  font-size: smaller;
   color: #AAA;
 }
 
@@ -295,16 +412,6 @@ header div.thisweek {
   display: none;
 }
 
-.popup .cross {
-  position: absolute;
-  right: 0.7em;
-  top: 1em;
-  font-size: 1em;
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 .displaycard .action .close,
 .displaycard .action .newcomment {
   display: inline-block;
@@ -315,7 +422,6 @@ header div.thisweek {
 }
 
 .card .comments a {
-  font-size: smaller;
   font-weight: bold;
   text-decoration: none;
 }
@@ -348,7 +454,6 @@ header div.thisweek {
 }
 
 .card2 .section label {
-  font-size: 1em;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -361,7 +466,6 @@ header div.thisweek {
   margin: 0;
   padding-top: 9px;
   padding-bottom: 9px;
-  font-size: 1.5em;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -371,18 +475,6 @@ header div.thisweek {
   display: none;
   width: 100%;
   min-height: 5em;
-}
-
-.card2 .action,
-.schedule .action,
-.login .action {
-  text-align: right;
-  margin: 0;
-  padding-right: 12px;
-}
-
-.card2 .action a {
-  display: none;
 }
 
 
@@ -395,11 +487,9 @@ header div.thisweek {
 .card2 .comments .comment .createdon {
   text-align: right;
   color: #AAA;
-  font-size: smaller;
 }
 .card2 .comments .comment .input {
   border-top: 1px solid #EEE;
-  font-size: smaller;
   color: #AAA;
 }
 
@@ -435,16 +525,6 @@ header div.thisweek {
   display: none;
 }
 
-.popup .cross {
-  position: absolute;
-  right: 0.7em;
-  top: 1em;
-  font-size: 1em;
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 .displaycard .action .close,
 .displaycard .action .newcomment {
   display: inline-block;
@@ -459,7 +539,6 @@ header div.thisweek {
 }
 
 .card2 .comments a {
-  font-size: smaller;
   font-weight: bold;
   text-decoration: none;
 }
@@ -565,7 +644,6 @@ header div.thisweek {
   margin: 0;
   padding-top: 9px;
   padding-bottom: 9px;
-  font-size: 1.5em;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -592,7 +670,6 @@ header div.thisweek {
 }
 
 .schedule ul li .date-range {
-  font-size: smaller;
   color: #AAA;
 }
 
@@ -612,7 +689,6 @@ header div.thisweek {
   margin: 0;
   padding-top: 9px;
   padding-bottom: 9px;
-  font-size: 1.5em;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -620,15 +696,179 @@ header div.thisweek {
   color: white;
 }
 
-.popup .login .action {
-  background-color: rgb(52, 151, 214);
-}
-
 .popup .login .details {
-  margin-left: 150px;
+  margin-left: 190px;
   margin-top: 1em;
+  text-align: left;
 }
 
 .popup .login .note {
+}
+
+.popup .login .button {
+  padding: 0;
+  margin-bottom: 2em;
+}
+
+.popup .login input,
+.popup .login .button {
+  width: 12em;
+}
+
+
+
+
+
+.createcard {
+  height: 4.5em;
+  line-height: 4.5em;
+  border-radius: 3px;
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.33);
+  background-color: #0397D6;
+
+  vertical-align: middle;
+  position: relative;
+  text-transform: uppercase;
+  text-align:center;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+}
+
+.createcard .svg {
+  width: 1em;
+}
+
+.createcard a {
+  color: white;
+  text-decoration: none;
+  vertical-align: middle;;
+}
+.createcard a:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.boardcard2 {
+  color: rgb(162,205,232);
+  background-color: rgb(237,244,247);
+  margin-bottom: 0.5em;
+  position: relative;
+  height: 5em;
+}
+
+img.thumbs-up {
+  width: 1.8em;
+  cursor: pointer;
+}
+
+.boardcard2 .like {
+  position: absolute;
+  right: 0.375em;
+  top: 0.5em;
+  line-height: normal;
   text-align: center;
+  cursor: pointer;
+  width: 2em;
+}
+
+.boardcard2 .like img.thumbs-up-clear,
+.boardcard2 .like img.thumbs-up-filled {
+  height: 2.3em;
+}
+
+.boardcard2 .like img.thumbs-up-filled {
+  display: none;
+}
+
+.boardcard2 .unlike img.thumbs-up-filled {
+  display: inline-block;
+}
+.boardcard2 .unlike img.thumbs-up-clear {
+  display: none;
+}
+
+.boardcard2 .like .note {
+}
+
+.boardcard2 .like .count {
+  color: #CCC;
+  font-size: 1.4em;
+}
+
+.boardcard2 .bottom-ribbon {
+  position: absolute;
+  left: 12px;
+  bottom: 5px;
+}
+
+.boardcard2 .bottom-ribbon .sltname,
+.boardcard2 .bottom-ribbon .datecreated {
+  display: inline-block;
+}
+
+.boardcard2 .bottom-ribbon .datecreated {
+  margin-left: 1em;
+}
+
+.boardcard2 .question_summary {
+  position: absolute;
+  top: 7px;
+  left: 12px;
+  right: 20px;
+  cursor: pointer;
+  color: #1EAEDB;
+  height: 3em;
+  overflow-y: hidden;
+}
+
+
+
+
+
+input.searchcriteria::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #0397d6;
+  }
+input.searchcriteria::-moz-placeholder { /* Firefox 19+ */
+  color: #0397d6;
+  }
+input.searchcriteria:-ms-input-placeholder { /* IE 10+ */
+  color: #0397d6;
+  }
+input.searchcriteria:-moz-placeholder { /* Firefox 18- */
+  color: #0397d6;
+  }
+
+.title {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 0.5em;
+}
+
+.title svg,
+.title .svg {
+  width: 2.5em;
+  margin-right: 0.375em;
+  vertical-align: middle;
+}
+
+.board2 .createcard .question {
+  width: 1em;
+  color: white;
+  vertical-align: middle;
+}
+
+.boardcard2 .bottom-ribbon {
+  font-size: 0.8em;
+}
+
+.showpopup .navbar,
+.showpopup .container header,
+.showpopup .container .content
+{
+  opacity: 0.4;
 }

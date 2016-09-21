@@ -15,13 +15,14 @@ app.done = [];
 
 var vue_card;
 
+var guy_card;
 app.card_view = function (id) {
     var html_card, popup, card; //, comments, comment;
 
-    html_card = $('.templates .card2').clone();
+    html_card = $('.templates .commentcard').clone();
     card = app.card_idx[id];
-
-    html_card.addClass(card.color);
+    guy_card = card;
+    console.log('app.card_view.1 ', card);
 
     popup = $('.container .popup');
 
@@ -31,27 +32,32 @@ app.card_view = function (id) {
     popup.find('.question textarea').focus();
 
     vue_card = new Vue({
-        el: '.container .popup .card2',
-        data: card,
+        el: '.container .popup .commentcard',
+        data: { 'card': card, 'admin': $('body').hasClass('admin') },
         filters: {
+            datestamp: function (date) {
+                return moment(date).format('D MMMM YYYY');
+            },
             timestamp: function (date) {
                 return moment(date).format('D MMM YYYY, h:mm:ss a');
             }
         }
 
     });
+
+    $('body').addClass('showpopup');
 };
 
 app.new_cards = {};
-app.new_card = function () {
+app.show_newcard = function () {
     var card, popup, color;
 
-    card = $('.templates .card').clone();
+    card = $('.templates .newcard').clone();
 
-    color = 'blue';
-    card.addClass(color);
-    card.removeClass('displaycard');
-    card.addClass('newcard');
+    $('body').addClass('showpopup');
+
+//    color = 'blue';
+//    card.addClass(color);
 
     card.find('.action a.cancel').on('click', function () {
         window.location.hash = 'board';
@@ -127,11 +133,11 @@ app.initialise_card = function (card) {
         if (app.likes[card.id] === undefined) {
             card.likes += 1;
             app.likes[card.id] = 1;
-            $('#card-' + card.id + ' .like .note').text('unlike');
+            $('#card-' + card.id + ' .like').addClass('unlike');
         } else {
             card.likes -= 1;
             delete app.likes[card.id];
-            $('#card-' + card.id + ' .like .note').text('like');
+            $('#card-' + card.id + ' .like').removeClass('unlike');
         }
         ds.update_card_likes(card.id, card.likes);
         return false;
@@ -154,6 +160,7 @@ app.initialise_card = function (card) {
                                 card.lookingintoit,
                                 card.whatwedid);
 
+        window.location.hash = 'board';
         return false;
     };
 
@@ -182,17 +189,14 @@ app.initialise_card = function (card) {
     };
 
     card.update_comment = function () {
-        if ($('.popup .card2 .comments textarea').val().trim() === '') {
-            $('.popup .card2').addClass('displaycard');
-            $('.popup .card2').removeClass('newcomment');
+        if ($('.popup .commentcard textarea').val().trim() === '') {
+            $('.popup .commentcard textarea').removeClass('highlight');
+            $('.popup .commentcard textarea').addClass('highlight');
             return false;
         }
 
-        ds.add_comment(card.id, $('.comments .addcomment textarea').val());
-        card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': $('.comments .addcomment textarea').val() });
-
-        $('.popup .card2').addClass('displaycard');
-        $('.popup .card2').removeClass('newcomment');
+        ds.add_comment(card.id, $('.popup .commentcard textarea').val());
+        card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': $('.popup .commentcard textarea').val() });
 
         return false;
     };
@@ -321,38 +325,6 @@ app.login_view = function () {
     login.find('.password').focus();
 };
 
-app.show_view = function (hash) {
-    var routes, hashParts, viewFn;
-
-    $('body').removeClass('showboard');
-    $('body').removeClass('showschedule');
-    $('body').removeClass('showlogin');
-    $('body').removeClass('showsearch');
-
-    if (hash === "") {
-        window.location.hash = "#board";
-        return;
-    }
-
-    routes = {
-        '#search': app.search_view,
-        '#card': app.card_view,
-        '#newcard': app.new_card,
-        '#board': app.board_view,
-        '#schedule': app.schedule_view,
-        '#login': app.login_view
-    };
-
-    hashParts = hash.split('-');
-    hashParts[1] = hashParts.slice(1).join('-');
-    viewFn = routes[hashParts[0]];
-    console.log("viewFn: ", hashParts[0], hashParts[1]);
-    if (viewFn) {
-        $('.popup').addClass('hide');
-        $('.view-container').empty().append(viewFn(hashParts[1]));
-    }
-};
-
 app.set_current_slt = function () {
     app.slt_member = _.find(app.slt, function (el) {
         return moment().isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
@@ -368,6 +340,40 @@ app.set_current_slt = function () {
     $('.profile img')[0].src = app.slt_member.img_src;
 };
 
+
+app.show_view = function (hash) {
+    var routes, hashParts, viewFn;
+
+    $('body').removeClass('showpopup');
+    $('body').removeClass('showboard');
+    $('body').removeClass('showschedule');
+    $('body').removeClass('showlogin');
+    $('body').removeClass('showsearch');
+
+    if (hash === "") {
+        window.location.hash = "#board";
+        return;
+    }
+
+    routes = {
+        '#search': app.search_view,
+        '#card': app.card_view,
+        '#newcard': app.show_newcard,
+        '#board': app.board_view,
+        '#schedule': app.schedule_view,
+        '#login': app.login_view
+    };
+
+    hashParts = hash.split('-');
+    hashParts[1] = hashParts.slice(1).join('-');
+    viewFn = routes[hashParts[0]];
+    console.log("viewFn: ", hashParts[0], hashParts[1]);
+    if (viewFn) {
+        $('.popup').addClass('hide');
+        $('.view-container').empty().append(viewFn(hashParts[1]));
+    }
+};
+
 app.apponready = function () {
 
     ds.get_slt(function (list) {
@@ -377,6 +383,8 @@ app.apponready = function () {
         ds.get_cards(function (list) {
             app.cards = list;
             app.load_board();
+
+//            window.location.hash = 'card-1';
         });
     });
 
