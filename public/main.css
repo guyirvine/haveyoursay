@@ -218,7 +218,11 @@ header div.thisweek {
 }
 
 .popup .popup-content {
-  height: 30em;
+  height: 32em;
+}
+
+.popup .popup-content .update {
+  text-align: right;
 }
 
 .popup .commentcard .title {
