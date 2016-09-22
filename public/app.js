@@ -259,28 +259,28 @@ app.search_view = function () {
 };
 
 app.schedule_view = function () {
-    var schedule, _li, ul;
+    var schedule, _tr, table;
 
     $('body').addClass('showschedule');
 
     schedule = $('.templates .schedule').clone();
-    _li = schedule.find('li').remove();
+    _tr = schedule.find('tr').remove();
 
-    ul = schedule.find('ul');
+    table = schedule.find('table');
     _.each(app.slt, function (el) {
-        var li, start, end, date_range;
+        var tr, start, end, date_range;
 
         start = moment(el.startdate);
         end = moment(el.enddate);
 
-        li = _li.clone();
-        li.find('.name').text(el.name);
-        li.find('img')[0].src = el.img_src;
-        li.find('.blurb').text(el.blurb);
+        tr = _tr.clone();
+        tr.find('.name').text(el.name);
+        tr.find('img')[0].src = el.img_src;
+        tr.find('.blurb').text(el.blurb);
         date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
-        li.find('.date-range').text(date_range);
+        tr.find('.date-range').text(date_range);
 
-        ul.append(li);
+        table.append(tr);
     });
 
     $('.popup').empty();

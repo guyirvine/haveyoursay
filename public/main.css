@@ -628,8 +628,8 @@ header div.thisweek {
 /** popup schedule **/
 
 .schedule {
-  width: 600px;
-  left: -300px;
+  width: 800px;
+  left: -400px;
   border: 1px solid #CCC;
   box-shadow: 3px 2px 5px #888888;
   position: relative;
@@ -651,21 +651,30 @@ header div.thisweek {
   background-color: rgb(52, 151, 214);
 }
 
-.schedule ul {
+.schedule div.popup-content {
   margin: 1em;
+  height: 30em;
+  overflow-y: scroll;
 }
 
-.schedule ul li {
+.schedule table tr {
   display: inline-block;
   margin: 1em;
   text-align:center;
 }
 
-.schedule ul li img {
+.schedule table tr img {
   height: 128px;
+  border-radius: 50%;
+  border: 2px solid rgb(52, 151, 214);
 }
 
-.schedule ul li .date-range {
+.schedule table tr .name {
+  color: rgb(52, 151, 214);
+}
+
+
+.schedule table tr .date-range {
   color: #AAA;
 }
 
