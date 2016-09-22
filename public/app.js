@@ -383,8 +383,6 @@ app.apponready = function () {
         ds.get_cards(function (list) {
             app.cards = list;
             app.load_board();
-
-            window.location.hash = 'card-1';
         });
     });
 

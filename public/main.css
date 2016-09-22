@@ -112,6 +112,10 @@ header .profile td {
   text-align: right;
 }
 
+header .profile .note {
+  line-height: normal;
+}
+
 header .profile .image {
   width: 1px;
 }
@@ -618,22 +622,6 @@ header div.thisweek {
 }
 .blue .section label {
   color: rgb(52, 151, 214);
-}
-
-.green .title,
-.green .action,
-.board .green .colorbar
- {
-  background-color: #89B18C;
-  color: white;
-}
-.thisweek .green .name,
-.schedule ul .green .name {
-  color: #89B18C;
-}
-
-.green .section label {
-  color: #89B18C;
 }
 
 /*****************************************************************************/
