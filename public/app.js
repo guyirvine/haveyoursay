@@ -50,14 +50,11 @@ app.card_view = function (id) {
 
 app.new_cards = {};
 app.show_newcard = function () {
-    var card, popup, color;
+    var card, popup;
 
     card = $('.templates .newcard').clone();
 
     $('body').addClass('showpopup');
-
-//    color = 'blue';
-//    card.addClass(color);
 
     card.find('.action a.cancel').on('click', function () {
         window.location.hash = 'board';
@@ -277,7 +274,6 @@ app.schedule_view = function () {
         end = moment(el.enddate);
 
         li = _li.clone();
-        li.addClass(el.color);
         li.find('.name').text(el.name);
         li.find('img')[0].src = el.img_src;
         date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
@@ -334,8 +330,6 @@ app.set_current_slt = function () {
         app.slt_member = app.slt[0];
     }
 
-    $('.profile').addClass(app.slt_member.color);
-    $('.profile').addClass(app.slt_member.color);
     $('.profile .name').text(app.slt_member.name);
     $('.profile img')[0].src = app.slt_member.img_src;
 };
