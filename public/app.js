@@ -325,11 +325,7 @@ app.login_view = function () {
 app.set_current_slt = function () {
     var today_string = moment().format('YYYY-MM-DD HH:MM:SS');
     app.slt_member = _.find(app.slt, function (el) {
-//        console.log('app.set_current_slt.1, ', el.name, el.startdate, el.enddate, moment().isBetween(moment(el.startdate), moment(el.enddate), null, '[]'));
-//        console.log('app.set_current_slt.1.1, ', moment().format('d MMM YYYY'), moment(el.startdate).format('d MMM YYYY'), moment(el.enddate).format('d MMM YYYY'));
         return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
-        console.log('app.set_current_slt.1, ', el.name, today_string, el.startdate, el.enddate, today_string >= el.startdate && today_string <= el.enddate);
-//        return today_string >= el.startdate && today_string <= el.enddate;
     });
 
     if (app.slt_member === undefined) {
