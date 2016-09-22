@@ -276,6 +276,7 @@ app.schedule_view = function () {
         li = _li.clone();
         li.find('.name').text(el.name);
         li.find('img')[0].src = el.img_src;
+        li.find('.blurb').text(el.blurb);
         date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
         li.find('.date-range').text(date_range);
 
