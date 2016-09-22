@@ -3,7 +3,7 @@
 source ~/.env
 
 FILE_NAME=haveyoursay.sql
-COMPRESSED_FILE_NAME=haveyoursay.$(date +%Y%m%d).tar.bz2
+COMPRESSED_FILE_NAME=haveyoursay.$(date +%Y%m%d%H%M).tar.bz2
 WORKING_DIR=/data/ls/rapidprototyping/haveyoursay/backup
 
 mkdir -p $WORKING_DIR
