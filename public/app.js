@@ -384,7 +384,7 @@ app.apponready = function () {
             app.cards = list;
             app.load_board();
 
-//            window.location.hash = 'card-1';
+            window.location.hash = 'card-1';
         });
     });
 

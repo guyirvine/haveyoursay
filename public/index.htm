@@ -123,70 +123,76 @@
 
 
       <div class='card commentcard'>
-        <div class='section titlebar'>
+        <div class='section popup-titlebar'>
           <div>We're Looking into it</div>
+          <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
         </div>
-        <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
-        <div class='section title'>
-          <img class='svg' src="images/img__question_999.svg"></img>
-          Your Question
-          <div class='datecreated'>Created: {{ card.createdon | datestamp }}</div>
-        </div>
-        <div class='section question'>
-          <p class='what'>{{ card.question }}</p>
-          <p class='why'>{{ card.why }}</p>
-        </div>
+        <div class='popup-content'>
+          <div class='sections'>
+            <div class='section title'>
+              <img class='svg' src="images/img__question_999.svg"></img>
+              Your Question
+              <div class='datecreated'>Created: {{ card.createdon | datestamp }}</div>
+            </div>
+            <div class='section question'>
+              <p class='what'>{{ card.question }}</p>
+              <p class='why'>{{ card.why }}</p>
+            </div>
 
-        <template v-if="(card.lookingintoit !== '' || card.whatwedid !== '') && admin !== true">
-          <div class='section title'>
-            <img class='svg' src="images/img__looking_999.svg"></img>
-            We're looking into it
-          </div>
-          <div class='section lookingintoit'>
-            <p class='lookingintoit'>{{ card.lookingintoit }}</p>
-          </div>
-        </template>
-        <template v-if="card.whatwedid !== '' && admin !== true">
-          <div class='section title'>
-            <img class='svg' src="images/img__did_999.svg"></img>
-            What we did
-          </div>
-          <div class='section whatwedid'>
-            <p class='whatwedid'>{{ card.whatwedid }}</p>
-          </div>
-        </template>
+            <template v-if="(card.lookingintoit !== '' || card.whatwedid !== '') && admin !== true">
+              <div class='section title'>
+                <img class='svg' src="images/img__looking_999.svg"></img>
+                We're looking into it
+              </div>
+              <div class='section lookingintoit'>
+                <p class='lookingintoit'>{{ card.lookingintoit }}</p>
+              </div>
+            </template>
+            <template v-if="card.whatwedid !== '' && admin !== true">
+              <div class='section title'>
+                <img class='svg' src="images/img__did_999.svg"></img>
+                What we did
+              </div>
+              <div class='section whatwedid'>
+                <p class='whatwedid'>{{ card.whatwedid }}</p>
+              </div>
+            </template>
 
-        <template v-if="admin === true">
-          <div class='section title'>
-            <img class='svg' src="images/img__looking_999.svg"></img>
-            We're looking into it
+            <template v-if="admin === true">
+              <div class='section title'>
+                <img class='svg' src="images/img__looking_999.svg"></img>
+                We're looking into it
+              </div>
+              <div class='section lookingintoit'>
+                <textarea v-model='card.lookingintoit'></textarea>
+              </div>
+              <div class='section title'>
+                <img class='svg' src="images/img__did_999.svg"></img>
+                What we did
+              </div>
+              <div class='section whatwedid'>
+                <textarea v-model='card.whatwedid'></textarea>
+              </div>
+              <button class='button' v-on:click='card.update_card'>Update</button>
+            </template>
           </div>
-          <div class='section lookingintoit'>
-            <textarea v-model='card.lookingintoit'></textarea>
-          </div>
-          <div class='section title'>
-            <img class='svg' src="images/img__did_999.svg"></img>
-            What we did
-          </div>
-          <div class='section whatwedid'>
-            <textarea v-model='card.whatwedid'></textarea>
-          </div>
-          <button class='button' v-on:click='card.update_card'>Update</button>
-        </template>
 
-        <div class='comments'>
-          <div class='section title'>
-            feedback
+          <div class='comments'>
+            <div class='section title'>
+              feedback
+            </div>
+            <div class='section'>
+              <textarea placeholder='My Comment'></textarea>
+              <button href='post' class='postcomment button' v-on:click='card.update_comment'>
+                Post Comment
+              </button>
+            </div>
+            <div class='section' v-for='comment in card.comments'>
+              <div class='previouscomment'>{{ comment.description }}</div>
+            </div>
           </div>
-          <div class='section'>
-            <textarea placeholder='My Comment'></textarea>
-            <button href='post' class='postcomment button' v-on:click='card.update_comment'>
-              Post Comment
-            </button>
-          </div>
-          <div class='section' v-for='comment in card.comments'>
-            <div class='previouscomment'>{{ comment.description }}</div>
-          </div>
+
+          <br style="clear:both;"/>
         </div>
       </div>
 

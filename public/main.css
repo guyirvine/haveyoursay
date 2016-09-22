@@ -186,7 +186,6 @@ header div.thisweek {
   padding-left: 3.125em;
   padding-right: 3.125em;
   margin-top: 1em;
-  width: 23em;
 }
 
 .schedule .action,
@@ -212,11 +211,30 @@ header div.thisweek {
 /** commentcard **/
 .popup .commentcard {
   color: #999;
-  min-height: 30em;
+}
+
+.popup .popup-content {
+  height: 30em;
 }
 
 .popup .commentcard .title {
   position: relative;
+}
+
+.popup .commentcard .sections {
+  display: inline-block;
+  width: 60%;
+  vertical-align: top;
+}
+
+.popup .commentcard .comments {
+  display: inline-block;
+  width: 39%;
+  background-color: rgb(237,244,247);
+  max-height: none;
+  float: right;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .popup .commentcard .datecreated,
@@ -232,13 +250,13 @@ header div.thisweek {
   font-size: 0.9em;
 }
 
-.popup .commentcard .titlebar {
+.popup .commentcard .popup-titlebar {
   padding-left: 0;
   padding-right: 0;
   width: 100%;
 }
 
-.popup .commentcard .titlebar div {
+.popup .commentcard .popup-titlebar div {
   margin-left: 3.125em;
 }
 
@@ -246,20 +264,9 @@ header div.thisweek {
   width: 100%;
 }
 
-.popup .commentcard .comments {
-  position: absolute;
-  right: 0em;
-  top: 2.6em;
-  bottom: 0;
-  width: 14em;
-  background-color: rgb(237,244,247);
-  max-height: none;
-}
-
 .popup .commentcard .comments .section {
   padding-left: 1.875em;
   padding-right: 1.875em;
-  width: 10em;
 }
 
 .popup .commentcard .comments .section button {
@@ -356,7 +363,8 @@ header div.thisweek {
   min-height: 3em;
 }
 
-.card .titlebar {
+.card .titlebar,
+.card .popup-titlebar {
   padding-top: 9px;
   padding-bottom: 9px;
   text-transform: uppercase;
