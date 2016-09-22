@@ -10,6 +10,10 @@ after do
   @db.close
 end
 
+get '/' do
+  redirect '/index.htm'
+end
+
 get '/card' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
                 ca.whatwedid, ca.likes, ca.createdon, ca.slt_name
