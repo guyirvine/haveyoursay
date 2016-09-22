@@ -192,8 +192,8 @@ app.initialise_card = function (card) {
             return false;
         }
 
-        ds.add_comment(card.id, $('.popup .commentcard textarea').val());
-        card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': $('.popup .commentcard textarea').val() });
+        ds.add_comment(card.id, $('.popup .commentcard textarea.newcomment').val());
+        card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': $('.popup .commentcard textarea.newcomment').val() });
 
         return false;
     };
