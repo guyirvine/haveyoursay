@@ -38,14 +38,14 @@
       <header>
         <img class='logo' src='images/img__logo.svg'></img>
         <div class='thisweek'>
-          <table class='profile'>
+          <table class='profile' v-on:click='show_slt_member'>
             <tr>
               <td class='note'>
                   This week's have your say monitor<br>
-                  <span class='name'>Richard Spelman</span>
+                  <span class='name'>{{ slt_member.name }}</span>
               </td>
               <td class='image'>
-                <img src='images/smiley_4.png'></img>
+                <img v-bind:src="slt_member.img_src"></img>
               </td>
             </tr>
           </table>
@@ -91,14 +91,14 @@
         <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
         <div class='popup-content'>
           <table>
-            <tr>
-              <td class='image'>
-                <img class='profile'></img>
+            <tr v-for='slt in sltlist'>
+              <td class='image' id='slt-{{ slt.id }}'>
+                <img class='profile' v-bind:src="slt.img_src"></img>
               </td>
               <td class='text'>
-                <div class='name'></div>
-                <div class='blurb'></div>
-                <div class='date-range'></div>
+                <div class='name'>{{ slt.name }}</div>
+                <div class='blurb'>{{ slt.blurb }}</div>
+                <div class='date-range'>{{ slt | daterange }}</div>
               </td>
             </tr>
           </table>

@@ -42,7 +42,6 @@ app.card_view = function (id) {
                 return moment(date).format('D MMM YYYY, h:mm:ss a');
             }
         }
-
     });
 
     $('body').addClass('showpopup');
@@ -223,7 +222,14 @@ app.load_board = function () {
 
     app.vue_board = new Vue({
         el: '.container',
-        data: { 'cards': app.cards, 'searchcriteria': '' },
+        data: { 'cards': app.cards, 'searchcriteria': '', 'sltlist': app.slt },
+        computed: {
+            slt_member: function () {
+                return _.find(app.slt, function (el) {
+                    return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
+                });
+            }
+        },
         methods: {
             todoMethod: function (card) {
                 return (card.whatwedid === "" && card.lookingintoit === "");
@@ -237,6 +243,10 @@ app.load_board = function () {
             searchMethod: function (card) {
                 console.log('searchMethod.1 ', this.searchcriteria);
                 return (card.searchcriteria().indexOf(this.searchcriteria.toUpperCase()) > -1);
+            },
+            show_slt_member: function () {
+                console.log( 'show_slt_member.1 ');
+                window.location.hash = 'schedule-' + this.slt_member.id;
             }
         }
     });
@@ -260,34 +270,30 @@ app.search_view = function () {
     app.search();
 };
 
-app.schedule_view = function () {
-    var schedule, _tr, table;
+app.schedule_view = function (id) {
+//    var schedule, _tr, table;
 
     $('body').addClass('showschedule');
 
-    schedule = $('.templates .schedule').clone();
-    _tr = schedule.find('tr').remove();
-
-    table = schedule.find('table');
-    _.each(app.slt, function (el) {
-        var tr, start, end, date_range;
-
-        start = moment(el.startdate);
-        end = moment(el.enddate);
-
-        tr = _tr.clone();
-        tr.find('.name').text(el.name);
-        tr.find('img')[0].src = el.img_src;
-        tr.find('.blurb').text(el.blurb);
-        date_range = start.format('MMM Do') + ' - ' + end.format('MMM Do');
-        tr.find('.date-range').text(date_range);
-
-        table.append(tr);
-    });
+    var schedule = $('.templates .schedule').clone();
 
     $('.popup').empty();
     $('.popup').append(schedule);
     $('.popup').removeClass('hide');
+
+    vue_card = new Vue({
+        el: '.container .popup .schedule',
+        data: { 'sltlist': app.slt },
+        filters: {
+            daterange: function (slt) {
+                return moment(slt.startdate).format('MMM Do') + ' - ' + moment(slt.enddate).format('MMM Do');
+            }
+        }
+    });
+
+    if (id !== undefined) {
+        $("#slt-" + id)[0].scrollIntoView();
+    }
 };
 
 app.check_password = function (username, password, callback) {
@@ -325,7 +331,6 @@ app.login_view = function () {
 };
 
 app.set_current_slt = function () {
-    var today_string = moment().format('YYYY-MM-DD HH:MM:SS');
     app.slt_member = _.find(app.slt, function (el) {
         return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
     });
@@ -376,7 +381,7 @@ app.apponready = function () {
 
     ds.get_slt(function (list) {
         app.slt = list;
-        app.set_current_slt();
+//        app.set_current_slt();
 
         ds.get_cards(function (list) {
             app.cards = list;

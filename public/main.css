@@ -105,6 +105,7 @@ header .profile {
   margin-bottom: 0;
   width: 100%;
   font-size: 1em;
+  cursor: pointer;
 }
 
 header .profile td {
