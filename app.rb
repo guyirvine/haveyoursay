@@ -46,7 +46,7 @@ get '/card/:id/comments' do
 end
 
 get '/slt' do
-  sql = 'SELECT s.id, s.name, s.color, s.img_src, s.blurb,
+  sql = 'SELECT s.id, s.name, s.email_address, s.color, s.img_src, s.blurb,
                 s.startdate, s.enddate
           FROM haveyoursay.slt_vw s
           ORDER BY s.startdate'

@@ -250,6 +250,8 @@ app.load_board = function () {
             }
         }
     });
+
+    $('.navbar nav .contact').attr('href', 'mailto:' + app.vue_board.slt_member.email_address);
 };
 
 app.matchs = function (el, criteria) {

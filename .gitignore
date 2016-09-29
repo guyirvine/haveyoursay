@@ -1,3 +1,5 @@
 .vagrant
 .env
 
+sql/seed_slt_email.sql
+
