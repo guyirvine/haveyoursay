@@ -228,6 +228,9 @@ app.load_board = function () {
                 return _.find(app.slt, function (el) {
                     return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
                 });
+            },
+            sorted_cards: function () {
+                return _.sortBy(this.cards, 'createdon').reverse();
             }
         },
         methods: {
