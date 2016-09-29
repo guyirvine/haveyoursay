@@ -291,7 +291,7 @@ app.schedule_view = function (id) {
         }
     });
 
-    if (id !== undefined) {
+    if (id !== undefined && id !== "") {
         $("#slt-" + id)[0].scrollIntoView();
     }
 };
