@@ -102,10 +102,10 @@ app.board_view = function () {
     $('body').addClass('showboard');
 };
 
-app.likes = {};
-
 app.initialise_card = function (card) {
     app.card_idx[card.id] = card;
+    card.liked_in_session = false;
+
     card.question_summary = function () {
         var question_summary, idx;
         question_summary = card.question;
@@ -125,16 +125,18 @@ app.initialise_card = function (card) {
         window.location.hash = '#card-' + card.id;
     };
 
+    card.is_liked_in_session = function () {
+        return card.liked_in_session === true;
+    };
+
     card.likes = Number(card.likes);
     card.click_like = function () {
-        if (app.likes[card.id] === undefined) {
+        if (card.liked_in_session === false) {
             card.likes += 1;
-            app.likes[card.id] = 1;
-            $('#card-' + card.id + ' .like').addClass('unlike');
+            card.liked_in_session = true;
         } else {
             card.likes -= 1;
-            delete app.likes[card.id];
-            $('#card-' + card.id + ' .like').removeClass('unlike');
+            card.liked_in_session = false;
         }
         ds.update_card_likes(card.id, card.likes);
         return false;

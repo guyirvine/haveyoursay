@@ -190,6 +190,11 @@
             <div class='section title'>
               feedback
             </div>
+            <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='card.click_like(event);'>
+              <img class='thumbs-up-clear' src='images/img__like.svg'></img>
+              <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
+              <div class='count'>{{card.likes}}</div>
+            </div>
             <div class='section'>
               <textarea class='newcomment' placeholder='My Comment'></textarea>
               <button href='post' class='postcomment button' v-on:click='card.update_comment'>
@@ -330,7 +335,7 @@
 
       <div class='boardcard2' id='card-{{card.id}}'>
         <div class='section question_summary' v-on:click='card.view_card();'>{{card.question_summary()}}</div>
-        <div class='like' v-on:click='card.click_like(event);'>
+        <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='card.click_like(event);'>
           <img class='thumbs-up-clear' src='images/img__like.svg'></img>
           <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
           <div class='count'>{{card.likes}}</div>

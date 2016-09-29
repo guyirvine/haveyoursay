@@ -785,6 +785,7 @@ img.thumbs-up {
   width: 2em;
 }
 
+
 .boardcard2 .like img.thumbs-up-clear,
 .boardcard2 .like img.thumbs-up-filled {
   height: 2.3em;
@@ -808,6 +809,43 @@ img.thumbs-up {
   color: #CCC;
   font-size: 1.4em;
 }
+
+
+
+.commentcard .like {
+  position: absolute;
+  right: 1.875em;
+  top: 0.5em;
+  line-height: normal;
+  text-align: center;
+  cursor: pointer;
+}
+
+.commentcard .like img.thumbs-up-clear,
+.commentcard .like img.thumbs-up-filled {
+  height: 2.3em;
+  vertical-align: middle;
+}
+
+.commentcard .like img.thumbs-up-filled {
+  display: none;
+}
+
+.commentcard .unlike img.thumbs-up-filled {
+  display: inline-block;
+}
+.commentcard .unlike img.thumbs-up-clear {
+  display: none;
+}
+
+.commentcard .like .count {
+  color: #CCC;
+  font-size: 1.4em;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.3em;
+}
+
 
 .boardcard2 .bottom-ribbon {
   position: absolute;
