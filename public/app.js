@@ -70,7 +70,7 @@ app.show_newcard = function () {
 
         ds.create_card(card.find('.question textarea').val(),
                        card.find('.why textarea').val(),
-                       app.slt_member.id,
+                       app.vue_board.slt_member.id,
                        function (new_id) {
                 app.new_cards['card-' + new_id] = 1;
                 ds.get_card(new_id, function (card) {
@@ -245,7 +245,6 @@ app.load_board = function () {
                 return (card.searchcriteria().indexOf(this.searchcriteria.toUpperCase()) > -1);
             },
             show_slt_member: function () {
-                console.log( 'show_slt_member.1 ');
                 window.location.hash = 'schedule-' + this.slt_member.id;
             }
         }
@@ -331,20 +330,6 @@ app.login_view = function () {
     $('.popup').removeClass('hide');
     login.find('.password').focus();
 };
-
-app.set_current_slt = function () {
-    app.slt_member = _.find(app.slt, function (el) {
-        return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
-    });
-
-    if (app.slt_member === undefined) {
-        app.slt_member = app.slt[0];
-    }
-
-    $('.profile .name').text(app.slt_member.name);
-    $('.profile img')[0].src = app.slt_member.img_src;
-};
-
 
 app.show_view = function (hash) {
     var routes, hashParts, viewFn;
