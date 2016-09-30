@@ -122,8 +122,12 @@ app.initialise_card = function (card) {
     };
 
     card.newness_blurb = function () {
-        if (card.newness() === 'newest-card' ) {
-            var hours = moment().diff(moment(card.createdon), 'hours');
+        var days, hours;
+        if (card.newness() === 'newest-card') {
+            hours = moment().diff(moment(card.createdon), 'hours');
+            if (hours === 0) {
+                return 'Just now. ';
+            }
             if (hours === 1) {
                 return '1 hour ago. ';
             }
@@ -131,11 +135,11 @@ app.initialise_card = function (card) {
         }
 
         if (card.newness() === 'new-card' || card.newness() === 'newish-card') {
-            var days = moment().diff(moment(card.createdon), 'days');
+            days = moment().diff(moment(card.createdon), 'days');
             if (days === 1) {
-                return  + '1 day ago ';
+                return '1 day ago. ';
             }
-            return days + ' days ago ';
+            return days + ' days ago. ';
         }
 
         return '';
