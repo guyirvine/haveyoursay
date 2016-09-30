@@ -125,17 +125,17 @@ app.initialise_card = function (card) {
         if (card.newness() === 'newest-card' ) {
             var hours = moment().diff(moment(card.createdon), 'hours');
             if (hours === 1) {
-                return '1 hour ago.';
+                return '1 hour ago. ';
             }
-            return hours + ' hours ago.';
+            return hours + ' hours ago. ';
         }
 
         if (card.newness() === 'new-card' || card.newness() === 'newish-card') {
             var days = moment().diff(moment(card.createdon), 'days');
             if (days === 1) {
-                return  + '1 day ago';
+                return  + '1 day ago ';
             }
-            return days + ' days ago';
+            return days + ' days ago ';
         }
 
         return '';

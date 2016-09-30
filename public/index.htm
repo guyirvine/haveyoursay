@@ -338,32 +338,8 @@
           <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
           <div class='count'>{{card.likes}}</div>
         </div>
-        <style>
-          .bottom-ribbon .time-icon {
-              background-color: #e1e1e1;
-              width: 1em;
-              height: 1em;
-              border-radius: 50%;
-              vertical-align: middle;
-          }
-
-          .newest-card .bottom-ribbon .time-icon {
-              background-color: #ff0000;
-          }
-
-          .new-card .bottom-ribbon .time-icon {
-              background-color: #ff9900;
-          }
-
-          .newish-card .bottom-ribbon .time-icon {
-              background-color: #ffff00;
-          }
-
-        </style>
         <div class='bottom-ribbon'>
-          <div class='time-icon'>&nbsp;</div>
-          <div class='time-blurb'>{{card.newness_blurb()}}</div>
-          <div class='sltname'>{{card.slt_name}}</div>
+          <div class='sltname'>{{card.newness_blurb()}}{{card.slt_name}}</div>
           <div class='datecreated'>{{card.datecreated}}</div>
         </div>
         <div class='hide section question'></div>
