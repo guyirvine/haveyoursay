@@ -105,6 +105,42 @@ app.initialise_card = function (card) {
     app.card_idx[card.id] = card;
     card.liked_in_session = false;
 
+    card.newness = function () {
+        var days = moment().diff(moment(card.createdon), 'days');
+
+        if (moment().diff(moment(card.createdon), 'hours') < 24) {
+            return 'newest-card';
+        }
+        if (days < 7) {
+            return 'new-card';
+        }
+        if (days < 14) {
+            return 'newish-card';
+        }
+
+        return '';
+    };
+
+    card.newness_blurb = function () {
+        if (card.newness() === 'newest-card' ) {
+            var hours = moment().diff(moment(card.createdon), 'hours');
+            if (hours === 1) {
+                return '1 hour ago.';
+            }
+            return hours + ' hours ago.';
+        }
+
+        if (card.newness() === 'new-card' || card.newness() === 'newish-card') {
+            var days = moment().diff(moment(card.createdon), 'days');
+            if (days === 1) {
+                return  + '1 day ago';
+            }
+            return days + ' days ago';
+        }
+
+        return '';
+    };
+
     card.question_summary = function () {
         var question_summary, idx;
         question_summary = card.question;

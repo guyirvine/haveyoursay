@@ -855,8 +855,11 @@ img.thumbs-up {
 }
 
 .boardcard2 .bottom-ribbon .sltname,
+.boardcard2 .bottom-ribbon .time-icon,
+.boardcard2 .bottom-ribbon .time-blurb,
 .boardcard2 .bottom-ribbon .datecreated {
   display: inline-block;
+  margin-right: 0.3em;
 }
 
 .boardcard2 .bottom-ribbon .datecreated {
