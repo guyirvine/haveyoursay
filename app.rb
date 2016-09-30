@@ -1,6 +1,8 @@
 require 'sinatra'
+require 'sinatra/cookies'
 require 'json'
 require 'fluiddb2'
+require 'uuidtools'
 
 before do
   @db = FluidDb2.db(ENV['DB'])
@@ -78,6 +80,24 @@ put '/card/:id' do
   @db.execute(sql, payload)
 end
 
+put '/card/response/:id' do
+  sql = 'SELECT count(*) FROM haveyoursay.opensessions_vw
+         WHERE session_key = ? AND ip_address = ?'
+  values = [request.cookies['session_key'], request.ip]
+  return 401 unless @db.query_for_value(sql, values).to_i > 0
+
+  sql = 'UPDATE haveyoursay.card_tbl
+         SET lookingintoit = ?,
+             whatwedid = ?
+         WHERE id = ?'
+
+  data = JSON.parse request.body.read
+  payload = [data['lookingintoit'],
+             data['whatwedid'],
+             params[:id]]
+  @db.execute(sql, payload)
+end
+
 put '/card/:id/likes' do
   sql = 'UPDATE haveyoursay.card_tbl
          SET likes = ?
@@ -100,4 +120,32 @@ post '/card' do
   @db.execute(sql, payload)
 
   @db.query_for_value("SELECT CURRVAL('haveyoursay.card_seq')")
+end
+
+post '/session' do
+  #  data = JSON.parse request.body.read
+
+  sql = 'SELECT pswhash = crypt(?, pswhash) FROM haveyoursay.password_tbl;'
+  return 401 unless @db.query_for_value(sql, [params['password']])
+
+  session_key = UUIDTools::UUID.random_create.to_s
+  sql = 'INSERT INTO haveyoursay.session_tbl(session_key, ip_address)
+         VALUES (?, ?);'
+  @db.execute(sql, [session_key, request.ip])
+
+  # response.set_cookie('session_key', value: session_key)
+  # cookies[:session_key] = session_key
+
+  puts Hash['session_key', session_key].to_json
+  Hash['session_key', session_key].to_json
+end
+
+post '/session/close' do
+  sql = 'UPDATE haveyoursay.session_tbl
+         SET open = false
+         WHERE session_key = ?
+         AND ip_address = ?
+         AND open = true'
+  values = [request.cookies['session_key'], request.ip]
+  @db.execute(sql, values)
 end

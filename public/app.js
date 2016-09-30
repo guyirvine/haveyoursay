@@ -151,10 +151,14 @@ app.initialise_card = function (card) {
     card.update_card = function () {
         $('.popup .card2').removeClass('editcard');
         $('.popup .card2').addClass('displaycard');
-
+/*
         ds.update_card_details(card.id,
                                 card.question,
                                 card.why,
+                                card.lookingintoit,
+                                card.whatwedid);
+                                */
+        ds.update_card_response(card.id,
                                 card.lookingintoit,
                                 card.whatwedid);
 
@@ -301,11 +305,16 @@ app.schedule_view = function (id) {
 };
 
 app.check_password = function (username, password, callback) {
-    if (username === 'admin' && password === 'p') {
+    console.log('app.check_password.1 ', username, password);
+    $.post('/session', { password: password }, function (data) {
+        console.log('app.check_password.1.1 ', data);
+        $.cookie("session_key", data.session_key);
         callback(true);
-    } else {
-        callback(false);
-    }
+    }, 'json')
+        .error(function (data) {
+            console.log('app.check_password.1.2 ', data);
+            callback(false);
+        });
 };
 
 app.login_view = function () {
@@ -391,6 +400,10 @@ app.apponready = function () {
 
     $('.logout').on('click', function () {
         console.log('logout.1');
+        $.cookie("session_key", null);
+        $.post('/session/close', {}, function (data) {
+            console.log('/session/close.1 ', data);
+        });
         $('body').removeClass('admin');
     });
 

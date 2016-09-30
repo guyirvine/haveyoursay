@@ -156,6 +156,24 @@ ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) 
     });
 };
 
+ds.update_card_response = function (id, lookingintoit, whatwedid) {
+    var payload = {
+            'lookingintoit': lookingintoit,
+            'whatwedid': whatwedid
+        };
+    $.ajax({
+        url: '/card/response/' + id,
+        type: 'PUT',
+        data: JSON.stringify(payload),
+        success: function (data) {
+            console.log('ds.update_card_details.1 ', payload, data);
+        },
+        error: function (err) {
+            console.log('ds.update_card_details.2 ', payload, err);
+        }
+    });
+};
+
 ds.add_comment = function (id, description) {
     var payload = {
             'description': description,
