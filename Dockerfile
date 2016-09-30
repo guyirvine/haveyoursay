@@ -2,9 +2,12 @@ FROM ubuntu:16.04
 
 MAINTAINER Guy Irvine <guy@guyirvine.com>
 
+RUN echo "Update packages" \
+  && export DEBIAN_FRONTEND=noninteractive \
+  && apt-get -y update
+
 RUN echo "Install packages" \
   && export DEBIAN_FRONTEND=noninteractive \
-  && apt-get -y update \
   && apt-get install -y \
       ruby \
       ruby-dev \
