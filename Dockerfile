@@ -6,12 +6,16 @@ RUN echo "Update packages" \
   && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y update
 
-RUN echo "Install packages" \
+RUN echo "Install packages 1" \
   && export DEBIAN_FRONTEND=noninteractive \
   && apt-get install -y \
       ruby \
       ruby-dev \
-      git-core \
+      git-core
+
+RUN echo "Install packages 2" \
+  && export DEBIAN_FRONTEND=noninteractive \
+  && apt-get install -y \
       build-essential \
       libpq-dev
 
