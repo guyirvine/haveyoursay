@@ -125,8 +125,10 @@ end
 post '/session' do
   #  data = JSON.parse request.body.read
 
-  sql = 'SELECT pswhash = crypt(?, pswhash) FROM haveyoursay.password_tbl;'
-  return 401 unless @db.query_for_value(sql, [params['password']])
+  sql = 'SELECT count(*)
+         FROM haveyoursay.password_tbl
+         WHERE pswhash = crypt(?, pswhash);'
+  return 401 unless @db.query_for_value(sql, [params['password']]).to_i > 0
 
   session_key = UUIDTools::UUID.random_create.to_s
   sql = 'INSERT INTO haveyoursay.session_tbl(session_key, ip_address)
