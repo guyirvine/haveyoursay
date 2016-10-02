@@ -159,7 +159,7 @@ header div.thisweek {
   color: white;
   cursor: pointer;
   text-decoration: none;
-  vertical-align: middle;
+  height: 1.25em;
   width: 1.25em;
   z-index: 1;
 }
