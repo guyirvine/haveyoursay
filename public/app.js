@@ -301,6 +301,13 @@ app.load_board = function () {
     $('.createcard').on('click', function () {
         window.location.hash = '#newcard';
     });
+
+    $('body').on('click', function (e) {
+//        console.log('Click', e.target, $(e.target).parents('.popup').length );
+        if ($('body').hasClass('showpopup') && $(e.target).parents('.popup').length === 0) {
+            window.location.hash = '#board';
+        }
+    });
 };
 
 app.matchs = function (el, criteria) {
@@ -324,6 +331,7 @@ app.search_view = function () {
 app.schedule_view = function (id) {
 //    var schedule, _tr, table;
 
+    $('body').addClass('showpopup');
     $('body').addClass('showschedule');
 
     var schedule = $('.templates .schedule').clone();
@@ -363,6 +371,7 @@ app.check_password = function (username, password, callback) {
 app.login_view = function () {
     var login;
 
+    $('body').addClass('showpopup');
     $('body').addClass('showlogin');
 
     login = $('.templates .login').clone();
