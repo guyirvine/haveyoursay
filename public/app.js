@@ -160,6 +160,20 @@ app.initialise_card = function (card) {
         return question_summary;
     };
 
+    card.mailto_url = function () {
+        var subject = encodeURI('Check out this HaveYourSay card');
+        var main_body = card.question_summary() + '\n\n';
+        var url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + card.id;
+        var body = encodeURI(main_body) + url + '\n\n' + 'HaveYourSay';
+
+        var string = 'mailto:?' +
+                      'subject=' + subject +
+                      '&' +
+                      'body=' + body;
+
+        return string;
+    };
+
     card.view_card = function () {
         window.location.hash = '#card-' + card.id;
     };
@@ -293,6 +307,9 @@ app.load_board = function () {
             },
             show_slt_member: function () {
                 window.location.hash = 'schedule-' + this.slt_member.id;
+            },
+            show_share_button: function() {
+                return true;
             }
         }
     });
@@ -308,6 +325,12 @@ app.load_board = function () {
             window.location.hash = '#board';
         }
     });
+
+    if (app.location_hash_on_entry !== undefined) {
+        window.location.hash = app.location_hash_on_entry;
+        delete app.location_hash_on_entry;
+    }
+
 };
 
 app.matchs = function (el, criteria) {
@@ -444,6 +467,9 @@ app.apponready = function () {
         app.show_view(window.location.hash);
     };
 
+    if (window.location.hash !== '') {
+        app.location_hash_on_entry = window.location.hash;
+    }
     window.location.hash = 'board';
 
     $('.searchcriteria').keyup(function () {

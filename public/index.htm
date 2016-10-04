@@ -225,6 +225,19 @@
             <div class='section title'>
               feedback
             </div>
+              <style>
+                .commentcard .comments a.share {
+                  display: block;
+                  position: absolute;
+                  right: 5em;
+                  top: 0.5em;
+                }
+                .commentcard .comments a.share img {
+                  height: 2.3em;
+                }
+              </style>
+              <a class='share' title='Let other people know about this card' href='{{ card.mailto_url() }}' onclick='javascript:woopra.track("share");'><img src='images/icon-share.svg'></img></a>
+
             <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='card.click_like(event);'>
               <img class='thumbs-up-clear' src='images/img__like.svg'></img>
               <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
