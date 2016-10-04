@@ -164,7 +164,7 @@ app.initialise_card = function (card) {
         var subject = encodeURI('Check out this HaveYourSay card');
         var main_body = card.question_summary() + '\n\n';
         var url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + card.id;
-        var body = encodeURI(main_body) + url + '\n\n' + 'HaveYourSay';
+        var body = encodeURI(main_body) + encodeURI('HaveYourSay' + '\n\n') + encodeURI(url);
 
         var string = 'mailto:?' +
                       'subject=' + subject +
