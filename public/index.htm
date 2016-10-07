@@ -391,6 +391,9 @@
         <div class='bottom-ribbon'>
           <div class='sltname'>{{card.newness_blurb()}}{{card.slt_name}}</div>
           <div class='datecreated'>{{card.datecreated}}</div>
+          <template v-if='card.comments.length > 0'>
+            <img class='comment' src='images/icon_comment.svg'></img>
+          </template>
         </div>
         <div class='hide section question'></div>
         <div class='hide section why'></div>

@@ -850,6 +850,7 @@ img.thumbs-up {
   position: absolute;
   left: 12px;
   bottom: 5px;
+  right: 45px;
 }
 
 .boardcard2 .bottom-ribbon .sltname,
@@ -914,6 +915,13 @@ input.searchcriteria:-moz-placeholder { /* Firefox 18- */
 .boardcard2 .bottom-ribbon {
   font-size: 0.8em;
 }
+
+.boardcard2 .bottom-ribbon img.comment {
+  float: right;
+  width: 18px;
+  margin-top: 0.1em;
+}
+
 
 .showpopup .navbar,
 .showpopup .container header,
