@@ -161,12 +161,14 @@ app.initialise_card = function (card) {
     };
 
     card.mailto_url = function () {
-        var subject = encodeURIComponent('Check out this HaveYourSay card');
-        var main_body = card.question_summary() + '\n\n';
-        var url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + card.id;
-        var body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
+        var subject, main_body, url, body, string;
 
-        var string = 'mailto:?' +
+        subject = encodeURIComponent('Check out this HaveYourSay card');
+        main_body = card.question_summary() + '\n\n';
+        url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + card.id;
+        body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
+
+        string = 'mailto:?' +
                       'subject=' + subject +
                       '&' +
                       'body=' + body;
@@ -308,13 +310,12 @@ app.load_board = function () {
             show_slt_member: function () {
                 window.location.hash = 'schedule-' + this.slt_member.id;
             },
-            show_share_button: function() {
+            show_share_button: function () {
                 return true;
             }
         }
     });
 
-    $('.navbar nav .contact').attr('href', 'mailto:' + app.vue_board.slt_member.email_address);
     $('.createcard').on('click', function () {
         window.location.hash = '#newcard';
     });
