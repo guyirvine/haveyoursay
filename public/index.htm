@@ -18,7 +18,6 @@
     <script src='/vendor.js'></script>
     <script src='/app.js'></script>
     <script src='/ds.js'></script>
-    <style type="text/css" media="all">
 
 
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/favicomatic/apple-touch-icon-57x57.png" />
@@ -43,8 +42,6 @@
     <meta name="msapplication-square310x310logo" content="images/favicomatic/mstile-310x310.png" />
 
 
-    </style>
-
     <!-- Start of Woopra Code -->
     <script>
     (function(){
@@ -57,11 +54,27 @@
     </script>
     <!-- End of Woopra Code -->
 
+    <style type="text/css" media="all">
+        .navbar a.top_logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: white;
+            padding-bottom: 0;
+            margin-left: 0;
+        }
+        .top_logo img {
+          width: 1.7em;
+          padding: 0.3em;
+        }
+    </style>
+
 
   </head>
   <body>
     <div class='navbar'>
       <nav>
+        <a class="shadow_1 top_logo" href="http://theshed.lic.co.nz/"><img src='https://theshed.lic.co.nz/favicon.ico'></img></a>
         <a href='#login' class='login'>Login</a>
         <a href='#board' class='logout'>Logout</a>
         <a href='#board' class='board selected'>Have Your Say Board</a>
