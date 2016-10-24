@@ -178,7 +178,6 @@ app.initialise_card = function (card) {
 
     card.view_card = function () {
         window.location.hash = '#card-' + card.id;
-        window.scrollTo(0, 0);
     };
 
     card.is_liked_in_session = function () {
@@ -451,6 +450,8 @@ app.show_view = function (hash) {
         $('.popup').addClass('hide');
         $('.view-container').empty().append(viewFn(hashParts[1]));
     }
+
+    $(window).scrollTop(0);
 };
 
 app.apponready = function () {
