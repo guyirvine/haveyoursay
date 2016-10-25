@@ -866,13 +866,14 @@ img.thumbs-up {
 
 .boardcard2 .question_summary {
   position: absolute;
-  top: 7px;
+  top: 10px;
   left: 12px;
   right: 45px;
   cursor: pointer;
   color: #1EAEDB;
-  height: 3em;
+  height: 2.4em;
   overflow-y: hidden;
+  line-height: 1.2em;
 }
 
 
