@@ -20,7 +20,7 @@ get '/card' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
                 ca.whatwedid, ca.likes, ca.createdon, ca.slt_name
           FROM haveyoursay.card_vw ca
-          ORDER BY ca.createdon'
+          ORDER BY ca.updated_on DESC'
   @db.query_for_resultset(sql).to_json
 end
 
@@ -65,7 +65,8 @@ end
 
 put '/card/:id' do
   sql = 'UPDATE haveyoursay.card_tbl
-         SET question = ?,
+         SET updated_on = NOW(),
+             question = ?,
              why = ?,
              lookingintoit = ?,
              whatwedid = ?
@@ -87,7 +88,8 @@ put '/card/response/:id' do
   return 401 unless @db.query_for_value(sql, values).to_i > 0
 
   sql = 'UPDATE haveyoursay.card_tbl
-         SET lookingintoit = ?,
+         SET updated_on = NOW(),
+             lookingintoit = ?,
              whatwedid = ?
          WHERE id = ?'
 
@@ -100,7 +102,8 @@ end
 
 put '/card/:id/likes' do
   sql = 'UPDATE haveyoursay.card_tbl
-         SET likes = ?
+         SET updated_on = NOW(),
+             likes = ?
          WHERE id = ?'
 
   data = JSON.parse request.body.read

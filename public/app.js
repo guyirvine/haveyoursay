@@ -301,6 +301,7 @@ app.load_board = function () {
                 return (card.whatwedid === "" && card.lookingintoit !== "");
             },
             doneMethod: function (card) {
+//                return (card.whatwedid !== "" && card.newness_blurb() !== "");
                 return (card.whatwedid !== "");
             },
             searchMethod: function (card) {
