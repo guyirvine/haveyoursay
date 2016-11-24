@@ -290,8 +290,16 @@ app.load_board = function () {
                 });
             },
             sorted_cards: function () {
-//                return _.sortBy(this.cards, 'updated_on').reverse();
-                return _.sortBy(this.cards, 'updated_on');
+                return _(this.cards)
+                      .chain()
+                      .sortBy('createdon')
+                      .sortBy('updated_on')
+                      .value()
+                      .reverse();
+
+//                return _.sortBy(this.cards, 'updated_on');
+//                return _.sortBy(this.cards, 'updated_on');
+//                return this.cards;
             }
         },
         methods: {

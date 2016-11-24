@@ -18,9 +18,9 @@ end
 
 get '/card' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
-                ca.whatwedid, ca.likes, ca.createdon, ca.slt_name
+                ca.whatwedid, ca.likes, ca.createdon, ca.updated_on, ca.slt_name
           FROM haveyoursay.card_vw ca
-          ORDER BY ca.updated_on DESC'
+          ORDER BY ca.updated_on, ca.createdon DESC'
   @db.query_for_resultset(sql).to_json
 end
 
