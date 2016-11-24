@@ -290,7 +290,8 @@ app.load_board = function () {
                 });
             },
             sorted_cards: function () {
-                return _.sortBy(this.cards, 'createdon').reverse();
+//                return _.sortBy(this.cards, 'updated_on').reverse();
+                return _.sortBy(this.cards, 'updated_on');
             }
         },
         methods: {
