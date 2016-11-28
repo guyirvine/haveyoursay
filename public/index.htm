@@ -262,8 +262,8 @@
                 Post Comment
               </button>
             </div>
-            <div class='section' v-for='comment in card.comments'>
-              <div class='previouscomment'>{{ comment.description }}</div>
+            <div class='section'>
+              <div v-for='comment in card.comments' class='previouscomment'>{{ comment.description }}</div>
             </div>
           </div>
 
