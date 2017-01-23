@@ -105,6 +105,9 @@ app.initialise_card = function (card) {
     app.card_idx[card.id] = card;
     card.liked_in_session = false;
 
+    card.lookingintoit = decodeURIComponent(card.lookingintoit);
+    card.whatwedid = decodeURIComponent(card.whatwedid);
+
     card.newness = function () {
         var days = moment().diff(moment(card.createdon), 'days');
 

@@ -140,8 +140,8 @@ ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) 
     var payload = {
             'question': question,
             'why': why,
-            'lookingintoit': lookingintoit,
-            'whatwedid': whatwedid
+            'lookingintoit': encodeURIComponent(lookingintoit),
+            'whatwedid': encodeURIComponent(whatwedid)
         };
     $.ajax({
         url: '/card/' + id,
