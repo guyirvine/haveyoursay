@@ -158,8 +158,8 @@ ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) 
 
 ds.update_card_response = function (id, lookingintoit, whatwedid) {
     var payload = {
-            'lookingintoit': lookingintoit,
-            'whatwedid': whatwedid
+            'lookingintoit': encodeURIComponent(lookingintoit),
+            'whatwedid': encodeURIComponent(whatwedid)
         };
     $.ajax({
         url: '/card/response/' + id,
@@ -169,7 +169,7 @@ ds.update_card_response = function (id, lookingintoit, whatwedid) {
             console.log('ds.update_card_details.1 ', payload, data);
         },
         error: function (err) {
-            console.log('ds.update_card_details.2 ', payload, err);
+            console.log('ds.update_card_details.2 ', payload, err.responseText, err);
         }
     });
 };
