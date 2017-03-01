@@ -301,6 +301,17 @@ header div.thisweek {
 }
 
 
+.popup .commentcard .comments .notice {
+  background-color: #0397D6;
+  color: white;
+  padding: 0.3em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  margin-left: 1.875em;
+  margin-right: 1.875em;
+}
+
+
 /*****************************************************************************/
 /** searchresult **/
 

@@ -23,6 +23,7 @@ CREATE TABLE haveyoursay.card_tbl (
   why VARCHAR NOT NULL,
   lookingintoit VARCHAR NOT NULL DEFAULT '',
   whatwedid VARCHAR NOT NULL DEFAULT '',
+  whatwedid_on TIMESTAMP,
   likes INT NOT NULL DEFAULT 0,
   createdon TIMESTAMP NOT NULL DEFAULT NOW()
 );
@@ -39,7 +40,7 @@ CREATE VIEW haveyoursay.slt_vw AS
   FROM haveyoursay.slt_tbl s;
 
 CREATE VIEW haveyoursay.card_vw AS
-  SELECT ca.id, s.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid, ca.likes, ca.createdon, s.name AS slt_name
+  SELECT ca.id, s.color, ca.question, ca.why, ca.lookingintoit, ca.whatwedid, ca.whatwedid_on, ca.likes, ca.createdon, ca.updated_on, s.name AS slt_name
   FROM haveyoursay.card_tbl ca
     INNER JOIN haveyoursay.slt_tbl s ON (ca.slt_id = s.id);
 

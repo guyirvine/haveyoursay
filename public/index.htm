@@ -256,12 +256,24 @@
               <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
               <div class='count'>{{card.likes}}</div>
             </div>
-            <div class='section'>
-              <textarea class='newcomment' placeholder='My Comment'></textarea>
-              <button href='post' class='postcomment button' v-on:click='card.update_comment'>
-                Post Comment
-              </button>
-            </div>
+
+            <template v-if="card.is_closed() === true">
+              <div class='section notice'>
+                  To ensure your comments are addressed, we now close off cards 7 days after the card is completed.<br>
+                  <br>
+                  If you beleive this issue is still not resolved, please create a new card.
+              </div>
+            </template>
+
+            <template v-if="card.is_closed() === false">
+              <div class='section'>
+                <textarea class='newcomment' placeholder='My Comment'></textarea>
+                <button href='post' class='postcomment button' v-on:click='card.update_comment'>
+                  Post Comment
+                </button>
+              </div>
+            </template>
+
             <div class='section' style='padding-bottom: 4em'>
               <div v-for='comment in card.comments' class='previouscomment'>{{ comment.description }}</div>
             </div>

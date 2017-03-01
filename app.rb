@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/cookies'
 require 'json'
+require 'date'
 require 'fluiddb2'
 require 'uuidtools'
 
@@ -18,7 +19,9 @@ end
 
 get '/card' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
-                ca.whatwedid, ca.likes, ca.createdon, ca.updated_on, ca.slt_name
+                ca.whatwedid, ca.likes,
+                ca.createdon, ca.updated_on, ca.whatwedid_on,
+                ca.slt_name
           FROM haveyoursay.card_vw ca
           ORDER BY ca.updated_on, ca.createdon DESC'
   @db.query_for_resultset(sql).to_json
@@ -26,7 +29,9 @@ end
 
 get '/card/:id' do
   sql = 'SELECT ca.id, ca.color, ca.question, ca.why, ca.lookingintoit,
-                ca.whatwedid, ca.likes, ca.createdon, ca.slt_name
+                ca.whatwedid, ca.likes,
+                ca.createdon, ca.updated_on, ca.whatwedid_on,
+                ca.slt_name
           FROM haveyoursay.card_vw ca
           WHERE ca.id = ?'
   @db.query_for_array(sql, [params[:id]]).to_json
@@ -90,12 +95,15 @@ put '/card/response/:id' do
   sql = 'UPDATE haveyoursay.card_tbl
          SET updated_on = NOW(),
              lookingintoit = ?,
-             whatwedid = ?
+             whatwedid = ?,
+             whatwedid_on = ?
          WHERE id = ?'
 
   data = JSON.parse request.body.read
+  whatwedid_on = data['whatwedid_updated'] === true ? Date.today.strftime('%d %b %Y') : nil
   payload = [data['lookingintoit'],
              data['whatwedid'],
+             whatwedid_on,
              params[:id]]
   @db.execute(sql, payload)
 end

@@ -21,6 +21,7 @@ app.card_view = function (id) {
 
     html_card = $('.templates .commentcard').clone();
     card = app.card_idx[id];
+    card.whatwedid_pre = card.whatwedid;
     guy_card = card;
     console.log('app.card_view.1 ', card);
 
@@ -219,7 +220,11 @@ app.initialise_card = function (card) {
                                 */
         ds.update_card_response(card.id,
                                 card.lookingintoit,
-                                card.whatwedid);
+                                card.whatwedid,
+                                card.whatwedid_pre !== card.whatwedid);
+        if (card.whatwedid_pre !== card.whatwedid) {
+            card.whatwedid_on = moment().format('DD MMM YYYY');
+        }
 
         window.location.hash = 'board';
         return false;
@@ -233,6 +238,14 @@ app.initialise_card = function (card) {
     card.close_card = function () {
         $('#card-' + card.id).removeClass('highlight');
         $('#card-' + card.id).addClass('highlight');
+    };
+
+    card.is_closed = function () {
+        if (card.whatwedid_on === null) {
+            return false;
+        }
+
+        return moment().diff(moment(card.whatwedid_on), 'days') > 7;
     };
 
     card.new_comment = function () {

@@ -156,10 +156,11 @@ ds.update_card_details = function (id, question, why, lookingintoit, whatwedid) 
     });
 };
 
-ds.update_card_response = function (id, lookingintoit, whatwedid) {
+ds.update_card_response = function (id, lookingintoit, whatwedid, whatwedid_updated) {
     var payload = {
             'lookingintoit': encodeURIComponent(lookingintoit),
-            'whatwedid': encodeURIComponent(whatwedid)
+            'whatwedid': encodeURIComponent(whatwedid),
+            'whatwedid_updated': whatwedid_updated
         };
     $.ajax({
         url: '/card/response/' + id,
