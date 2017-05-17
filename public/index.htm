@@ -267,7 +267,7 @@
 
             <template v-if="card.is_closed() === false">
               <div class='section'>
-                <textarea class='newcomment' placeholder='My Comment'></textarea>
+                <textarea class='newcomment'></textarea>
                 <button href='post' class='postcomment button' v-on:click='card.update_comment'>
                   Post Comment
                 </button>

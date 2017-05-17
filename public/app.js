@@ -30,7 +30,6 @@ app.card_view = function (id) {
     popup.removeClass('hide');
     popup.empty();
     popup.append(html_card);
-    popup.find('.question textarea').focus();
 
     vue_card = new Vue({
         el: '.container .popup .commentcard',
@@ -46,6 +45,7 @@ app.card_view = function (id) {
     });
 
     $('body').addClass('showpopup');
+    popup.find('.comments textarea').focus();
 };
 
 app.new_cards = {};
@@ -271,6 +271,9 @@ app.initialise_card = function (card) {
 
         ds.add_comment(card.id, $('.popup .commentcard textarea.newcomment').val());
         card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': $('.popup .commentcard textarea.newcomment').val() });
+
+        $('.popup .commentcard textarea').val('');
+        $('.popup .commentcard textarea').focus();
 
         return false;
     };
