@@ -55,12 +55,6 @@ app.show_newcard = function () {
 
     $('body').addClass('show-popup');
 
-    //TODO replace with href
-    card.find('.action a.cancel').on('click', function () {
-        window.location.hash = 'board';
-        return false;
-    });
-
     card.find('.action a.create').on('click', function () {
         if (card.find('.question textarea').val().trim().length === 0) {
             card.find('.question textarea').removeClass('highlight');
