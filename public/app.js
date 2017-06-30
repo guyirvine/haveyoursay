@@ -239,10 +239,10 @@ app.is_card_state_done = function (card) {
 
 app.sort_cards = function (cards) {
     return cards.sort(function (a, b) {
-        if (app.card_update_idx(a) > app.card_update_idx(b)) {
+        if (app.card_update_idx(a) < app.card_update_idx(b)) {
             return 1;
         }
-        if (app.card_update_idx(a) < app.card_update_idx(b)) {
+        if (app.card_update_idx(a) > app.card_update_idx(b)) {
             return -1;
         }
 
@@ -280,10 +280,13 @@ app.load_board = function () {
                 return app.sort_cards(this.cards);
             },
             display_cards: function () {
+                return this.sorted_cards;
+              /*
                 var cutoff = moment().add(-40, 'days').format('YYYYMMDDThhmm');
                 return this.sorted_cards.filter(function (el) {
                     return app.card_update_idx(el) > cutoff;
                 });
+              */
             },
             todo_list: function () {
                 return this.display_cards.filter(function (c) {
