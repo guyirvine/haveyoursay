@@ -154,13 +154,6 @@ app.initialise_card = function (card) {
         return false;
     };
 
-    card.edit_card = function () {
-        $('.popup .card2').removeClass('displaycard');
-        $('.popup .card2').addClass('editcard');
-        $('.popup .card2 .lookingintoit textarea').focus();
-        return false;
-    };
-
     card.update_card = function () {
         $('.popup .card2').removeClass('editcard');
         $('.popup .card2').addClass('displaycard');
