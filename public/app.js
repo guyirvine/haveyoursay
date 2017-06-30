@@ -15,15 +15,13 @@ app.done = [];
 
 var vue_card;
 
-var guy_card;
-app.card_view = function (id) {
+app.show_card = function (id) {
     var html_card, popup, card; //, comments, comment;
 
     html_card = $('.templates .commentcard').clone();
     card = app.card_idx[id];
     card.whatwedid_pre = card.whatwedid;
-    guy_card = card;
-    console.log('app.card_view.1 ', card);
+    console.log('app.show_card.1 ', card);
 
     popup = $('.container .popup');
 
@@ -283,6 +281,28 @@ app.initialise_card = function (card) {
     };
 };
 
+app.card_update_idx = function (c) {
+    return moment(c.updated_on).format('YYYYMMDDThhmm');
+};
+
+app.is_card_state_done = function (card) {
+    return (card.whatwedid !== "");
+};
+
+app.sort_cards = function (cards) {
+    return cards.sort(function (a, b) {
+        if (app.card_update_idx(a) > app.card_update_idx(b)) {
+            return 1;
+        }
+        if (app.card_update_idx(a) < app.card_update_idx(b)) {
+            return -1;
+        }
+
+        return 0;
+    });
+};
+
+
 app.load_board = function () {
     var html_board, boardcard2;
 
@@ -308,30 +328,32 @@ app.load_board = function () {
                     return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
                 });
             },
+            display_cards: function () {
+                var cutoff = moment().add(-40, 'days').format('YYYYMMDDThhmm');
+                return this.cards.filter(function (el) {
+                    return app.card_update_idx(el) > cutoff;
+                });
+            },
             sorted_cards: function () {
-                return _(this.cards)
-                      .chain()
-                      .sortBy('createdon')
-                      .sortBy('updated_on')
-                      .value()
-                      .reverse();
-
-//                return _.sortBy(this.cards, 'updated_on');
-//                return _.sortBy(this.cards, 'updated_on');
-//                return this.cards;
-            }
+                return app.sort_cards(this.display_cards);
+            },
+            todo_list: function () {
+                return this.sorted_cards.filter(function (c) {
+                    return (c.whatwedid === "" && c.lookingintoit === "");
+                });
+            },
+            doing_list: function () {
+                return this.sorted_cards.filter(function (c) {
+                    return (c.whatwedid === "" && c.lookingintoit !== "");
+                });
+            },
+            done_list: function () {
+                return this.sorted_cards.filter(function (c) {
+                    return (c.whatwedid !== "");
+                });
+            },
         },
         methods: {
-            todoMethod: function (card) {
-                return (card.whatwedid === "" && card.lookingintoit === "");
-            },
-            doingMethod: function (card) {
-                return (card.whatwedid === "" && card.lookingintoit !== "");
-            },
-            doneMethod: function (card) {
-//                return (card.whatwedid !== "" && card.newness_blurb() !== "");
-                return (card.whatwedid !== "");
-            },
             searchMethod: function (card) {
                 console.log('searchMethod.1 ', this.searchcriteria);
                 return (card.searchcriteria().indexOf(this.searchcriteria.toUpperCase()) > -1);
@@ -464,7 +486,6 @@ app.show_view = function (hash) {
 
     routes = {
         '#search': app.search_view,
-        '#card': app.card_view,
         '#newcard': app.show_newcard,
         '#board': app.board_view,
         '#login': app.login_view

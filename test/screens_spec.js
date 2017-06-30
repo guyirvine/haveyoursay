@@ -14,14 +14,14 @@ describe("Show Screens", function () {
 
         expect(true).toBe(true);
     });
-
+/*
     it("Should show a simple screen which responds to data", function () {
         app.show_card(183, function () {
             expect(app.vue.id).toEqual(183);
         });
 
     });
-
+*/
 
 /*
     it("Should generate list of 76 objects", function () {

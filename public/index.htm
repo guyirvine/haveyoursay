@@ -387,21 +387,21 @@
               <img class='svg' src="images/img__iconQuestion_white.svg"></img>
               <a href='#newcard'>Ask the slt a question</a>
             </div>
-            <div class='list' v-for="card in sorted_cards | filterBy todoMethod "></div>
+            <div class='list' v-for="card in todo_list"></div>
           </div>
           <div class='four columns doing'>
             <div class='title'>
               <img class='svg' src="images/img__looking_999.svg"></img>
               We're looking into it
             </div>
-            <div class='list' v-for="card in sorted_cards | filterBy doingMethod "></div>
+            <div class='list' v-for="card in doing_list"></div>
           </div>
           <div class='four columns done'>
             <div class='title'>
               <img class='svg' src="images/img__did_999.svg"></img>
               What we did
             </div>
-            <div class='list' v-for="card in sorted_cards | filterBy doneMethod "></div>
+            <div class='list' v-for="card in done_list"></div>
           </div>
         </div>
       </div>
