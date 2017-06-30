@@ -177,11 +177,6 @@ app.initialise_card = function (card) {
         return string;
     };
 
-    //TODO remove view_card
-    card.view_card = function () {
-        window.location.hash = '#card-' + card.id;
-    };
-
     card.is_liked_in_session = function () {
         return card.liked_in_session === true;
     };
