@@ -148,7 +148,7 @@ header div.thisweek {
 /** popup **/
 .popup {
   position: absolute;
-  top: 5%;
+  top: 100px;
   left: 50%;
 }
 
@@ -230,6 +230,12 @@ header div.thisweek {
 
 .popup .commentcard .title {
   position: relative;
+}
+
+.popup .commentcard .title .datecreated li {
+  list-style: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .popup .commentcard .sections {
@@ -886,8 +892,8 @@ img.thumbs-up {
   color: #1EAEDB;
   height: 3em;
   overflow-y: hidden;
+  text-decoration: none;
 }
-
 
 
 

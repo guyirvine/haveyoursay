@@ -38,7 +38,10 @@ app.show_card = function (id) {
             },
             timestamp: function (date) {
                 return moment(date).format('D MMM YYYY, h:mm:ss a');
-            }
+            },
+            daystamp: function (date) {
+                return moment(date).format('ddd, D MMM');
+            },
         }
     });
 
@@ -178,6 +181,7 @@ app.initialise_card = function (card) {
         return string;
     };
 
+    //TODO remove view_card
     card.view_card = function () {
         window.location.hash = '#card-' + card.id;
     };
@@ -405,6 +409,7 @@ app.search = function () {
     window.location.hash = 'search';
 };
 
+//TODO remove search view
 app.search_view = function () {
     console.log('app.search_view.1');
     $('body').addClass('showsearch');
