@@ -106,46 +106,6 @@ app.initialise_card = function (card) {
     card.lookingintoit = decodeURIComponent(card.lookingintoit);
     card.whatwedid = decodeURIComponent(card.whatwedid);
 
-    card.newness = function () {
-        var days = moment().diff(moment(card.createdon), 'days');
-
-        if (moment().diff(moment(card.createdon), 'hours') < 24) {
-            return 'newest-card';
-        }
-        if (days < 7) {
-            return 'new-card';
-        }
-        if (days < 14) {
-            return 'newish-card';
-        }
-
-        return '';
-    };
-
-    card.newness_blurb = function () {
-        var days, hours;
-        if (card.newness() === 'newest-card') {
-            hours = moment().diff(moment(card.createdon), 'hours');
-            if (hours === 0) {
-                return 'Just now. ';
-            }
-            if (hours === 1) {
-                return '1 hour ago. ';
-            }
-            return hours + ' hours ago. ';
-        }
-
-        if (card.newness() === 'new-card' || card.newness() === 'newish-card') {
-            days = moment().diff(moment(card.createdon), 'days');
-            if (days === 1) {
-                return '1 day ago. ';
-            }
-            return days + ' days ago. ';
-        }
-
-        return '';
-    };
-
     card.question_summary = function () {
         var question_summary, idx;
         question_summary = card.question;
@@ -375,6 +335,31 @@ app.load_board = function () {
             },
             show_share_button: function () {
                 return true;
+            }
+        },
+        filters: {
+            newness_stamp: function (val) {
+                var days, hours;
+                hours = moment().diff(moment(val), 'hours');
+                if (hours === 0) {
+                    return 'Just now. ';
+                }
+                if (hours === 1) {
+                    return '1 hour ago. ';
+                }
+                if (hours < 20) {
+                    return hours + ' hours ago. ';
+                }
+
+                days = moment().diff(moment(val), 'days');
+                if (days === 1) {
+                    return '1 day ago. ';
+                }
+                if (days < 14) {
+                    return days + ' days ago. ';
+                }
+
+                return '';
             }
         }
     });
