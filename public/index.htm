@@ -337,53 +337,6 @@
         </div>
       </div>
 
-      <div class='card2 displaycard'>
-        <div class='section title'>Have Your Say</div>
-        <a href='#board' class='cross'>X</a>
-        <div class='section question'>
-          <label>Your Question</label>
-          <div class='input'>{{question}}</div>
-          <textarea placeholder="Please enter your title and press enter before entering your question">{{question}}</textarea>
-        </div>
-        <div class='section why'>
-          <label>Why?</label>
-          <div class='input'>{{why}}</div>
-          <textarea>{{why}}</textarea>
-        </div>
-        <div class='section lookingintoit'>
-          <label>We're looking into it</label>
-          <div class='input'>{{lookingintoit}}</div>
-          <textarea v-model='lookingintoit'></textarea>
-        </div>
-        <div class='section whatwedid'>
-          <label>What we did</label>
-          <div class='input'>{{whatwedid}}</div>
-          <textarea v-model='whatwedid'></textarea>
-        </div>
-        <div class='section comments'>
-          <label>Comments</label>
-          <div class='addcomment'>
-            <textarea></textarea>
-          </div>
-          <div class='list' v-for='comment in comments'>
-            <div class='comment'>
-              <div class='createdon'>{{comment.createdon | timestamp}}</div>
-              <div class='input'>{{comment.description}}</div>
-            </div>
-          </div>
-        </div>
-        <div class='section action'>
-          <a class='newcomment button href' v-on:click="new_comment()">New Comment</a>
-          <a href='#board' class='close button' v-on:click="close_card()">Close</a>
-          <a class='edit button href' v-on:click="edit_card()">Edit</a>
-          <a class='cancel button href' v-on:click="cancel_update_card()">Cancel</a>
-          <a class='update button href' v-on:click="update_card()">Update</a>
-          <a class='create button href'>Create</a>
-          <a class='cancelcomment button href' v-on:click="cancel_comment()">Cancel</a>
-          <a class='updatecomment button href' v-on:click="update_comment()">Update</a>
-        </div>
-      </div>
-
       <div class='board2'>
         <div class='row'>
           <div class='four columns todo'>
