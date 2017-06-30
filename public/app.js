@@ -381,7 +381,7 @@ app.search_view = function () {
     app.search();
 };
 
-app.schedule_view = function (id) {
+app.show_schedule = function (id) {
 //    var schedule, _tr, table;
 
     $('body').addClass('showpopup');
@@ -467,7 +467,6 @@ app.show_view = function (hash) {
         '#card': app.card_view,
         '#newcard': app.show_newcard,
         '#board': app.board_view,
-        '#schedule': app.schedule_view,
         '#login': app.login_view
     };
 
@@ -478,6 +477,12 @@ app.show_view = function (hash) {
     if (viewFn) {
         $('.popup').addClass('hide');
         $('.view-container').empty().append(viewFn(hashParts[1]));
+    } else {
+        viewFn = app['show_' + hashParts[0].slice(1)];
+        if (viewFn) {
+            console.log('app.show_view.viewFn.2 ');
+            viewFn(hashParts[1]);
+        }
     }
 
     $(window).scrollTop(0);

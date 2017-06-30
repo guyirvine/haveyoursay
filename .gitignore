@@ -1,5 +1,5 @@
 .vagrant
 .env
-
+haveyoursay.sql*
 sql/seed_slt_email.sql
 
