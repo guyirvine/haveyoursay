@@ -369,6 +369,15 @@ app.load_board = function () {
                 return this.searchcriteria.toUpperCase() !== '';
             }
         },
+        watch: {
+            searchcriteria: function(val) {
+                if (val.trim() === '') {
+                    window.location.hash = 'board';
+                } else {
+                    window.location.hash = 'search';
+                }
+            },
+        },
         methods: {
             show_slt_member: function () {
                 window.location.hash = 'schedule-' + this.slt_member.id;
@@ -397,28 +406,11 @@ app.load_board = function () {
 
 };
 
-app.matchs = function (el, criteria) {
-    if ($(el).find('.searchlookup').text().indexOf(criteria) > -1) {
-        return true;
-    }
-
-    return false;
-};
-
-app.search = function () {
-    window.location.hash = 'search';
-};
-
-//TODO remove search view
-app.search_view = function () {
-    console.log('app.search_view.1');
+app.show_search = function () {
     $('body').addClass('showsearch');
-    app.search();
 };
 
 app.show_schedule = function (id) {
-//    var schedule, _tr, table;
-
     $('body').addClass('showpopup');
     $('body').addClass('showschedule');
 
@@ -498,7 +490,6 @@ app.show_view = function (hash) {
     }
 
     routes = {
-        '#search': app.search_view,
         '#newcard': app.show_newcard,
         '#board': app.board_view,
         '#login': app.login_view
@@ -542,10 +533,6 @@ app.apponready = function () {
         app.location_hash_on_entry = window.location.hash;
     }
     window.location.hash = 'board';
-
-    $('.searchcriteria').keyup(function () {
-        app.search();
-    });
 
     $('.logout').on('click', function () {
         console.log('logout.1');
