@@ -147,6 +147,14 @@ header div.thisweek {
 /*****************************************************************************/
 /** popup **/
 .popup {
+  display : none;
+}
+
+.show-popup .popup {
+  display: block;
+}
+
+.popup {
   position: absolute;
   top: 100px;
   left: 50%;

@@ -23,14 +23,12 @@ app.show_card = function (id) {
     card.whatwedid_pre = card.whatwedid;
     console.log('app.show_card.1 ', card);
 
-    popup = $('.container .popup');
-
-    popup.removeClass('hide');
+    popup = $('.popup');
     popup.empty();
     popup.append(html_card);
 
     vue_card = new Vue({
-        el: '.container .popup .commentcard',
+        el: '.popup',
         data: { 'card': card, 'admin': $('body').hasClass('admin') },
         filters: {
             datestamp: function (date) {
@@ -45,7 +43,7 @@ app.show_card = function (id) {
         }
     });
 
-    $('body').addClass('showpopup');
+    $('body').addClass('show-popup');
     popup.find('.comments textarea').focus();
 };
 
@@ -55,8 +53,9 @@ app.show_newcard = function () {
 
     card = $('.templates .newcard').clone();
 
-    $('body').addClass('showpopup');
+    $('body').addClass('show-popup');
 
+    //TODO replace with href
     card.find('.action a.cancel').on('click', function () {
         window.location.hash = 'board';
         return false;
@@ -90,16 +89,14 @@ app.show_newcard = function () {
         return false;
     });
 
-    popup = $('.container .popup');
+    popup = $('.popup');
 
-    popup.removeClass('hide');
     popup.empty();
     popup.append(card);
     card.find('.question textarea').focus();
 };
 
-app.board_view = function () {
-    console.log('board_view');
+app.show_board = function () {
     $('body').addClass('showboard');
 };
 
@@ -356,7 +353,7 @@ app.load_board = function () {
                     return (c.whatwedid !== "");
                 });
             },
-            search_list: function (card) {
+            search_list: function () {
                 var criteria = this.searchcriteria.toUpperCase();
                 if (criteria.trim() === '') {
                     return [];
@@ -370,7 +367,7 @@ app.load_board = function () {
             }
         },
         watch: {
-            searchcriteria: function(val) {
+            searchcriteria: function (val) {
                 if (val.trim() === '') {
                     window.location.hash = 'board';
                 } else {
@@ -394,7 +391,7 @@ app.load_board = function () {
 
     $('body').on('click', function (e) {
 //        console.log('Click', e.target, $(e.target).parents('.popup').length );
-        if ($('body').hasClass('showpopup') && $(e.target).parents('.popup').length === 0) {
+        if ($('body').hasClass('show-popup') && $(e.target).parents('.popup').length === 0) {
             window.location.hash = '#board';
         }
     });
@@ -411,7 +408,7 @@ app.show_search = function () {
 };
 
 app.show_schedule = function (id) {
-    $('body').addClass('showpopup');
+    $('body').addClass('show-popup');
     $('body').addClass('showschedule');
 
     var schedule = $('.templates .schedule').clone();
@@ -451,7 +448,7 @@ app.check_password = function (username, password, callback) {
 app.login_view = function () {
     var login;
 
-    $('body').addClass('showpopup');
+    $('body').addClass('show-popup');
     $('body').addClass('showlogin');
 
     login = $('.templates .login').clone();
@@ -478,7 +475,7 @@ app.login_view = function () {
 app.show_view = function (hash) {
     var routes, hashParts, viewFn;
 
-    $('body').removeClass('showpopup');
+    $('body').removeClass('show-popup');
     $('body').removeClass('showboard');
     $('body').removeClass('showschedule');
     $('body').removeClass('showlogin');
@@ -490,8 +487,6 @@ app.show_view = function (hash) {
     }
 
     routes = {
-        '#newcard': app.show_newcard,
-        '#board': app.board_view,
         '#login': app.login_view
     };
 
@@ -543,7 +538,6 @@ app.apponready = function () {
         $('body').removeClass('admin');
     });
 
-    app.board_view();
     app.show_view(window.location.hash);
 };
 
