@@ -16,6 +16,7 @@ body {
 }
 
 svg,
+input.svg,
 img.svg {
   width: 1.563em;
   vertical-align: middle;

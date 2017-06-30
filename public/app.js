@@ -52,41 +52,46 @@ app.show_newcard = function () {
     var card, popup;
 
     card = $('.templates .newcard').clone();
+    popup = $('.popup');
+    popup.empty();
+    popup.append(card);
 
     $('body').addClass('show-popup');
 
-    card.find('.action a.create').on('click', function () {
-        if (card.find('.question textarea').val().trim().length === 0) {
-            card.find('.question textarea').removeClass('highlight');
-            card.find('.question textarea').addClass('highlight');
-            card.find('.question textarea').focus();
-            return false;
+    app.vue_new_card = new Vue({
+        el: '.popup',
+        data: { question: '', why: '' },
+        methods: {
+            create: function () {
+                console.log('Create');
+                if (this.question.trim().length === 0) {
+                    card.find('.question textarea').removeClass('highlight');
+                    card.find('.question textarea').addClass('highlight');
+                    card.find('.question textarea').focus();
+                    return false;
+                }
+
+                ds.create_card(this.question,
+                               this.why,
+                               app.vue_board.slt_member.id,
+                               function (new_id) {
+                        app.new_cards['card-' + new_id] = 1;
+                        ds.get_card(new_id, function (card) {
+                            app.initialise_card(card);
+                            app.vue_board.cards.push(card);
+                            console.log('ds.create_card.1 ');
+                            setTimeout(function () {
+                                $('#card-' + card.id).removeClass('highlight');
+                                $('#card-' + card.id).addClass('highlight');
+                            }, 500);
+                        });
+
+                        window.location.hash = 'board';
+                    });
+            }
         }
-
-        ds.create_card(card.find('.question textarea').val(),
-                       card.find('.why textarea').val(),
-                       app.vue_board.slt_member.id,
-                       function (new_id) {
-                app.new_cards['card-' + new_id] = 1;
-                ds.get_card(new_id, function (card) {
-                    app.initialise_card(card);
-                    app.vue_board.cards.push(card);
-                    console.log('ds.create_card.1 ');
-                    setTimeout(function () {
-                        $('#card-' + card.id).removeClass('highlight');
-                        $('#card-' + card.id).addClass('highlight');
-                    }, 500);
-                });
-
-                window.location.hash = 'board';
-            });
-        return false;
     });
 
-    popup = $('.popup');
-
-    popup.empty();
-    popup.append(card);
     card.find('.question textarea').focus();
 };
 

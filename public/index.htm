@@ -156,26 +156,28 @@
       </div>
 
       <div class='card newcard'>
-        <div class='section titlebar'>Ask the SLT a question</div>
-        <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
-        <div class='section title'>
-          <img class='svg' src="images/img__question_999.svg"></img>
-          Your Question
-        </div>
-        <div class='section question'>
-          <label>My question for the SLT</label>
-          <textarea placeholder="The first 200 characters will create the heading for this question"></textarea>
-        </div>
-        <div class='section why'>
-          <label>What's the significance? How &amp; who will this benefit?</label>
-          <textarea></textarea>
-        </div>
-        <div class='section action'>
-          <a href='create' class='create button'>
-            <img class='svg' src="images/img__question_white.svg"></img>
-            Submit Question
-          </a>
-        </div>
+        <form v-on:submit.prevent='create'>
+          <div class='section titlebar'>Ask the SLT a question</div>
+          <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
+          <div class='section title'>
+            <img class='svg' src="images/img__question_999.svg"></img>
+            Your Question
+          </div>
+          <div class='section question'>
+            <label>My question for the SLT</label>
+            <textarea v-model='question' placeholder="The first 200 characters will create the heading for this question"></textarea>
+          </div>
+          <div class='section why'>
+            <label>What's the significance? How &amp; who will this benefit?</label>
+            <textarea v-model='why'></textarea>
+          </div>
+          <div class='section action'>
+            <button class='button'>
+              <img class='svg' src="images/img__question_white.svg"></img>
+              Submit Question
+            </button>
+          </div>
+        </button>
       </div>
 
       <div class='card commentcard'>
