@@ -328,36 +328,44 @@ app.load_board = function () {
                     return moment().startOf('day').isBetween(moment(el.startdate), moment(el.enddate), null, '[]');
                 });
             },
+            sorted_cards: function () {
+                return app.sort_cards(this.cards);
+            },
             display_cards: function () {
                 var cutoff = moment().add(-40, 'days').format('YYYYMMDDThhmm');
-                return this.cards.filter(function (el) {
+                return this.sorted_cards.filter(function (el) {
                     return app.card_update_idx(el) > cutoff;
                 });
             },
-            sorted_cards: function () {
-                return app.sort_cards(this.display_cards);
-            },
             todo_list: function () {
-                return this.sorted_cards.filter(function (c) {
+                return this.display_cards.filter(function (c) {
                     return (c.whatwedid === "" && c.lookingintoit === "");
                 });
             },
             doing_list: function () {
-                return this.sorted_cards.filter(function (c) {
+                return this.display_cards.filter(function (c) {
                     return (c.whatwedid === "" && c.lookingintoit !== "");
                 });
             },
             done_list: function () {
-                return this.sorted_cards.filter(function (c) {
+                return this.display_cards.filter(function (c) {
                     return (c.whatwedid !== "");
                 });
             },
+            search_list: function (card) {
+                var criteria = this.searchcriteria.toUpperCase();
+                if (criteria.trim() === '') {
+                    return [];
+                }
+                return this.sorted_cards.filter(function (c) {
+                    return c.searchcriteria().indexOf(criteria) > -1;
+                });
+            },
+            show_search_list: function () {
+                return this.searchcriteria.toUpperCase() !== '';
+            }
         },
         methods: {
-            searchMethod: function (card) {
-                console.log('searchMethod.1 ', this.searchcriteria);
-                return (card.searchcriteria().indexOf(this.searchcriteria.toUpperCase()) > -1);
-            },
             show_slt_member: function () {
                 window.location.hash = 'schedule-' + this.slt_member.id;
             },

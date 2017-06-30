@@ -98,12 +98,13 @@
             </tr>
           </table>
           <input type='text' class='search searchcriteria' placeholder='Search questions' v-model="searchcriteria"></input>
-          <div class='searchresult'>
+          <div class='searchresult' v-if='show_search_list'>
             <div class='title'>Search Result</div>
             <ul>
-              <li v-for="card in cards | filterBy searchMethod">
+              <li v-for="card in search_list">
                 <a href='#card-{{card.id}}'>{{ card.question_summary() }}</a>
               </li>
+              <p v-if='search_list.length === 0'>Search didn't find any cards</p>
             </ul>
           </div>
         </div>
