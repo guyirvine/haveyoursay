@@ -116,6 +116,21 @@ app.click_like = function (c) {
     return false;
 };
 
+app.question_summary = function (c) {
+    var qs, idx;
+    qs = c.question;
+    idx = qs.indexOf("\n");
+    if (idx > -1 && idx < 80) {
+        qs = qs.substring(0, idx);
+    }
+    if (qs > 80) {
+        qs = c.question.substring(0, 78);
+        qs += "&#8230;";
+    }
+
+    return qs;
+};
+
 app.initialise_card = function (card) {
     app.card_idx[card.id] = card;
     card.liked_in_session = false;
@@ -123,26 +138,11 @@ app.initialise_card = function (card) {
     card.lookingintoit = decodeURIComponent(card.lookingintoit);
     card.whatwedid = decodeURIComponent(card.whatwedid);
 
-    card.question_summary = function () {
-        var question_summary, idx;
-        question_summary = card.question;
-        idx = question_summary.indexOf("\n");
-        if (idx > -1 && idx < 80) {
-            question_summary = question_summary.substring(0, idx);
-        }
-        if (question_summary > 80) {
-            question_summary = card.question.substring(0, 78);
-            question_summary += "&#8230;";
-        }
-
-        return question_summary;
-    };
-
     card.mailto_url = function () {
         var subject, main_body, url, body, string;
 
         subject = encodeURIComponent('Check out this HaveYourSay card');
-        main_body = card.question_summary() + '\n\n';
+        main_body = app.question_summary(card) + '\n\n';
         url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + card.id;
         body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
 
@@ -307,6 +307,9 @@ app.load_board = function () {
             }
         },
         filters: {
+            question_summary: function (c) {
+                return app.question_summary(c);
+            },
             newness_stamp: function (val) {
                 var days, hours;
                 hours = moment().diff(moment(val), 'hours');
