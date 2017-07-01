@@ -124,16 +124,18 @@
       </ul>
 
       <div class='login'>
-        <div class='title'>Admin Login</div>
-        <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
-        <div class='details action'>
-          <label>Username</label>
-          <input type='text' value='admin' class='username'></input>
-          <label>Password</label>
-          <input type='password' value='' class='password'></input>
-          <div class='note'>&nbsp;</div>
-          <button href='#board' class='loginbutton button'>Login</button>
-        </div>
+        <form v-on:submit.prevent='login'>
+          <div class='title'>Admin Login</div>
+          <a href='#board' class='cross'><img src='images/img__iconClose.svg'></img></a>
+          <div class='details action'>
+            <label>Username</label>
+            <input type='text' class='username' v-model='username'></input>
+            <label>Password</label>
+            <input type='password' value='' class='password' v-model='password'></input>
+            <div class='note'>{{ note }}</div>
+            <button href='#board' class='loginbutton button'>Login</button>
+          </div>
+        </form>
       </div>
 
       <div class='schedule'>

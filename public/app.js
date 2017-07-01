@@ -420,30 +420,38 @@ app.check_password = function (username, password, callback) {
         });
 };
 
-app.login_view = function () {
+app.show_login = function () {
     var login;
+
+    login = $('.templates .login').clone();
+    $('.popup').empty();
+    $('.popup').append(login);
+
+    app.vue_login = new Vue({
+        el: '.popup .login',
+        data: {
+            username: 'admin',
+            password: '',
+            note: ' '
+        },
+        methods: {
+            login: function() {
+                app.check_password(this.username, this.password, function (successful) {
+                    console.log('app.show_login.1 ', successful);
+                    if (successful === true) {
+                        $('body').addClass('admin');
+                        window.location.hash = 'board';
+                    } else {
+                        app.vue_login.note = 'Username / Password combination not recognised';
+                    }
+                });
+                return false;
+            }
+        }
+    });
 
     $('body').addClass('show-popup');
     $('body').addClass('showlogin');
-
-    login = $('.templates .login').clone();
-
-    login.find('.loginbutton').on('click', function () {
-        app.check_password(login.find('.username').val(), login.find('.password').val(), function (successful) {
-            console.log('app.login_view.1 ', successful);
-            if (successful === true) {
-                $('body').addClass('admin');
-                window.location.hash = 'board';
-            } else {
-                login.find('.note').text('Username / Password combination not recognised');
-            }
-        });
-        return false;
-    });
-
-    $('.popup').empty();
-    $('.popup').append(login);
-    $('.popup').removeClass('hide');
     login.find('.password').focus();
 };
 
@@ -462,7 +470,6 @@ app.show_view = function (hash) {
     }
 
     routes = {
-        '#login': app.login_view
     };
 
     hashParts = hash.split('-');
