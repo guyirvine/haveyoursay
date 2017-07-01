@@ -29,7 +29,11 @@ app.show_card = function (id) {
 
     vue_card = new Vue({
         el: '.popup',
-        data: { 'card': card, 'admin': $('body').hasClass('admin') },
+        data: {
+            'card': card,
+            'admin': $('body').hasClass('admin'),
+            'newcomment': ''
+        },
         filters: {
             datestamp: function (date) {
                 return moment(date).format('D MMMM YYYY');
@@ -44,8 +48,32 @@ app.show_card = function (id) {
         methods: {
             click_like: function (c) {
                 app.click_like(c);
+            },
+            is_closed: function (c) {
+                if (c.whatwedid_on === null) {
+                    return false;
+                }
+
+                return moment().diff(moment(c.whatwedid_on), 'days') > 7;
+            },
+            update_comment: function () {
+                if (this.newcomment.trim() === '') {
+                    $('.popup .commentcard textarea').removeClass('highlight');
+                    $('.popup .commentcard textarea').addClass('highlight');
+                    $('.popup .commentcard textarea').focus();
+                    return false;
+                }
+
+                ds.add_comment(this.card.id, this.newcomment.trim());
+                card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': this.newcomment.trim() });
+
+                this.newcomment = '';
+                $('.popup .commentcard textarea').focus();
+
+                return false;
             }
-        }
+
+        },
     });
 
     $('body').addClass('show-popup');
@@ -175,22 +203,6 @@ app.initialise_card = function (card) {
         }
 
         window.location.hash = 'board';
-        return false;
-    };
-
-    card.update_comment = function () {
-        if ($('.popup .commentcard textarea').val().trim() === '') {
-            $('.popup .commentcard textarea').removeClass('highlight');
-            $('.popup .commentcard textarea').addClass('highlight');
-            return false;
-        }
-
-        ds.add_comment(card.id, $('.popup .commentcard textarea.newcomment').val());
-        card.comments.unshift({'createdon': moment().format("D MMM YYYY h:mma"), 'description': $('.popup .commentcard textarea.newcomment').val() });
-
-        $('.popup .commentcard textarea').val('');
-        $('.popup .commentcard textarea').focus();
-
         return false;
     };
 
@@ -411,7 +423,7 @@ app.show_login = function () {
             note: ' '
         },
         methods: {
-            login: function() {
+            login: function () {
                 app.check_password(this.username, this.password, function (successful) {
                     console.log('app.show_login.1 ', successful);
                     if (successful === true) {

@@ -179,7 +179,7 @@
               Submit Question
             </button>
           </div>
-        </button>
+        </form>
       </div>
 
       <div class='card commentcard'>
@@ -224,23 +224,25 @@
             </template>
 
             <template v-if="admin === true">
-              <div class='section title'>
-                <img class='svg' src="images/img__looking_999.svg"></img>
-                We're looking into it
-              </div>
-              <div class='section lookingintoit'>
-                <textarea v-model='card.lookingintoit'></textarea>
-              </div>
-              <div class='section title'>
-                <img class='svg' src="images/img__did_999.svg"></img>
-                What we did
-              </div>
-              <div class='section whatwedid'>
-                <textarea v-model='card.whatwedid'></textarea>
-              </div>
-              <div class='section update'>
-                <button class='button' v-on:click='card.update_card'>Update</button>
-              </div>
+              <form v-on:submit.prevent='update'>
+                <div class='section title'>
+                  <img class='svg' src="images/img__looking_999.svg"></img>
+                  We're looking into it
+                </div>
+                <div class='section lookingintoit'>
+                  <textarea v-model='card.lookingintoit'></textarea>
+                </div>
+                <div class='section title'>
+                  <img class='svg' src="images/img__did_999.svg"></img>
+                  What we did
+                </div>
+                <div class='section whatwedid'>
+                  <textarea v-model='card.whatwedid'></textarea>
+                </div>
+                <div class='section update'>
+                  <button class='button'>Update</button>
+                </div>
+              </form>
             </template>
           </div>
 
@@ -267,7 +269,7 @@
               <div class='count'>{{card.likes}}</div>
             </div>
 
-            <template v-if="card.is_closed() === true">
+            <template v-if="is_closed(card) === true">
               <div class='section notice'>
                   To ensure your comments are addressed, we now close off cards 7 days after the card is completed.<br>
                   <br>
@@ -275,13 +277,15 @@
               </div>
             </template>
 
-            <template v-if="card.is_closed() === false">
-              <div class='section'>
-                <textarea class='newcomment'></textarea>
-                <button href='post' class='postcomment button' v-on:click='card.update_comment'>
-                  Post Comment
-                </button>
-              </div>
+            <template v-if="is_closed(card) === false">
+              <form v-on:submit.prevent='update_comment'>
+                <div class='section'>
+                  <textarea class='newcomment' v-model='newcomment'></textarea>
+                  <button href='post' class='postcomment button'>
+                    Post Comment
+                  </button>
+                </div>
+              </form>
             </template>
 
             <div class='section' style='padding-bottom: 4em'>
