@@ -34,6 +34,23 @@ app.show_card = function (id) {
             'admin': $('body').hasClass('admin'),
             'newcomment': ''
         },
+        computed: {
+          mailto_url: function () {
+              var subject, main_body, url, body, string;
+
+              subject = encodeURIComponent('Check out this HaveYourSay card');
+              main_body = app.question_summary(this.card) + '\n\n';
+              url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + this.card.id;
+              body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
+
+              string = 'mailto:?' +
+                            'subject=' + subject +
+                            '&' +
+                            'body=' + body;
+
+              return string;
+          }
+        },
         filters: {
             datestamp: function (date) {
                 return moment(date).format('D MMMM YYYY');
@@ -71,8 +88,7 @@ app.show_card = function (id) {
                 $('.popup .commentcard textarea').focus();
 
                 return false;
-            }
-
+            },
         },
     });
 
@@ -165,22 +181,6 @@ app.initialise_card = function (card) {
 
     card.lookingintoit = decodeURIComponent(card.lookingintoit);
     card.whatwedid = decodeURIComponent(card.whatwedid);
-
-    card.mailto_url = function () {
-        var subject, main_body, url, body, string;
-
-        subject = encodeURIComponent('Check out this HaveYourSay card');
-        main_body = app.question_summary(card) + '\n\n';
-        url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + card.id;
-        body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
-
-        string = 'mailto:?' +
-                      'subject=' + subject +
-                      '&' +
-                      'body=' + body;
-
-        return string;
-    };
 
     card.likes = Number(card.likes);
 

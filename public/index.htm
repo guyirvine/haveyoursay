@@ -261,7 +261,7 @@
                   height: 2.3em;
                 }
               </style>
-              <a class='share' title='Let other people know about this card' href='{{ card.mailto_url() }}' onclick='javascript:woopra.track("share");'><img src='images/icon-share.svg'></img></a>
+              <a class='share' title='Let other people know about this card' href='{{ mailto_url }}' onclick='javascript:woopra.track("share");'><img src='images/icon-share.svg'></img></a>
 
             <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='click_like(card);'>
               <img class='thumbs-up-clear' src='images/img__like.svg'></img>
