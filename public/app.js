@@ -20,7 +20,6 @@ app.show_card = function (id) {
 
     html_card = $('.templates .commentcard').clone();
     card = app.card_idx[id];
-    card.whatwedid_pre = card.whatwedid;
     console.log('app.show_card.1 ', card);
 
     popup = $('.popup');
@@ -32,24 +31,25 @@ app.show_card = function (id) {
         data: {
             'card': card,
             'admin': $('body').hasClass('admin'),
-            'newcomment': ''
+            'newcomment': '',
+            'whatwedid_pre': card.whatwedid
         },
         computed: {
-          mailto_url: function () {
-              var subject, main_body, url, body, string;
+            mailto_url: function () {
+                var subject, main_body, url, body, string;
 
-              subject = encodeURIComponent('Check out this HaveYourSay card');
-              main_body = app.question_summary(this.card) + '\n\n';
-              url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + this.card.id;
-              body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
+                subject = encodeURIComponent('Check out this HaveYourSay card');
+                main_body = app.question_summary(this.card) + '\n\n';
+                url = 'http://haveyoursay.livestock.org.nz/index.htm#card-' + this.card.id;
+                body = encodeURIComponent(main_body) + encodeURIComponent('HaveYourSay' + '\n\n') + encodeURIComponent(url);
 
-              string = 'mailto:?' +
-                            'subject=' + subject +
-                            '&' +
-                            'body=' + body;
+                string = 'mailto:?' +
+                              'subject=' + subject +
+                              '&' +
+                              'body=' + body;
 
-              return string;
-          }
+                return string;
+            }
         },
         filters: {
             datestamp: function (date) {
@@ -89,6 +89,20 @@ app.show_card = function (id) {
 
                 return false;
             },
+            update: function () {
+                $('.popup .card2').removeClass('editcard');
+                $('.popup .card2').addClass('displaycard');
+
+                ds.update_card_response(this.card.id,
+                                        this.card.lookingintoit,
+                                        this.card.whatwedid,
+                                        this.whatwedid_pre !== card.whatwedid);
+                if (this.whatwedid_pre !== this.card.whatwedid) {
+                    this.card.whatwedid_on = moment().format('DD MMM YYYY');
+                }
+
+                window.location.hash = 'board';
+            }
         },
     });
 
@@ -183,28 +197,6 @@ app.initialise_card = function (card) {
     card.whatwedid = decodeURIComponent(card.whatwedid);
 
     card.likes = Number(card.likes);
-
-    card.update_card = function () {
-        $('.popup .card2').removeClass('editcard');
-        $('.popup .card2').addClass('displaycard');
-/*
-        ds.update_card_details(card.id,
-                                card.question,
-                                card.why,
-                                card.lookingintoit,
-                                card.whatwedid);
-                                */
-        ds.update_card_response(card.id,
-                                card.lookingintoit,
-                                card.whatwedid,
-                                card.whatwedid_pre !== card.whatwedid);
-        if (card.whatwedid_pre !== card.whatwedid) {
-            card.whatwedid_on = moment().format('DD MMM YYYY');
-        }
-
-        window.location.hash = 'board';
-        return false;
-    };
 
     card.searchcriteria = function () {
         return card.question.toUpperCase();
