@@ -40,6 +40,11 @@ app.show_card = function (id) {
             daystamp: function (date) {
                 return moment(date).format('ddd, D MMM');
             },
+        },
+        methods: {
+            click_like: function (c) {
+                app.click_like(c);
+            }
         }
     });
 
@@ -99,6 +104,18 @@ app.show_board = function () {
     $('body').addClass('showboard');
 };
 
+app.click_like = function (c) {
+    if (c.liked_in_session === false) {
+        c.likes += 1;
+        c.liked_in_session = true;
+    } else {
+        c.likes -= 1;
+        c.liked_in_session = false;
+    }
+    ds.update_card_likes(c.id, c.likes);
+    return false;
+};
+
 app.initialise_card = function (card) {
     app.card_idx[card.id] = card;
     card.liked_in_session = false;
@@ -137,22 +154,7 @@ app.initialise_card = function (card) {
         return string;
     };
 
-    card.is_liked_in_session = function () {
-        return card.liked_in_session === true;
-    };
-
     card.likes = Number(card.likes);
-    card.click_like = function () {
-        if (card.liked_in_session === false) {
-            card.likes += 1;
-            card.liked_in_session = true;
-        } else {
-            card.likes -= 1;
-            card.liked_in_session = false;
-        }
-        ds.update_card_likes(card.id, card.likes);
-        return false;
-    };
 
     card.update_card = function () {
         $('.popup .card2').removeClass('editcard');
@@ -173,38 +175,6 @@ app.initialise_card = function (card) {
         }
 
         window.location.hash = 'board';
-        return false;
-    };
-
-    card.cancel_update_card = function () {
-        $('.popup .card2').removeClass('editcard');
-        $('.popup .card2').addClass('displaycard');
-    };
-
-    card.close_card = function () {
-        $('#card-' + card.id).removeClass('highlight');
-        $('#card-' + card.id).addClass('highlight');
-    };
-
-    card.is_closed = function () {
-        if (card.whatwedid_on === null) {
-            return false;
-        }
-
-        return moment().diff(moment(card.whatwedid_on), 'days') > 7;
-    };
-
-    card.new_comment = function () {
-        $('.popup .card2 .comments textarea').val('');
-        $('.popup .card2').removeClass('displaycard');
-        $('.popup .card2').addClass('newcomment');
-        $('.popup .card2 .comments textarea').focus();
-        return false;
-    };
-
-    card.cancel_comment = function () {
-        $('.popup .card2').addClass('displaycard');
-        $('.popup .card2').removeClass('newcomment');
         return false;
     };
 
@@ -331,6 +301,9 @@ app.load_board = function () {
             },
             show_share_button: function () {
                 return true;
+            },
+            click_like: function (c) {
+                app.click_like(c);
             }
         },
         filters: {

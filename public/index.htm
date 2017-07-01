@@ -261,7 +261,7 @@
               </style>
               <a class='share' title='Let other people know about this card' href='{{ card.mailto_url() }}' onclick='javascript:woopra.track("share");'><img src='images/icon-share.svg'></img></a>
 
-            <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='card.click_like(event);'>
+            <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='click_like(card);'>
               <img class='thumbs-up-clear' src='images/img__like.svg'></img>
               <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
               <div class='count'>{{card.likes}}</div>
@@ -372,7 +372,7 @@
       <div class='boardcard2' id='card-{{card.id}}'>
         <div class='section question_summary hide' v-on:click='card.view_card();'>{{card.question_summary()}}</div>
         <a class='section question_summary' href='#card-{{card.id}}'>{{card.question_summary()}}</a>
-        <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='card.click_like(event);'>
+        <div class='like' v-bind:class="{ 'unlike': card.liked_in_session === true }" v-on:click='click_like(card);'>
           <img class='thumbs-up-clear' src='images/img__like.svg'></img>
           <img class='thumbs-up-filled' src='images/img__unlike.svg'></img>
           <div class='count'>{{card.likes}}</div>
