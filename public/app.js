@@ -382,7 +382,7 @@ app.show_schedule = function (id) {
     $('.popup').removeClass('hide');
 
     vue_card = new Vue({
-        el: '.container .popup .schedule',
+        el: '.popup .schedule',
         data: { 'sltlist': app.slt },
         filters: {
             daterange: function (slt) {
