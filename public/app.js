@@ -204,7 +204,16 @@ app.initialise_card = function (card) {
 };
 
 app.card_update_idx = function (c) {
-    return moment(c.updated_on).format('YYYYMMDDThhmm');
+    var last_updated = moment(c.updated_on).format('YYYYMMDDThhmm');
+
+    c.comments.forEach(function (el) {
+        var u = moment(el.createdon).format('YYYYMMDDThhmm');
+        if (u > last_updated) {
+            last_updated = u;
+        }
+    });
+
+    return last_updated;
 };
 
 app.is_card_state_done = function (card) {
