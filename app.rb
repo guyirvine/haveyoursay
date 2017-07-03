@@ -110,8 +110,7 @@ end
 
 put '/card/:id/likes' do
   sql = 'UPDATE haveyoursay.card_tbl
-         SET updated_on = NOW(),
-             likes = ?
+         SET likes = ?
          WHERE id = ?'
 
   data = JSON.parse request.body.read
