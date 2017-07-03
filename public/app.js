@@ -388,6 +388,13 @@ app.show_schedule = function (id) {
             daterange: function (slt) {
                 return moment(slt.startdate).format('MMM Do') + ' - ' + moment(slt.enddate).format('MMM Do');
             }
+        },
+        computed: {
+            slt_list: function () {
+                return app.slt.filter(function (el) {
+                    return el.startdate !== null;
+                });
+            },
         }
     });
 
