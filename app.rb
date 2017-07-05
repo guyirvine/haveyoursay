@@ -6,6 +6,7 @@ require 'fluiddb2'
 require 'uuidtools'
 
 before do
+  cache_control :public, :must_revalidate, :max_age => 60
   @db = FluidDb2.db(ENV['DB'])
 end
 
