@@ -29,7 +29,7 @@ RUN echo "Setup locales" \
 #  && useradd -m --home /home/puser --uid 1000 --gid puser --shell /bin/sh puser
 
 RUN echo "Install required" \
-  && gem install bundler pg fluiddb2 sinatra sinatra-contrib uuidtools
+  && gem install bundler pg:0.18.4 sinatra:1.4.7
 
 RUN echo "Cleaning up" \
   && apt-get autoremove -y \
