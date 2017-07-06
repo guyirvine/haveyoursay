@@ -29,7 +29,7 @@ RUN echo "Setup locales" \
 #  && useradd -m --home /home/puser --uid 1000 --gid puser --shell /bin/sh puser
 
 RUN echo "Install required" \
-  && gem install bundler pg:0.18.4 sinatra:1.4.7
+  && gem install bundler pg:0.18.4 sinatra:1.4.7 thin:1.7.1
 
 RUN echo "Cleaning up" \
   && apt-get autoremove -y \
