@@ -957,3 +957,35 @@ input.searchcriteria:-moz-placeholder { /* Firefox 18- */
 {
   opacity: 0.4;
 }
+
+.newcard {
+  position: relative;
+}
+.newcard .buildingworks {
+  position: absolute;
+  right: 3.125em;
+  top: 2.6em;
+  background-color: white;
+  width: 20em;
+}
+
+.newcard .buildingworks div.text {
+  font-size: smaller;
+}
+
+.newcard .buildingworks img {
+  height: 1em;
+  width: 100%;
+}
+
+.newcard .title {
+  margin-top: 3.7em;
+}
+
+.newcard .buildingworks img.top {
+  display: none;
+}
+
+.newcard .title {
+  margin-top: 1.3em;
+}
