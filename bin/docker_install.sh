@@ -8,4 +8,4 @@
 
 docker stop $(docker ps -q --filter ancestor=haveyoursay)
 docker build -t haveyoursay "$(dirname "$0")/../"
-source ~/.env && docker run -d -e "DB=$HAVEYOURSAY_DB" --net=host haveyoursay
+source ~/.env && docker run --restart=unless-stopped -d -e "DB=$HAVEYOURSAY_DB" --net=host haveyoursay
